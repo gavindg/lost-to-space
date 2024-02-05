@@ -81,7 +81,7 @@ func load_game():
 
 # resets to the default world setup.
 func clean():
-	var save_data : SaveGameData = load("user://default_world.tres") as SaveGameData
+	var save_data : SaveGameData = load("res://default_world.tres") as SaveGameData
 	# erase all tiles
 	var layer := save_data.tilemap_layer
 	var tiles = world.get_used_cells(layer)
