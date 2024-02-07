@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://ban4xpd2ie2c6"]
+
+[ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://inventory/inv_ui.tscn" id="1_308bx"]
+
+[node name="Inventory_test" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inv_UI" parent="CanvasLayer" instance=ExtResource("1_308bx")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 41.0
+offset_bottom = 41.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(10, 10)

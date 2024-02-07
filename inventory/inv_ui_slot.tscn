@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkrdp08xdwr75"]
+
+[ext_resource type="Script" path="res://inventory/inv_ui_slot.gd" id="1_uffxx"]
+[ext_resource type="Texture2D" uid="uid://dvp0t5bndmw83" path="res://art/developer_art/inv_slot.png" id="1_xbj3g"]
+
+[node name="inv_ui_slot" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+offset_right = 9.0
+offset_bottom = 9.0
+script = ExtResource("1_uffxx")
+
+[node name="background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xbj3g")
+centered = false
+
+[node name="item_display" type="Sprite2D" parent="."]
+centered = false
