@@ -1,19 +1,29 @@
 extends Panel
 
-@onready var item_sprite: Sprite2D = $item_display
+@onready var item_sprite: Sprite2D = $CenterContainer/Panel/item_display
+@onready var amount_text: Label = $CenterContainer/Panel/Label
+@onready var inv_ui = self.find_parent("Inv_UI")
+@onready var slot_num: int
+@onready var button: Button = $Button
 
-func update_item(item: Item):
-	if(!item):
+func _ready():
+	button.pressed.connect(self._button_pressed)
+
+func update(slot: InvSlot):
+	if(!slot.item):
 		item_sprite.visible = false
+		amount_text.visible = false
 	else:
 		item_sprite.visible = true
-		item_sprite.texture = item.sprite
+		item_sprite.texture = slot.item.sprite
+		if(slot.amount > 1):
+			amount_text.text = str(slot.amount)
+			amount_text.visible = true
+		else:
+			amount_text.visible = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _button_pressed():
+	if(Input.is_action_just_pressed("right")):
+		inv_ui.take_item(slot_num)
+	elif(Input.is_action_just_pressed("left")):
+		inv_ui.put_item(slot_num)
