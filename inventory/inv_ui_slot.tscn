@@ -31,15 +31,17 @@ offset = Vector2(0.5, 0.5)
 
 [node name="Label" type="Label" parent="CenterContainer/Panel"]
 texture_filter = 1
-custom_minimum_size = Vector2(19, 23)
+custom_minimum_size = Vector2(30, 23)
 layout_mode = 0
-offset_right = 19.0
+offset_left = -2.0
+offset_right = 28.0
 offset_bottom = 23.0
 scale = Vector2(0.25, 0.25)
 text = "99"
 horizontal_alignment = 2
 
 [node name="Button" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_right = 9.0
 offset_bottom = 9.0

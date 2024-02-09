@@ -24,6 +24,6 @@ func update(slot: InvSlot):
 
 func _button_pressed():
 	if(Input.is_action_just_pressed("right")):
-		inv_ui.take_item(slot_num)
+		inv_ui.right(slot_num)
 	elif(Input.is_action_just_pressed("left")):
-		inv_ui.put_item(slot_num)
+		inv_ui.left(slot_num)

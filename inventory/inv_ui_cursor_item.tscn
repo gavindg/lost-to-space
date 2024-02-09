@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://byygkggm2he0t"]
+[gd_scene load_steps=2 format=3 uid="uid://byygkggm2he0t"]
 
 [ext_resource type="Script" path="res://inventory/inv_ui_cursor_item.gd" id="1_j1xuc"]
-[ext_resource type="Texture2D" uid="uid://ba4l0w67vc022" path="res://art/developer_art/slime_icon.png" id="2_xpnmc"]
 
 [node name="cursor_item" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)
@@ -12,4 +11,13 @@ script = ExtResource("1_j1xuc")
 
 [node name="sprite_display" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_xpnmc")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 23)
+offset_left = -2.0
+offset_right = 28.0
+offset_bottom = 23.0
+scale = Vector2(0.25, 0.25)
+text = "99"
+horizontal_alignment = 2
