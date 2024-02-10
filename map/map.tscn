@@ -13,7 +13,6 @@ distance = -651.0
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(893, 646)
 shape = SubResource("RectangleShape2D_t73fx")
 debug_color = Color(0.831373, 0.32549, 0.564706, 0.419608)
 
