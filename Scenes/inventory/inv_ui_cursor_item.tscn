@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://byygkggm2he0t"]
 
-[ext_resource type="Script" path="res://inventory/inv_ui_cursor_item.gd" id="1_j1xuc"]
+[ext_resource type="Script" path="res://Scenes/inventory/inv_ui_cursor_item.gd" id="1_j1xuc"]
 
 [node name="cursor_item" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)

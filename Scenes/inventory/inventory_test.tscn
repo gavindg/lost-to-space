@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ban4xpd2ie2c6"]
 
-[ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://inventory/inv_ui.tscn" id="1_308bx"]
+[ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://Scenes/inventory/inv_ui.tscn" id="1_308bx"]
 
 [node name="Inventory_test" type="Node2D"]
 
