@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SaveGameData" load_steps=22 format=3]
 
-[ext_resource type="Script" path="res://save_game_data.gd" id="1_rg1ac"]
-[ext_resource type="Script" path="res://tile_info.gd" id="2_wl4tg"]
+[ext_resource type="Script" path="res://Scenes/SaveSystem/save_game_data.gd" id="1_rg1ac"]
+[ext_resource type="Script" path="res://Scenes/SaveSystem/tile_info.gd" id="2_wl4tg"]
 
 [sub_resource type="Resource" id="Resource_x2n16"]
 script = ExtResource("2_wl4tg")
