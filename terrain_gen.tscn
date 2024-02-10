@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnbh5itmt2o4a"]
+
+[ext_resource type="Script" path="res://terrain_gen.gd" id="1_rogjm"]
+[ext_resource type="TileSet" uid="uid://cqui1jxx1tbyu" path="res://simple_tileset.tres" id="2_uoyqf"]
+
+[node name="Terrain Generation" type="Node2D"]
+script = ExtResource("1_rogjm")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_uoyqf")
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
