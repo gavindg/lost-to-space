@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fork to Space"
-run/main_scene="res://character/map/map.tscn"
+run/main_scene="res://character/test_movement_map/test_movement_map.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
