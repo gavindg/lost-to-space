@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+# basic movements: w/a/s/d to move up/left/down/right
+# features: double junp - space; dash - shift;
+
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
@@ -27,7 +30,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("jump"):
 		# if the character could jump for the first time
 		if !has_jumped && is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -41,17 +44,17 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("left", "right")
 		
 	# Handle dash
 	if not is_dashing:
-		direction = Input.get_axis("ui_left", "ui_right")
+		direction = Input.get_axis("left", "right")
 		if direction:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	if Input.is_action_just_pressed("character_dash") && has_dashed == false:
+	if Input.is_action_just_pressed("dash") && has_dashed == false:
 		dash()
 		
 	move_and_slide()
@@ -80,8 +83,8 @@ enum directions {
 # the character should be able to dash for a fixed distance for one of the 8 directions on the ground or in the air
 # you can dash once before you land to the ground again
 func dash():
-	var x_direction = Input.get_axis("ui_left", "ui_right")
-	var y_direction = Input.get_axis("ui_up", "ui_down")
+	var x_direction = Input.get_axis("left", "right")
+	var y_direction = Input.get_axis("up", "down")
 
 	velocity.x = x_direction * dash_speed
 	velocity.y = y_direction * dash_speed
