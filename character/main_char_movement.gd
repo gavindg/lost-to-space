@@ -1,13 +1,12 @@
 extends CharacterBody2D
 
 # basic movements: w/a/s/d to move up/left/down/right
-# features: double junp - space; dash - shift;
+# features: double junp - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
-
+# Regular movements
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
-const double_jump_speed = -500
-var dash_speed = 500
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -15,16 +14,20 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # double-jump
 var has_jumped = false
 var has_double_jumped = false
+const double_jump_speed = -500
 
 # dash
 var is_dashing = false
 var has_dashed = false
+var dash_speed = 500
 
 # wall-jump
 var can_wall_jump = false
 var wall_jump_direction = 0
+var wall_jump_speed_againstwall = 300
+var wall_jump_speed_upwards = -500
 
-#special movement
+# special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
 
 
@@ -42,22 +45,29 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		
 		
-	# handle collision
+	# handle collision and wall_jump
+	# collide with the left wall and jmup right-up-wards
 	if $left_RayCast2D.is_colliding():
 		var collider = $left_RayCast2D.get_collider()
 		if collider is TileMap && Input.is_action_pressed("left"):
-			print("collide and move left")
 			can_wall_jump = true
 			wall_jump_direction = 1
-			print("can_wall_jump ", can_wall_jump)
-	#else:
-		#can_wall_jump = false
-		#print("can_wall_jump ", can_wall_jump)
+
+	# collide with the right wall and jmup left-up-wards
+	elif $right_RayCast2D.is_colliding():
+		var collider = $right_RayCast2D.get_collider()
+		if collider is TileMap && Input.is_action_pressed("right"):
+			can_wall_jump = true
+			wall_jump_direction = -1
+	else:
+		can_wall_jump = false
 		
 	if is_special_movement == false:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
+			# if the character is colliding against the wall and could do wall jump
 			if can_wall_jump == true:
+				# do wall_jump
 				wall_jump(wall_jump_direction)
 			
 			# if the character could jump for the first time
@@ -72,8 +82,8 @@ func _physics_process(delta):
 				
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
+		# do one more check since the is_special_movement status keeps changing
 		if not is_special_movement:
-			
 			if not is_dashing:
 				direction = Input.get_axis("left", "right")
 				if direction:
@@ -84,7 +94,6 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("dash") && has_dashed == false:
 				dash()
 			
-	print("before move and slide", velocity.x)
 	move_and_slide()
 	
 
@@ -127,11 +136,8 @@ func wall_jump(wall_jump_direction):
 	is_special_movement = true
 	if wall_jump_direction == 0:
 		return
-	print("Wall jump executed")
-	print("velocity.x", velocity.x)
-	velocity.x = wall_jump_direction * 700 
-	print("velocity.x", velocity.x)
-	velocity.y = -500
+	velocity.x = wall_jump_direction * wall_jump_speed_againstwall
+	velocity.y = wall_jump_speed_upwards
 	await get_tree().create_timer(0.3).timeout
 	is_special_movement = false
 	can_wall_jump = false
