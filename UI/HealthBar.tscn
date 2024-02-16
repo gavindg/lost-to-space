@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkpajt4c56fpq"]
+
+[ext_resource type="Texture2D" uid="uid://bh52sbuqw1efu" path="res://TestResources/enemy_slime.png" id="1_l5yod"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aj7o2"]
+radius = 292.98
+
+[node name="HealthBarScene" type="Node2D"]
+
+[node name="Slime_CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime_CharacterBody2D"]
+shape = SubResource("CircleShape2D_aj7o2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Slime_CharacterBody2D"]
+position = Vector2(0, -97)
+scale = Vector2(1, 1.09681)
+texture = ExtResource("1_l5yod")
