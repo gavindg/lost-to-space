@@ -1,0 +1,7 @@
+{
+	"name": "glue",
+	"scene": "res://Art/Items/glue_test.png",
+	"recipe": {
+		"res://Art/Items/slime_ball.png": 2,
+	}
+}
