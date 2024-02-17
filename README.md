@@ -15,6 +15,11 @@ NOTE: (all of these are debug inputs... the game will ideally save & load when y
  * K -- Save
  * J -- Clear the screen of any blocks.
 
+#### inventory system
+
+ * E -- Open the inventory
+ * RMB -- pick / drop an item
+ * LMB -- pick up / drop a split stack (take / leave half the stack)
 
 ## Notes For Programmers
  Hi hi, it's [Gavin](https://github.com/gavindg). Here are a few standards for working on this repo / generally useful information for you programmer folk:
