@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkpajt4c56fpq"]
-
-[ext_resource type="Script" path="res://TestResources/test_map.gd" id="2_y2fhe"]
-[ext_resource type="PackedScene" uid="uid://c08ld7s5jwj2t" path="res://TestResources/test_map.tscn" id="3_nopjl"]
-
-[node name="HealthBarScene" type="Node2D"]
-
-[node name="TestMap" parent="." instance=ExtResource("3_nopjl")]
-script = ExtResource("2_y2fhe")

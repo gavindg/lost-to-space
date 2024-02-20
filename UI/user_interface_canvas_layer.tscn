@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcmyb1be6m717"]
+
+[ext_resource type="Script" path="res://UI/user_interface_canvas_layer.gd" id="1_a36ev"]
+
+[node name="user_interface_CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_a36ev")
+
+[node name="game_name_Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Fork to Space"
+
+[node name="health_ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -27.0
+offset_right = 408.0
+grow_vertical = 0
+step = 1.0
+value = 100.0
+show_percentage = false

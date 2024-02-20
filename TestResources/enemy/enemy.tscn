@@ -1,23 +1,24 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqlgk5q4yx2tw"]
 
-[ext_resource type="Texture2D" uid="uid://bh52sbuqw1efu" path="res://TestResources/enemy_slime.png" id="1_lbhfn"]
-[ext_resource type="Texture2D" uid="uid://dt26424b7r3pd" path="res://TestResources/weapon_sword.png" id="2_ho767"]
-[ext_resource type="Script" path="res://TestResources/slime_weapon_Area2D.gd" id="3_d3wvl"]
+[ext_resource type="Script" path="res://TestResources/enemy/enemy.gd" id="1_13qq5"]
+[ext_resource type="Texture2D" uid="uid://bh52sbuqw1efu" path="res://TestResources/enemy/enemy_slime.png" id="2_j5asp"]
+[ext_resource type="Texture2D" uid="uid://dt26424b7r3pd" path="res://TestResources/enemy/weapon_sword.png" id="3_yqiec"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kte5l"]
 radius = 96.2549
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qkec"]
-size = Vector2(226.5, 29.5)
+size = Vector2(194.983, 29.5)
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" groups=["Enemy"]]
+script = ExtResource("1_13qq5")
 
 [node name="slime_CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="slime_Sprite2D" type="Sprite2D" parent="slime_CharacterBody2D"]
 position = Vector2(0, -25)
 scale = Vector2(0.333008, 0.336397)
-texture = ExtResource("1_lbhfn")
+texture = ExtResource("2_j5asp")
 
 [node name="slime_CollisionShape2D" type="CollisionShape2D" parent="slime_CharacterBody2D"]
 shape = SubResource("CircleShape2D_kte5l")
@@ -26,12 +27,14 @@ shape = SubResource("CircleShape2D_kte5l")
 position = Vector2(-185.9, 56.6008)
 rotation = 0.724312
 scale = Vector2(0.220834, 0.186928)
-texture = ExtResource("2_ho767")
+texture = ExtResource("3_yqiec")
 
 [node name="slime_weapon_Area2D" type="Area2D" parent="slime_CharacterBody2D"]
 position = Vector2(-611, 600)
-script = ExtResource("3_d3wvl")
 
 [node name="slime_weapon_CollisionShape2D" type="CollisionShape2D" parent="slime_CharacterBody2D/slime_weapon_Area2D"]
-position = Vector2(420.267, -539.06)
+position = Vector2(404.508, -539.06)
 shape = SubResource("RectangleShape2D_3qkec")
+
+[connection signal="body_entered" from="slime_CharacterBody2D/slime_weapon_Area2D" to="." method="_on_slime_weapon_area_2d_body_entered"]
+[connection signal="body_exited" from="slime_CharacterBody2D/slime_weapon_Area2D" to="." method="_on_slime_weapon_area_2d_body_exited"]

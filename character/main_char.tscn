@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxuan5t7jof4n"]
 
-[ext_resource type="Script" path="res://character/main_char_movement.gd" id="1_ejyf8"]
-[ext_resource type="Texture2D" uid="uid://dswqb76gltbfv" path="res://character/resources/main_char.png" id="2_m0rsw"]
+[ext_resource type="Script" path="res://Character/main_char_movement.gd" id="1_rmlvx"]
+[ext_resource type="Texture2D" uid="uid://dswqb76gltbfv" path="res://TestResources/character/main_char.png" id="2_vax8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iva4w"]
 size = Vector2(15.4, 24)
 
-[node name="main_char_CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_ejyf8")
+[node name="main_char_CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_rmlvx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6.5, 9)
@@ -17,7 +17,7 @@ shape = SubResource("RectangleShape2D_iva4w")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3.5, 3)
 scale = Vector2(0.256836, 0.169922)
-texture = ExtResource("2_m0rsw")
+texture = ExtResource("2_vax8k")
 
 [node name="left_RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-32, 0)

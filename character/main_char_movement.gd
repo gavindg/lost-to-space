@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # basic movements: w/a/s/d to move up/left/down/right
-# features: double junp - space when in the air; dash - shift; wall-jump - space when colliding against a wall
+# features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
 # Regular movements
 const SPEED = 300.0
@@ -132,12 +132,30 @@ func dash():
 
 
 # the character should be able to kick the wall to jump to an opposite direction
-func wall_jump(wall_jump_direction):
+func wall_jump(wall_jump_dir):
 	is_special_movement = true
-	if wall_jump_direction == 0:
+	if wall_jump_dir == 0:
 		return
-	velocity.x = wall_jump_direction * wall_jump_speed_againstwall
+	velocity.x = wall_jump_dir * wall_jump_speed_againstwall
 	velocity.y = wall_jump_speed_upwards
 	await get_tree().create_timer(0.3).timeout
 	is_special_movement = false
 	can_wall_jump = false
+	
+	
+# below are health mechanism
+
+func take_damage():
+	Globals.player_health -= 10
+	print("current health: ", Globals.player_health)
+	var parent = get_parent()
+	var sibling = parent.get_node("user_interface_CanvasLayer")
+	if sibling and sibling.has_method("update_health_bar"):
+		sibling.update_health_bar()
+	if Globals.player_health <= 0:
+		die()
+
+
+func die():
+	#Globals.player_health = 100 # for testing: reset character health
+	queue_free()
