@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3dg6vrusd1bd"
-path="res://.godot/imported/icon.svg-33e9992ea141566d00825c5b3771c47c.ctex"
+uid="uid://bh52sbuqw1efu"
+path="res://.godot/imported/enemy_slime.png-8c3870778097ea8e5baa38a29ab2aa84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character/resources/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-33e9992ea141566d00825c5b3771c47c.ctex"]
+source_file="res://TestResources/enemy/enemy_slime.png"
+dest_files=["res://.godot/imported/enemy_slime.png-8c3870778097ea8e5baa38a29ab2aa84.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
