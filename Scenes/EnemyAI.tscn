@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://g6kewh0rbbnl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hqct1"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_celvk"]
+size = Vector2(0.14876, 0.0530176)
+
+[sub_resource type="QuadMesh" id="QuadMesh_wrqb6"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dhp45"]
+
+[node name="EnemyAi" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(44, -15.75)
+scale = Vector2(88, 32.5)
+physics_material_override = SubResource("PhysicsMaterial_hqct1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(5.96046e-08, -0.00769278)
+shape = SubResource("RectangleShape2D_celvk")
+
+[node name="SlimeObject" type="MeshInstance2D" parent="RigidBody2D"]
+modulate = Color(0.462745, 0, 0.462745, 1)
+mesh = SubResource("QuadMesh_wrqb6")
+texture = SubResource("PlaceholderTexture2D_dhp45")
+
+[node name="SlimeObject" type="MeshInstance2D" parent="."]
+modulate = Color(0.462745, 0, 0.462745, 1)
+position = Vector2(32, 176)
+scale = Vector2(184.5, 80.5)
+mesh = SubResource("QuadMesh_wrqb6")
+texture = SubResource("PlaceholderTexture2D_dhp45")
