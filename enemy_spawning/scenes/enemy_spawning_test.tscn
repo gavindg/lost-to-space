@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmu4j4emdh3no"]
+
+[ext_resource type="PackedScene" uid="uid://4ee1adrmivp6" path="res://Scenes/SaveSystem/placeable_tile_map.tscn" id="1_ecoq1"]
+[ext_resource type="PackedScene" uid="uid://h3tb03wbeylm" path="res://Scenes/SaveSystem/tile_placer.tscn" id="2_8ro2g"]
+[ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemySpawner.gd" id="3_45tmt"]
+[ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemyManager.gd" id="4_kok6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h0e5"]
+
+[node name="EnemySpawningTest" type="Node2D"]
+
+[node name="WorldRoot" type="Node2D" parent="."]
+position = Vector2(544, 584)
+
+[node name="PlaceableTileMap" parent="WorldRoot" instance=ExtResource("1_ecoq1")]
+unique_name_in_owner = true
+
+[node name="TilePlacer" parent="WorldRoot" instance=ExtResource("2_8ro2g")]
+
+[node name="TestPlayer" type="CharacterBody2D" parent="WorldRoot"]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TestPlayer"]
+shape = SubResource("RectangleShape2D_1h0e5")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+position = Vector2(544, 584)
+script = ExtResource("3_45tmt")
+
+[node name="EnemyManager" type="Node2D" parent="."]
+script = ExtResource("4_kok6g")
