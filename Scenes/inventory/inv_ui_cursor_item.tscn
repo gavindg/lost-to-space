@@ -15,6 +15,7 @@ texture_filter = 1
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(30, 23)
+layout_mode = 0
 offset_left = -2.0
 offset_right = 28.0
 offset_bottom = 23.0

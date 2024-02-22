@@ -4,34 +4,18 @@ extends Control
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
 @onready var cursor = $cursor_item
 
-
 var is_open = false
 
-func left(slot_num: int):
-	inv.left(slot_num)
-	update_slots()
-	update_cursor()
-
-func right(slot_num: int):
-	inv.right(slot_num)
-	update_slots()
-	update_cursor()
-
-func update_slots():
+func update_ui():
 	for i in range(min(inv.inv.size(), slots.size())):
 		slots[i].update(inv.inv[i])
 
-func update_cursor():
-	cursor.update(inv.cursor_slot)
-
-func assign_slots():
-	for i in range(min(inv.inv.size(), slots.size())):
-		slots[i].slot_num = i;
+func assign_slots(inv_size: int):
+	for i in range(inv_size):
+		slots[i].slot_num = i
 
 func _ready():
-	assign_slots()
-	update_slots()
-	update_cursor()
+	update_ui()
 	close()
 
 func _process(delta):

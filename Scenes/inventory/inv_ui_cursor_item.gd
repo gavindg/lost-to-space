@@ -2,12 +2,11 @@ extends Panel
 
 @onready var item_sprite: Sprite2D = $sprite_display
 @onready var amount_text: Label = $Label
-@onready var inv_ui = self.find_parent("Inv_UI")
 
 func _ready():
 	pass
 
-func update(slot: InvSlot):
+func update_ui(slot: InvSlot):
 	if(!slot.item):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		item_sprite.visible = false
