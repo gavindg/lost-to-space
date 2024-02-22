@@ -23,7 +23,7 @@ func update(slot: InvSlot):
 			amount_text.visible = false
 
 func _button_pressed():
-	if(Input.is_action_just_pressed("right")):
+	if(Input.is_action_just_pressed("right_mouse")):
 		inv_manager.right(slot_num)
-	elif(Input.is_action_just_pressed("left")):
+	elif(Input.is_action_just_pressed("left_mouse")):
 		inv_manager.left(slot_num)
