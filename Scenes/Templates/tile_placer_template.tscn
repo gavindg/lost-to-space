@@ -1,15 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dl3vxuny8e32j"]
+[gd_scene load_steps=8 format=3 uid="uid://dhvbnmaemnkoo"]
 
-[ext_resource type="Texture2D" uid="uid://dn2jlurfviun0" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_fgmht"]
-[ext_resource type="Texture2D" uid="uid://d1ihj6d86b18r" path="res://Art/space.jpeg" id="1_ifyrr"]
-[ext_resource type="Script" path="res://Scenes/SaveSystem/test_player_movement.gd" id="3_g0kds"]
-[ext_resource type="Texture2D" uid="uid://tvxpsi61ebq8" path="res://icon.svg" id="4_6yevr"]
-[ext_resource type="Script" path="res://Scenes/SaveSystem/tile_placer.gd" id="4_o6s6a"]
-[ext_resource type="Script" path="res://Scenes/SaveSystem/game_saver.gd" id="5_dgnda"]
+[ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_d43nf"]
+[ext_resource type="Texture2D" uid="uid://dn2jlurfviun0" path="res://Art/TestTilesheet/tilesheet_complete.png" id="2_j7k4j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6ggp"]
 resource_name = "terrain"
-texture = ExtResource("1_fgmht")
+texture = ExtResource("2_j7k4j")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -816,7 +812,7 @@ _bundled = {
 resource_name = "my_particles"
 scenes/1/scene = SubResource("PackedScene_cc7id")
 
-[sub_resource type="TileSet" id="TileSet_u1l4r"]
+[sub_resource type="TileSet" id="TileSet_sb4di"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "destructible"
@@ -824,47 +820,24 @@ custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_q6ggp")
 sources/1 = SubResource("TileSetScenesCollectionSource_g4vqd")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ck3t4"]
-size = Vector2(128, 125)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80dtq"]
 
-[node name="Game" type="Node2D"]
-position = Vector2(2.08165e-12, 2.08165e-12)
+[node name="TilePlacerTest" type="Node2D"]
 
-[node name="Space" type="Sprite2D" parent="."]
-position = Vector2(573, 319)
-scale = Vector2(1.5225, 1.30025)
-texture = ExtResource("1_ifyrr")
-
-[node name="WorldRoot" type="Node2D" parent="."]
+[node name="WorldOrigin" type="Node2D" parent="."]
 position = Vector2(567, 585)
 
-[node name="WorldTileMap" type="TileMap" parent="WorldRoot" groups=["Persist"]]
-unique_name_in_owner = true
-position = Vector2(-1, 0)
-tile_set = SubResource("TileSet_u1l4r")
-format = 2
-layer_0/tile_data = PackedInt32Array(65527, 0, 3, 65528, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 7, 0, 3, 8, 0, 3, 9, 0, 3)
-
-[node name="TestPlayer" type="CharacterBody2D" parent="WorldRoot"]
-unique_name_in_owner = true
-position = Vector2(2.08165e-12, -66)
-script = ExtResource("3_g0kds")
-
-[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TestPlayer"]
-texture = ExtResource("4_6yevr")
-offset = Vector2(2.08165e-12, 2.08165e-12)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TestPlayer"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_ck3t4")
-
-[node name="MainCamera" type="Camera2D" parent="WorldRoot/TestPlayer"]
-position = Vector2(2.08165e-12, -194)
-
-[node name="TilePlacer" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("world", "player")]
-script = ExtResource("4_o6s6a")
+[node name="TilePlacer" parent="WorldOrigin" node_paths=PackedStringArray("world", "player") instance=ExtResource("1_d43nf")]
 world = NodePath("../WorldTileMap")
 player = NodePath("../TestPlayer")
 
-[node name="GameSaver" type="Node2D" parent="."]
-script = ExtResource("5_dgnda")
+[node name="WorldTileMap" type="TileMap" parent="WorldOrigin" groups=["Persist"]]
+position = Vector2(-1, 0)
+tile_set = SubResource("TileSet_sb4di")
+format = 2
+layer_0/tile_data = PackedInt32Array(65527, 0, 3, 65528, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 7, 0, 3, 8, 0, 3, 9, 0, 3)
+
+[node name="TestPlayer" type="CharacterBody2D" parent="WorldOrigin"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldOrigin/TestPlayer"]
+shape = SubResource("CapsuleShape2D_80dtq")
