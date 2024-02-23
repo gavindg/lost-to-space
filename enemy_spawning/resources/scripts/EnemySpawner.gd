@@ -21,7 +21,6 @@ extends Node2D
 func _physics_process(delta: float) -> void:
 	var random_num = rng.randf()
 	if random_num < (1 / spawnRate):  # this might be really slow...
-		print("spawning an enemy")
 		spawn_enemy()
 
 
