@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcmyb1be6m717"]
 
-[ext_resource type="Script" path="res://UI/healthbar.gd" id="1_2ucyv"]
+[ext_resource type="Script" path="res://UI/user_interface_canvas_layer.gd" id="1_a36ev"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b0b6"]
 bg_color = Color(0, 0, 0, 1)
@@ -17,7 +17,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="user_interface_CanvasLayer" type="CanvasLayer"]
-script = ExtResource("1_2ucyv")
+script = ExtResource("1_a36ev")
 
 [node name="game_name_Label" type="Label" parent="."]
 anchors_preset = 5
