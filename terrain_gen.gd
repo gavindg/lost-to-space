@@ -1,71 +1,99 @@
 extends Node2D
 
-var noise_map
-var altitude_noise_layer = {}
+var noise_gen
+var ground_levels = {}
+var noise_grid = {}
+var spawn_location
 
 @export var map_width = 200
 @export var map_height = 200
 
-@export var alt_freq : float = 0.005
-@export var oct : int = 5
-@export var lac : int = 2
+@export var frequency : float = 0.005
+@export var octaves : int = 5
+@export var lacunarity : int = 2
 @export var gain : float = 0.5
-@export var amplitude : float = 1.0
+@export var noise_threshold : float = -0.25
+@export var cave_offset : int = 50
+@export var ore_rarity : float = -0.2
 
 @onready var tilemap = $TileMap
 
-const GRASS = Vector2i(0, 6)
-const BLACKNESS = Vector2i(0, 12)
+const ABOVE_GROUND = -10
+const GRASS_LEVEL = -20
 
-func gen_noise_map(frequency, octaves, lacunarity, gain, width, height):
-	var noise_map = FastNoiseLite.new()
-	var second_map = FastNoiseLite.new()
-	
-	second_map.seed = randi()
-	second_map.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	second_map.frequency = frequency
-	second_map.fractal_octaves = octaves
-	second_map.fractal_lacunarity = lacunarity
-	second_map.fractal_gain = gain
-	
-	noise_map.seed = randi()	
-	noise_map.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise_map.frequency = frequency
-	noise_map.fractal_octaves = octaves
-	noise_map.fractal_lacunarity = lacunarity
-	noise_map.fractal_gain = gain
+const GRASS = Vector2i(0,12)
+const STONE = Vector2i(0,0)
+const BLACKNESS = Vector2i(0, 24)
+const RED = Vector2i(24,12)
+
+func gen_new_noise(noise_type, freq, oct, lac, g):
+	var fnl = FastNoiseLite.new()
+	fnl.seed = randi()
+	fnl.noise_type = noise_type
+	fnl.frequency = freq
+	fnl.fractal_octaves = oct
+	fnl.fractal_lacunarity = lac
+	fnl.fractal_gain = g
+	return fnl
+
+func gen_noise_map():
+	var primary_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency, octaves, lacunarity, gain)
+	#var second_noise = gen_new_noise(FastNoiseLite.TYPE_SIMPLEX_SMOOTH, frequency, octaves, lacunarity, gain)
 	
 	var grid = {}
 	
-	noise_map.frequency = 0.01
+	# Loops through the sizes of the level, generates noise, and sets it to the noise_grid
+	for x in range(-map_width, map_width):
+		var ground_level = abs(primary_noise.get_noise_2d(x,0) * 60)
+		ground_levels[x] = ground_level
+		for y in range(0, map_height):
+			var pos = Vector2i(x,y)
+			if y < ground_level:
+				#tilemap.set_cell(0, pos, 1, RED)
+				grid[pos] = ABOVE_GROUND
+				continue
+			#var noise = primary_noise.get_noise_2d(x,y)
+			grid[pos] = GRASS_LEVEL
+			#var noise = min(primary_noise.get_noise_2d(x,y), second_noise.get_noise_2d(x,y)) # Take the minimum of two noises	
+			tilemap.set_cell(0, pos, 1, GRASS)
+			if y > ground_level + cave_offset:
+				tilemap.set_cell(0, pos, 2, STONE)
+	return grid	
 	
-	for x in range(-width, width):
-		var ground = abs(noise_map.get_noise_2d(x,0) * 60)
-		for y in range(ground, height):
-			var noise = min(noise_map.get_noise_2d(x,y), second_map.get_noise_2d(x,y))
-			#var noise = abs(noise_map.get_noise_2d(x,y) * 2 - 1)
-			grid[Vector2i(x,y)] = noise
-			if noise > -0.25:
-				tilemap.set_cell(0, Vector2i(x,y), 1, GRASS)
-	return grid
-	
-func gen_normalized_terrain(width, height):
-	for x in range(-width, width):
-		for y in range(height):
-			var pos = Vector2i(x, y)
-			var alt = altitude_noise_layer[pos]
+func gen_caves():
+	var cave_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 5, octaves, lacunarity, gain)
+	for x in range(-map_width, map_width):
+		for y in range(ground_levels[x] + cave_offset, map_height):
+			if cave_noise.get_noise_2d(x,y) < noise_threshold:
+				tilemap.set_cell(0, Vector2i(x,y), 1, BLACKNESS)
+				
+func gen_spawn_area():
+	var sel 
+	for i in range(0, map_width):
+		var ground = ground_levels[i]
+		var pos = Vector2i(i, ground)
+		if noise_grid[pos] == GRASS_LEVEL: # if there is grass here
+			sel = Vector2i(pos)
+			break
+	spawn_location = sel
 			
-			if alt > -0.1: 
-				tilemap.set_cell(0, pos, 1, GRASS)
-			#elif alt > 0 and alt < 1.0:
-			#	tilemap.set_cell(0, pos, 1, Vector2i(0,6))
-			else:
-				tilemap.set_cell(0, pos, 1, BLACKNESS)
-	
+func gen_ore():
+	var ore_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 25, octaves, lacunarity, gain)
+	for x in range(-map_width, map_width):
+		for y in range(ground_levels[x] + cave_offset , map_height):
+			if ore_noise.get_noise_2d(x,y) < ore_rarity:
+				tilemap.set_cell(0, Vector2i(x,y), 2, Vector2i(2,1))
+				
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	altitude_noise_layer = gen_noise_map(alt_freq, oct, lac, gain, map_width, map_height)
+	noise_grid = gen_noise_map()
+
+	gen_ore()
+	gen_caves()
+	gen_spawn_area()
+	
+	tilemap.set_cell(0, Vector2i(0,0), 1, Vector2i(2,6))
 	#gen_normalized_terrain(map_width, map_height)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
