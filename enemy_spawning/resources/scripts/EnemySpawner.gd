@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var rng = RandomNumberGenerator.new()
-@onready var player : Vector2 = %TestPlayer.position
+@export var player : CharacterBody2D = null
 
 # enemy manager
 @onready var manager : EnemyManager = %EnemyManager
@@ -13,8 +13,11 @@ extends Node2D
 # how many pixels away an enemy will be spawned from the player
 @export var radiusAwayFromPlayer : int = 400 
 
+# how many pixels upwards relative to the players position is the enemy spawned
+@export var upward_displacement : int = 50
+
 # the enemy to be instantiated. just a test enemy as of right now...
-@onready var enemy_prefab := preload("res://enemy_spawning/resources/fiend/SpaceFiend.tscn")
+@onready var enemy_prefab := preload("res://enemy_spawning/resources/enemies/slime/purple_slime.tscn")
 
 
 # update
@@ -27,9 +30,16 @@ func _physics_process(delta: float) -> void:
 # spawns an enemy
 func spawn_enemy():
 	var sign = 1 if rng.randf() < 0.5 else -1
-	var rand_pos_x = radiusAwayFromPlayer * sign
+	if player == null:
+		print("player not found")
+		return
+	var rand_pos_x : int = player.global_position.x + (radiusAwayFromPlayer * sign)
+	var pos_y : int = player.global_position.y - upward_displacement  # because -y is up
+	if enemy_prefab == null:
+		print("enemy prefab invalid")
+		return
 	var enemy = enemy_prefab.instantiate()
-	enemy.position = Vector2(rand_pos_x, 10)
+	enemy.position = Vector2(rand_pos_x, pos_y)
 	add_child(enemy)
 	if manager != null:
 		manager.register(enemy)

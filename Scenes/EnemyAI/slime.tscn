@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://d6x47dr81hk"]
 
 [ext_resource type="Script" path="res://Scenes/EnemyAI/slime.gd" id="1_0hyk5"]
-[ext_resource type="Texture2D" uid="uid://dd1vsrqs2qc0s" path="res://Scenes/EnemyAI/slime.png" id="2_2sw31"]
+[ext_resource type="Texture2D" uid="uid://bl3v6uji8s2wh" path="res://Art/Enemies/Slimes/purple slime 16x16.png" id="2_vmosl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_14fxo"]
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fbkow"]
-size = Vector2(80, 80.5)
+size = Vector2(4, 4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bc88l"]
 radius = 20.0
@@ -26,21 +26,22 @@ gravity_strength = 2
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.265, 0.265)
-texture = ExtResource("2_2sw31")
+texture = ExtResource("2_vmosl")
+hframes = 2
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.25)
 shape = SubResource("RectangleShape2D_fbkow")
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
-scale = Vector2(14.2, 14.2)
+scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_bc88l")
 debug_color = Color(0.882353, 0, 0.815686, 0.419608)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="DetectionArea2D"]
+visible = false
 modulate = Color(1, 1, 1, 0.388235)
 z_index = -1
 scale = Vector2(563.79, 563.79)

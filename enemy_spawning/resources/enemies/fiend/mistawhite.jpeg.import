@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2by1mcovplrk"
-path="res://.godot/imported/mistawhite.jpeg-83221b9a906aade8b9957ec28aa14207.ctex"
+path="res://.godot/imported/mistawhite.jpeg-7fa9aa94402a648fb6413bf238821d4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemy_spawning/resources/fiend/mistawhite.jpeg"
-dest_files=["res://.godot/imported/mistawhite.jpeg-83221b9a906aade8b9957ec28aa14207.ctex"]
+source_file="res://enemy_spawning/resources/enemies/fiend/mistawhite.jpeg"
+dest_files=["res://.godot/imported/mistawhite.jpeg-7fa9aa94402a648fb6413bf238821d4d.ctex"]
 
 [params]
 

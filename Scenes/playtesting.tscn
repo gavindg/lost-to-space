@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4v26vttcswwj"]
+[gd_scene load_steps=15 format=3 uid="uid://4v26vttcswwj"]
 
 [ext_resource type="Script" path="res://terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://tilesheet_complete.png" id="1_orbgj"]
@@ -7,9 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://character/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="4_4thsy"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Fork2Space_Tileset_16.png" id="4_lmo7g"]
-[ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Scenes/EnemyAI/slime.tscn" id="5_5ir8v"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="6_iolg6"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://FINAL_background.png" id="10_g6hel"]
+[ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j3hs"]
 texture = ExtResource("1_orbgj")
@@ -3323,9 +3322,6 @@ sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8d6q"]
 radius = 141.796
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
-radius = 181.279
-
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
 
@@ -3363,30 +3359,19 @@ position = Vector2(-8, 8)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("10_g6hel")
 
-[node name="Enemy" type="Node2D" parent="SceneObjects"]
-position = Vector2(520, -1520)
-
-[node name="RigidBody" parent="SceneObjects/Enemy" instance=ExtResource("5_5ir8v")]
-position = Vector2(2.08165e-12, 2.08165e-12)
-
-[node name="CombatHandler" type="Node2D" parent="SceneObjects/Enemy/RigidBody"]
-position = Vector2(-2.08165e-12, -2.08165e-12)
-script = ExtResource("6_iolg6")
-
-[node name="enemy_hitbox" type="Area2D" parent="SceneObjects/Enemy/RigidBody/CombatHandler"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Enemy/RigidBody/CombatHandler/enemy_hitbox"]
-shape = SubResource("CircleShape2D_hrobd")
-debug_color = Color(0.313726, 0.494118, 1, 0.419608)
-
-[node name="take_damage_cooldown" type="Timer" parent="SceneObjects/Enemy/RigidBody/CombatHandler"]
-wait_time = 0.5
-
 [node name="Management" type="Node2D" parent="."]
 
 [node name="TilePlacer" parent="Management" node_paths=PackedStringArray("world", "player") instance=ExtResource("1_tux6p")]
 world = NodePath("../../TileMap")
 player = NodePath("../../SceneObjects/Player")
 debug_messages = true
+
+[node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player")]
+script = ExtResource("10_x7kja")
+player = NodePath("../../SceneObjects/Player")
+spawnRate = 600.0
+radiusAwayFromPlayer = 300
+
+[node name="EnemyManager" type="Node2D" parent="Management"]
 
 [node name="UI" type="Node2D" parent="."]
