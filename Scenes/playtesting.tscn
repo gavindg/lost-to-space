@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://4v26vttcswwj"]
+[gd_scene load_steps=15 format=3 uid="uid://4v26vttcswwj"]
 
+[ext_resource type="Script" path="res://scripts/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_tux6p"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/New_Piskel_9.png" id="2_e2vwn"]
@@ -3033,6 +3034,7 @@ radius = 181.279
 size = Vector2(1149, 34)
 
 [node name="Playtesting" type="Node2D"]
+script = ExtResource("1_3yw20")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-1, 0)
@@ -3043,6 +3045,7 @@ layer_0/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0
 [node name="SceneObjects" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="SceneObjects"]
+position = Vector2(40, -1920)
 
 [node name="Movement" parent="SceneObjects/Player" groups=["player"] instance=ExtResource("3_aetbc")]
 position = Vector2(100, 521)
@@ -3061,23 +3064,27 @@ shape = SubResource("CircleShape2D_i8d6q")
 [node name="deal_attack_timer" type="Timer" parent="SceneObjects/Player/Movement/CombatHandling"]
 wait_time = 0.5
 
+[node name="INSANELY SCUFFED" type="Camera2D" parent="SceneObjects/Player"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+zoom = Vector2(0.15, 0.15)
+
 [node name="Enemy" type="Node2D" parent="SceneObjects"]
-position = Vector2(480, 400)
+position = Vector2(520, -1520)
 
 [node name="RigidBody" parent="SceneObjects/Enemy" instance=ExtResource("5_5ir8v")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="Hitbox" type="Node2D" parent="SceneObjects/Enemy/RigidBody"]
+[node name="CombatHandler" type="Node2D" parent="SceneObjects/Enemy/RigidBody"]
 position = Vector2(-2.08165e-12, -2.08165e-12)
 script = ExtResource("6_iolg6")
 
-[node name="enemy_hitbox" type="Area2D" parent="SceneObjects/Enemy/RigidBody/Hitbox"]
+[node name="enemy_hitbox" type="Area2D" parent="SceneObjects/Enemy/RigidBody/CombatHandler"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Enemy/RigidBody/Hitbox/enemy_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Enemy/RigidBody/CombatHandler/enemy_hitbox"]
 shape = SubResource("CircleShape2D_hrobd")
 debug_color = Color(0.313726, 0.494118, 1, 0.419608)
 
-[node name="take_damage_cooldown" type="Timer" parent="SceneObjects/Enemy/RigidBody/Hitbox"]
+[node name="take_damage_cooldown" type="Timer" parent="SceneObjects/Enemy/RigidBody/CombatHandler"]
 wait_time = 0.5
 
 [node name="Management" type="Node2D" parent="."]
@@ -3088,9 +3095,6 @@ player = NodePath("../../SceneObjects/Player/Movement")
 debug_messages = true
 
 [node name="UI" type="Node2D" parent="."]
-
-[node name="INSANELY SCUFFED" type="Camera2D" parent="."]
-position = Vector2(576, 323)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 gravity_scale = 1.66533e-16
