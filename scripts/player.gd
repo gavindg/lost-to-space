@@ -17,7 +17,7 @@ func _physics_process(delta):
 	if health <= 0:
 		player_alive = false # end screen / respawn
 		health = 0
-		print("Player has died.")
+		#print("Player has died.")
 		#self.queue_free()
 
 func player_movement(delta):
@@ -64,7 +64,7 @@ func enemy_attack():
 		health = health - 20
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
-		print(health)
+		#print(health)
 
 
 func _on_attack_cooldown_timeout():
