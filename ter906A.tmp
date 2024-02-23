@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://sny2cklu6kem"]
+[gd_scene load_steps=9 format=3 uid="uid://sny2cklu6kem"]
 
 [ext_resource type="Script" path="res://terrain_gen.gd" id="1_rogjm"]
 [ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://tilesheet_complete.png" id="2_ufm00"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://New_Piskel_9.png" id="3_moly1"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Fork2Space_Tileset_16.png" id="4_k488b"]
-[ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://FINAL_background.png" id="5_5vnmm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j3hs"]
 texture = ExtResource("2_ufm00")
@@ -3323,11 +3322,4 @@ tile_set = SubResource("TileSet_vj42s")
 format = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.6, 0.6)
-
-[node name="FinalBackground" type="Sprite2D" parent="Camera2D"]
-modulate = Color(1, 1, 1, 0.188235)
-z_index = -1
-position = Vector2(0, -300)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("5_5vnmm")
+zoom = Vector2(0.1, 0.1)
