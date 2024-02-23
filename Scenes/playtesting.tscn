@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4v26vttcswwj"]
+[gd_scene load_steps=14 format=3 uid="uid://4v26vttcswwj"]
 
 [ext_resource type="Script" path="res://scripts/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -3030,43 +3030,36 @@ radius = 141.796
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
 radius = 181.279
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7tx3"]
-size = Vector2(1149, 34)
-
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-1, 0)
 tile_set = SubResource("TileSet_iv81b")
 format = 2
 layer_0/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0, 2621443, 2, 0, 2621444, 2, 0, 2621445, 2, 0, 2621448, 2, 0, 2621446, 2, 0, 2621447, 2, 0, 2555904, 2, 0, 2555905, 2, 0, 2555906, 2, 0, 2555908, 2, 0, 2555907, 2, 0, 2555909, 2, 0, 2555910, 2, 0, 2555911, 2, 0, 2555912, 2, 0)
 
 [node name="SceneObjects" type="Node2D" parent="."]
 
-[node name="Player" type="Node2D" parent="SceneObjects"]
-position = Vector2(40, -1920)
+[node name="Player" parent="SceneObjects" groups=["player"] instance=ExtResource("3_aetbc")]
+position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="Movement" parent="SceneObjects/Player" groups=["player"] instance=ExtResource("3_aetbc")]
-position = Vector2(100, 521)
-
-[node name="CombatHandling" type="Node2D" parent="SceneObjects/Player/Movement"]
+[node name="CombatHandling" type="Node2D" parent="SceneObjects/Player"]
 script = ExtResource("4_4thsy")
 
-[node name="player_hitbox" type="Area2D" parent="SceneObjects/Player/Movement/CombatHandling"]
+[node name="player_hitbox" type="Area2D" parent="SceneObjects/Player/CombatHandling"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Player/Movement/CombatHandling/player_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Player/CombatHandling/player_hitbox"]
 position = Vector2(1, 3)
 shape = SubResource("CircleShape2D_i8d6q")
 
-[node name="attack_cooldown" type="Timer" parent="SceneObjects/Player/Movement/CombatHandling"]
+[node name="attack_cooldown" type="Timer" parent="SceneObjects/Player/CombatHandling"]
 
-[node name="deal_attack_timer" type="Timer" parent="SceneObjects/Player/Movement/CombatHandling"]
+[node name="deal_attack_timer" type="Timer" parent="SceneObjects/Player/CombatHandling"]
 wait_time = 0.5
 
-[node name="INSANELY SCUFFED" type="Camera2D" parent="SceneObjects/Player"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-zoom = Vector2(0.15, 0.15)
+[node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Player"]
+position = Vector2(8, -48)
+zoom = Vector2(3.32, 3.32)
 
 [node name="Enemy" type="Node2D" parent="SceneObjects"]
 position = Vector2(520, -1520)
@@ -3091,15 +3084,7 @@ wait_time = 0.5
 
 [node name="TilePlacer" parent="Management" node_paths=PackedStringArray("world", "player") instance=ExtResource("1_tux6p")]
 world = NodePath("../../TileMap")
-player = NodePath("../../SceneObjects/Player/Movement")
+player = NodePath("../../SceneObjects/Player")
 debug_messages = true
 
 [node name="UI" type="Node2D" parent="."]
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-gravity_scale = 1.66533e-16
-freeze = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(577.5, 632)
-shape = SubResource("RectangleShape2D_t7tx3")
