@@ -32,3 +32,6 @@ func assign_slots():
 func _ready():
 	assign_slots()
 	update_ui()
+
+func _process(delta):
+	pass
