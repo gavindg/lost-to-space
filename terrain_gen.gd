@@ -89,14 +89,14 @@ func gen_spawn_area():
 			sel = Vector2i(pos)
 			break
 	spawn_location = sel
-			
+
 func gen_ore():
 	var ore_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 25, octaves, lacunarity, gain)
 	for x in range(-map_width, map_width):
 		for y in range(ground_levels[x] + cave_offset +1, map_height):
 			if ore_noise.get_noise_2d(x,y) < ore_rarity:
 				tilemap.set_cell(0, Vector2i(x,y), 2, Vector2i(2,1))
-				
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

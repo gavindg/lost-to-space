@@ -52,14 +52,14 @@ func _physics_process(delta):
 	# collide with the left wall and jmup right-up-wards
 	if $left_RayCast2D.is_colliding():
 		var collider = $left_RayCast2D.get_collider()
-		if collider is TileMap && Input.is_action_pressed("left"):
+		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = 1
 
 	# collide with the right wall and jmup left-up-wards
 	elif $right_RayCast2D.is_colliding():
 		var collider = $right_RayCast2D.get_collider()
-		if collider is TileMap && Input.is_action_pressed("right"):
+		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = -1
 	else:
