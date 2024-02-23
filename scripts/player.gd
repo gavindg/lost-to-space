@@ -5,7 +5,7 @@ var enemy_attack_cooldown = true
 var health = 100
 var player_alive = true
 var attack_ip = false
-
+var player_current_attack = false
 var current_dir = "down"
 const speed = 500
 
@@ -73,7 +73,7 @@ func _on_attack_cooldown_timeout():
 func attack():
 	var dir = current_dir
 	if Input.is_action_just_pressed("attack"):
-		Global.player_current_attack = true
+		player_current_attack = true
 		attack_ip = true
 		if dir == "right":
 			#$AnimatedSprite2D.flip_h = false
@@ -93,5 +93,5 @@ func attack():
 
 func _on_deal_attack_timer_timeout():
 	$deal_attack_timer.stop()
-	Global.player_current_attack = false
+	player_current_attack = false
 	attack_ip = false
