@@ -12,5 +12,6 @@ format = 2
 [node name="Management" type="Node2D" parent="."]
 
 [node name="TilePlacer" parent="Management" instance=ExtResource("1_tux6p")]
+debug_messages = true
 
 [node name="UI" type="Node2D" parent="."]
