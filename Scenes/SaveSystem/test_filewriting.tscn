@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://d1ihj6d86b18r" path="res://Art/space.jpeg" id="1_ifyrr"]
 [ext_resource type="Script" path="res://Scenes/SaveSystem/test_player_movement.gd" id="3_g0kds"]
 [ext_resource type="Texture2D" uid="uid://tvxpsi61ebq8" path="res://icon.svg" id="4_6yevr"]
-[ext_resource type="PackedScene" uid="uid://jd38toy4m66x" path="res://Scenes/SaveSystem/world_tile_map.tscn" id="4_7ui7r"]
+[ext_resource type="PackedScene" path="res://Scenes/SaveSystem/world_tile_map.tscn" id="4_7ui7r"]
 [ext_resource type="Script" path="res://Scenes/SaveSystem/game_saver.gd" id="5_dgnda"]
-[ext_resource type="PackedScene" uid="uid://h3tb03wbeylm" path="res://Scenes/SaveSystem/tile_placer.tscn" id="5_usfib"]
+[ext_resource type="PackedScene" path="res://Scenes/SaveSystem/tile_placer.tscn" id="5_usfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck3t4"]
 size = Vector2(128, 125)

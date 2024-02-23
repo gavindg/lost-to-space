@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmu4j4emdh3no"]
 
-[ext_resource type="PackedScene" uid="uid://4ee1adrmivp6" path="res://Scenes/SaveSystem/placeable_tile_map.tscn" id="1_ecoq1"]
-[ext_resource type="PackedScene" uid="uid://h3tb03wbeylm" path="res://Scenes/SaveSystem/tile_placer.tscn" id="2_8ro2g"]
+[ext_resource type="PackedScene" path="res://Scenes/SaveSystem/placeable_tile_map.tscn" id="1_ecoq1"]
+[ext_resource type="PackedScene" path="res://Scenes/SaveSystem/tile_placer.tscn" id="2_8ro2g"]
 [ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemySpawner.gd" id="3_45tmt"]
 [ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemyManager.gd" id="4_kok6g"]
 
@@ -28,4 +28,5 @@ position = Vector2(544, 584)
 script = ExtResource("3_45tmt")
 
 [node name="EnemyManager" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_kok6g")
