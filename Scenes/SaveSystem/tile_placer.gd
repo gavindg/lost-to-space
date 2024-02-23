@@ -13,6 +13,10 @@ extends Node2D
 
 func _unhandled_input(event: InputEvent) -> void:
 	# on click
+	if player == null:
+		if debug_messages:
+			print("player could not be found")
+		return
 	if event is InputEventMouseButton:
 		if world == null || player == null:
 			if debug_messages:

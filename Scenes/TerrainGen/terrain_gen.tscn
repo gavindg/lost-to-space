@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://sny2cklu6kem"]
+[gd_scene load_steps=7 format=3 uid="uid://sny2cklu6kem"]
 
-[ext_resource type="Script" path="res://terrain_gen.gd" id="1_rogjm"]
-[ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://tilesheet_complete.png" id="2_ufm00"]
+[ext_resource type="Script" path="res://scripts/terrain_gen.gd" id="1_8nubb"]
+[ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://Art/TestTilesheet/tilesheet_complete.png" id="2_7xbf0"]
+[ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/New_Piskel_9.png" id="3_xxpxy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j3hs"]
-texture = ExtResource("2_ufm00")
-texture_region_size = Vector2i(32, 32)
+texture = ExtResource("2_7xbf0")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -2976,22 +2976,58 @@ texture_region_size = Vector2i(32, 32)
 21:10/0 = 0
 21:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 21:10/0/physics_layer_0/angular_velocity = 0.0
+22:8/0 = 0
+22:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+22:8/0/physics_layer_0/angular_velocity = 0.0
+6:2/0 = 0
+6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/0 = 0
+5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:2/0/physics_layer_0/angular_velocity = 0.0
+0:24/0 = 0
+0:24/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:24/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dj0gq"]
+texture = ExtResource("3_xxpxy")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_vj42s"]
-tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Main"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
 sources/1 = SubResource("TileSetAtlasSource_0j3hs")
+sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 
 [node name="Terrain Generation" type="Node2D"]
-script = ExtResource("1_rogjm")
+script = ExtResource("1_8nubb")
+noise_threshold = -0.1
+cave_offset = 10
+ore_rarity = -0.25
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_vj42s")
 format = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, 2500)
-zoom = Vector2(0.05, 0.05)
+offset = Vector2(0, 200)
+zoom = Vector2(0.1, 0.1)
