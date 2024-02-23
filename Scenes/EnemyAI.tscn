@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://g6kewh0rbbnl"]
+[gd_scene load_steps=5 format=3 uid="uid://ctdhylysenahe"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hqct1"]
 rough = true
