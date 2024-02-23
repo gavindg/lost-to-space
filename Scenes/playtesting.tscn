@@ -1,6 +1,12 @@
-[gd_scene format=3 uid="uid://c2o0tlvv7gxmq"]
+[gd_scene format=3 uid="uid://4v26vttcswwj"]
 
 [node name="Playtesting" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 format = 2
+
+[node name="SceneObjects" type="Node2D" parent="."]
+
+[node name="Management" type="Node2D" parent="."]
+
+[node name="UI" type="Node2D" parent="."]
