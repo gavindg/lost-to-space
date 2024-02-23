@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Fork to Space"
 run/main_scene="res://TestResources/test_map/test_map.tscn"
+
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
