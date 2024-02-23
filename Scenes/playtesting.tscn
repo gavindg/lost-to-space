@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://4v26vttcswwj"]
 
-[ext_resource type="Script" path="res://scripts/terrain_gen.gd" id="1_3yw20"]
+[ext_resource type="Script" path="res://terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://bw25o37kapc7c" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_tux6p"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/New_Piskel_9.png" id="2_e2vwn"]

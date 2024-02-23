@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://sny2cklu6kem"]
 
-[ext_resource type="Script" path="res://scripts/terrain_gen.gd" id="1_8nubb"]
+[ext_resource type="Script" path="res://terrain_gen.gd" id="1_8nubb"]
 
 [sub_resource type="TileSet" id="TileSet_vj42s"]
 physics_layer_0/collision_layer = 1
