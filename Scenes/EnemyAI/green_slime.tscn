@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d6x47dr81hk"]
+[gd_scene load_steps=7 format=3 uid="uid://bc5bpweviejgo"]
 
-[ext_resource type="Script" path="res://Scenes/EnemyAI/slime.gd" id="1_0hyk5"]
-[ext_resource type="Texture2D" uid="uid://bl3v6uji8s2wh" path="res://Art/Enemies/Slimes/purple slime 16x16.png" id="2_vmosl"]
+[ext_resource type="Script" path="res://Scenes/EnemyAI/slime.gd" id="1_4cph1"]
+[ext_resource type="Texture2D" uid="uid://bkltfsbnex3tb" path="res://Art/Enemies/Slimes/green slime 16x16.png" id="2_7smce"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_14fxo"]
 friction = 0.0
@@ -14,19 +14,19 @@ radius = 20.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ewbwa"]
 
-[node name="Slime" type="RigidBody2D"]
+[node name="GreenSlimeAI" type="RigidBody2D"]
 position = Vector2(528, 552)
 physics_material_override = SubResource("PhysicsMaterial_14fxo")
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_0hyk5")
+script = ExtResource("1_4cph1")
 speed = 2
 min_wander_interval = 2
 gravity_strength = 2
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vmosl")
+texture = ExtResource("2_7smce")
 hframes = 2
 vframes = 2
 

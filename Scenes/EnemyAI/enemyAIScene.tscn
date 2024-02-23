@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://b7t5lp4fe0v32"]
 
-[ext_resource type="Texture2D" uid="uid://dn2jlurfviun0" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_35rik"]
+[ext_resource type="Texture2D" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_35rik"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://character/main_char.tscn" id="2_nyx5w"]
-[ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Scenes/EnemyAI/slime.tscn" id="3_ut4hf"]
+[ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Scenes/EnemyAI/purple_slime.tscn" id="3_ut4hf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hhw8j"]
 distance = -651.0

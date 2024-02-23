@@ -1,28 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0typ2o6hncip"]
 
 [ext_resource type="Script" path="res://Scenes/SlimeEnemy.gd" id="1_epfoy"]
-[ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Scenes/EnemyAI/slime.tscn" id="2_t18oq"]
+[ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Scenes/EnemyAI/purple_slime.tscn" id="2_jldrl"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="3_rgns2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
 radius = 181.279
 
-[node name="Slime" type="Node2D"]
-position = Vector2(272, -304)
+[node name="PurpleSlime" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_epfoy")
 
-[node name="RigidBody2D" parent="." instance=ExtResource("2_t18oq")]
+[node name="PurpleSlimeAI" parent="." instance=ExtResource("2_jldrl")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CombatHandler" type="Node2D" parent="RigidBody2D"]
+[node name="CombatHandler" type="Node2D" parent="PurpleSlimeAI"]
 position = Vector2(-2.08165e-12, -2.08165e-12)
 script = ExtResource("3_rgns2")
 
-[node name="enemy_hitbox" type="Area2D" parent="RigidBody2D/CombatHandler"]
+[node name="enemy_hitbox" type="Area2D" parent="PurpleSlimeAI/CombatHandler"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/CombatHandler/enemy_hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PurpleSlimeAI/CombatHandler/enemy_hitbox"]
 shape = SubResource("CircleShape2D_hrobd")
 debug_color = Color(0.313726, 0.494118, 1, 0.419608)
 
-[node name="take_damage_cooldown" type="Timer" parent="RigidBody2D/CombatHandler"]
+[node name="take_damage_cooldown" type="Timer" parent="PurpleSlimeAI/CombatHandler"]
 wait_time = 0.5

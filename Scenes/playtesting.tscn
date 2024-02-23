@@ -3369,7 +3369,7 @@ debug_messages = true
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player")]
 script = ExtResource("10_x7kja")
 player = NodePath("../../SceneObjects/Player")
-spawnRate = 600.0
+spawnRate = 100.0
 radiusAwayFromPlayer = 300
 
 [node name="EnemyManager" type="Node2D" parent="Management"]

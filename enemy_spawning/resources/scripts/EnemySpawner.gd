@@ -17,8 +17,8 @@ extends Node2D
 @export var upward_displacement : int = 50
 
 # the enemy to be instantiated. just a test enemy as of right now...
-@onready var enemy_prefab := preload("res://enemy_spawning/resources/enemies/slime/purple_slime.tscn")
-
+@onready var purple_slime_scene := preload("res://enemy_spawning/resources/enemies/slime/purple_slime.tscn")
+@onready var green_slime_scene := preload("res://enemy_spawning/resources/enemies/slime/green_slime.tscn")
 
 # update
 func _physics_process(delta: float) -> void:
@@ -28,7 +28,10 @@ func _physics_process(delta: float) -> void:
 
 
 # spawns an enemy
+# TODO: make this readable...
 func spawn_enemy():
+	
+	var enemy_prefab = choose_enemy()
 	var sign = 1 if rng.randf() < 0.5 else -1
 	if player == null:
 		print("player not found")
@@ -44,3 +47,7 @@ func spawn_enemy():
 	if manager != null:
 		manager.register(enemy)
 	print("spawning @", enemy.position)
+	
+
+func choose_enemy():
+	return purple_slime_scene if rng.randf() > 0.5 else green_slime_scene
