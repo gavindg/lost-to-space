@@ -14,6 +14,10 @@ extends Node2D
 func _unhandled_input(event: InputEvent) -> void:
 	# on click
 	if event is InputEventMouseButton:
+		if world == null || player == null:
+			print("[TilePlacer]: nothing to do; tilemap is ", world, "player is ", player)
+			return
+		
 		# first check if click was within the player's placement radius
 		var click_pos : Vector2 = event.global_position
 		if click_pos.distance_to(player.global_position) < player_block_placement_radius:

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://4v26vttcswwj"]
+[gd_scene load_steps=2 format=3 uid="uid://4v26vttcswwj"]
+
+[ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_tux6p"]
 
 [node name="Playtesting" type="Node2D"]
 
@@ -8,5 +10,7 @@ format = 2
 [node name="SceneObjects" type="Node2D" parent="."]
 
 [node name="Management" type="Node2D" parent="."]
+
+[node name="TilePlacer" parent="Management" instance=ExtResource("1_tux6p")]
 
 [node name="UI" type="Node2D" parent="."]
