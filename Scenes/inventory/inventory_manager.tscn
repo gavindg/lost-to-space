@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwaaqhgl05ahg"]
+
+[ext_resource type="Script" path="res://Scenes/inventory/inventory_manager.gd" id="1_wlnvy"]
+[ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://Scenes/inventory/inv_ui.tscn" id="2_1lnsh"]
+[ext_resource type="PackedScene" uid="uid://b3hubqcgj81et" path="res://Scenes/inventory/hotbar_ui.tscn" id="3_1llls"]
+[ext_resource type="PackedScene" uid="uid://byygkggm2he0t" path="res://Scenes/inventory/inv_ui_cursor_item.tscn" id="4_oer8d"]
+
+[node name="inventory_manager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1040.0
+offset_bottom = -592.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wlnvy")
+
+[node name="Inv_UI" parent="." instance=ExtResource("2_1lnsh")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 112.0
+offset_bottom = 35.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Hotbar_UI" parent="." instance=ExtResource("3_1llls")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 43.0
+offset_right = 112.0
+offset_bottom = 56.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="cursor_item" parent="." instance=ExtResource("4_oer8d")]
+layout_mode = 0
