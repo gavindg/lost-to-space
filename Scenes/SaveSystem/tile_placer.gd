@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var world : TileMap = %WorldTileMap
-@onready var player : CharacterBody2D = %TestPlayer
+@export var world : TileMap = null
+@export var player : CharacterBody2D = null
 
 # export variables
 @export var block_atlas_coords : Vector2i = Vector2i(0, 0)

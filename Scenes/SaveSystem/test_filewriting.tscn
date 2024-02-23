@@ -37,10 +37,10 @@ shape = SubResource("RectangleShape2D_ck3t4")
 [node name="MainCamera" type="Camera2D" parent="WorldRoot/TestPlayer"]
 position = Vector2(2.08165e-12, -194)
 
-[node name="WorldTileMap" parent="WorldRoot" instance=ExtResource("4_7ui7r")]
-unique_name_in_owner = true
-
-[node name="TilePlacer" parent="WorldRoot" instance=ExtResource("5_usfib")]
+[node name="TilePlacer" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("world", "player")]
+script = ExtResource("4_o6s6a")
+world = NodePath("../WorldTileMap")
+player = NodePath("../TestPlayer")
 
 [node name="GameSaver" type="Node2D" parent="."]
 script = ExtResource("5_dgnda")
