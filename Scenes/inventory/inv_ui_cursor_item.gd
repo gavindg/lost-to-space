@@ -22,4 +22,4 @@ func update_ui(slot: InvSlot):
 			amount_text.visible = false
 
 func _process(delta):
-	global_position = get_viewport().get_mouse_position() - get_canvas_transform().origin
+	global_position = get_global_mouse_position()

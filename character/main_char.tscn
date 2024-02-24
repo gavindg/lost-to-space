@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxuan5t7jof4n"]
+[gd_scene load_steps=13 format=3 uid="uid://bxuan5t7jof4n"]
 
 [ext_resource type="Script" path="res://Character/main_char_movement.gd" id="1_rmlvx"]
 [ext_resource type="Texture2D" uid="uid://bh64ao16bh0yr" path="res://Art/PlayerSheet/walking player 16x16.png" id="2_e62me"]
@@ -386,6 +386,9 @@ _data = {
 "run_right": SubResource("Animation_okrsc")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsti7"]
+size = Vector2(16, 24)
+
 [node name="main_char_CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_rmlvx")
 
@@ -413,3 +416,9 @@ region_rect = Rect2(2.08165e-12, 2.08165e-12, 64, 40)
 libraries = {
 "": SubResource("AnimationLibrary_f8ldj")
 }
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dsti7")

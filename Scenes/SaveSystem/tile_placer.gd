@@ -21,7 +21,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			pass
 			#print("player could not be found")
 		return
-	if event is InputEventMouseButton:
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if world == null || player == null:
 			if debug_messages:
 				print("[TilePlacer]: nothing to do; tilemap is ", world, "player is ", player)
