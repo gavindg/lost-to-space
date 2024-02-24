@@ -4,7 +4,6 @@ extends Control
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
 @onready var cursor = $cursor_item
 
-var is_open = false
 
 func update_ui():
 	for i in range(min(inv.inv.size(), slots.size())):
@@ -18,18 +17,8 @@ func _ready():
 	update_ui()
 	close()
 
-func _process(delta):
-	if Input.is_action_just_pressed("e"):
-		if is_open:
-			close()
-		else: 
-			open()
-
-
 func close():
 	visible = false
-	is_open = false
 
 func open():
 	visible = true
-	is_open = true
