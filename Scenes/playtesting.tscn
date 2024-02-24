@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://tilesheet_complete.png" id="1_orbgj"]
-[ext_resource type="Texture2D" path="res://New_Piskel_9.png" id="2_e2vwn"]
+[ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://character/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="4_4thsy"]
-[ext_resource type="Texture2D" path="res://Fork2Space_Tileset_16.png" id="4_lmo7g"]
+[ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Fork2Space_Tileset_16.png" id="4_lmo7g"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Scenes/inventory/inventory_manager.tscn" id="10_48d8y"]
-[ext_resource type="Texture2D" path="res://FINAL_background.png" id="10_g6hel"]
+[ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://FINAL_background.png" id="10_g6hel"]
 [ext_resource type="Script" path="res://enemy_spawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 [ext_resource type="AudioStream" uid="uid://dnpkcsy8ew8dj" path="res://overworld.wav" id="12_rvhuw"]
 

@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 # Regular movements
 const SPEED = 300.0
-const JUMP_VELOCITY = -500.0
+const JUMP_VELOCITY = -300.0
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -16,18 +16,18 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # double-jump
 var has_jumped = false
 var has_double_jumped = false
-const double_jump_speed = -500
+const double_jump_speed = -300
 
 # dash
 var is_dashing = false
 var has_dashed = false
-var dash_speed = 500
+var dash_speed = 300
 
 # wall-jump
 var can_wall_jump = false
 var wall_jump_direction = 0
-var wall_jump_speed_againstwall = 300
-var wall_jump_speed_upwards = -500
+var wall_jump_speed_againstwall = 200
+var wall_jump_speed_upwards = -300
 
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
