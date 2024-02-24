@@ -22,11 +22,13 @@ script = ExtResource("1_wylvl")
 [node name="GreenSlimeAI" parent="." groups=["Enemy"] instance=ExtResource("2_hv0q0")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI"]
+[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("parent")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("3_xoetl")
+parent = NodePath("../..")
 
 [node name="enemy_hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler"]
+scale = Vector2(0.3, 0.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
 shape = SubResource("CircleShape2D_hrobd")

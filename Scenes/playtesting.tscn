@@ -3344,6 +3344,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("4_4thsy")
 
 [node name="player_hitbox" type="Area2D" parent="SceneObjects/Player/CombatHandling"]
+scale = Vector2(0.1, 0.1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneObjects/Player/CombatHandling/player_hitbox"]
 position = Vector2(1, 3)

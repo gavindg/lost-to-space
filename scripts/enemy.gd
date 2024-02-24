@@ -8,6 +8,8 @@ var health = 100
 var player_inattack_zone = false
 var can_take_damage = true
 
+@export var parent : SlimeEnemy = null
+
 func _physics_process(_delta):
 
 	deal_with_damage()
@@ -62,8 +64,9 @@ func deal_with_damage():
 			$take_damage_cooldown.start()
 			can_take_damage = false
 			print("Enemy health = ", health)
-			if health <= 0:
-				self.queue_free()
+			if health <= 0 && parent != null:
+				parent.queue_free()
+				#self.queue_free()
 
 
 func _on_take_damage_cooldown_timeout():
