@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 # basic movements: w/a/s/d to move up/left/down/right
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
@@ -33,6 +35,7 @@ var is_special_movement = false
 
 
 func _physics_process(delta):
+	animation_handler()
 	
 	# reset jump and double jump status
 	if is_on_floor():
@@ -86,6 +89,9 @@ func _physics_process(delta):
 		if not is_special_movement:
 			if not is_dashing:
 				direction = Input.get_axis("left", "right")
+				# set horizontal direction for animation
+				if direction != 0:
+					last_move_direction = direction
 				if direction:
 					velocity.x = direction * SPEED
 				else:
@@ -159,3 +165,23 @@ func take_damage():
 func die():
 	#Globals.player_health = 100 # for testing: reset character health
 	queue_free()
+	
+	
+var last_move_direction = 0
+
+func animation_handler() -> void:
+	if velocity.x != 0 && is_on_floor():
+		if velocity.x < 0:
+			animation_player.play("run_left")
+		else:
+			animation_player.play("run_right")
+	elif velocity.x !=0:
+		if velocity.x < 0:
+			animation_player.play("jump_left")
+		else:
+			animation_player.play("jump_right")
+	else:
+		if last_move_direction < 0:
+			animation_player.play("idle_left")
+		else:
+			animation_player.play("idle_right")

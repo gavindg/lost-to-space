@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw25o37kapc7c"
-path="res://.godot/imported/tilesheet_complete.png-cb522aff65cea06621ed9cb1f6372c6f.ctex"
+uid="uid://c2bpxytncbt0f"
+path="res://.godot/imported/New_Piskel_9.png-5aa743dcd7e62915e360d446cde28872.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TestTilesheet/tilesheet_complete.png"
-dest_files=["res://.godot/imported/tilesheet_complete.png-cb522aff65cea06621ed9cb1f6372c6f.ctex"]
+source_file="res://Art/TileSheets/New_Piskel_9.png"
+dest_files=["res://.godot/imported/New_Piskel_9.png-5aa743dcd7e62915e360d446cde28872.ctex"]
 
 [params]
 
