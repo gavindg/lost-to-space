@@ -4,6 +4,8 @@ class_name Inventory
 
 @export var inv: Array[InvSlot]
 @export var cursor_slot: InvSlot
+@export var width: int
+@export var height: int
 
 func left(slot_num: int):
 	var item: Item = inv[slot_num].item
@@ -29,7 +31,6 @@ func left(slot_num: int):
 				cursor_slot.item = null
 		[false,true,_]:
 			new_amount = inv[slot_num].swap(cursor_item,cursor_slot.amount)
-			cursor_slot.item = item
 			cursor_slot.amount = 0
 			cursor_slot.item = null
 
@@ -57,9 +58,61 @@ func right(slot_num: int):
 			if(cursor_slot.amount == 0):
 				cursor_slot.item = null
 
-func insert(item: Item):
-	pass
-	
+func insert(item: Item, amount: int):
+	#check if already in inventory
+	var remaining:int = amount
+	for i in range((width*(height-1)),width*height):
+		if(inv[i].item == item):
+			remaining = inv[i].add(remaining)
+			if(remaining == 0):
+				return remaining
+	for i in range(width*(height-1)):
+		if(inv[i].item == item):
+			remaining = inv[i].add(remaining)
+			if(remaining == 0):
+				return remaining
+	#if not in inventory, put in empty slots
+	for i in range((width*(height-1)),width*height):
+		if(inv[i].item == null):
+			remaining = inv[i].put(item,remaining)
+			if(remaining == 0):
+				return remaining
+	for i in range(width*(height-1)):
+		if(inv[i].item == null):
+			remaining = inv[i].put(item,remaining)
+			if(remaining == 0):
+				return remaining
+	return remaining
+
+func remove(item: Item, amount: int):
+	if(!contains(item,amount)):
+		return false
+	var remove_remaining = amount
+	for i in range((width*(height-1)),width*height):
+		if(inv[i].item == item):
+			if(inv[i].amount >= remove_remaining):
+				inv[i].amount -= remove_remaining
+				if(inv[i].amount == 0):
+					inv[i].clear()
+				remove_remaining = 0
+			else:
+				remove_remaining -= inv[i].amount
+				inv[i].clear()
+		if(remove_remaining == 0):
+			return true
+	for i in range(width*(height-1)):
+		if(inv[i].item == item):
+			if(inv[i].amount >= remove_remaining):
+				inv[i].amount -= remove_remaining
+				if(inv[i].amount == 0):
+					inv[i].clear()
+				remove_remaining = 0
+			else:
+				remove_remaining -= inv[i].amount
+				inv[i].clear()
+		if(remove_remaining == 0):
+			return true
+
 func contains(item: Item, amount: int):
 	var amount_has: int = 0
 	for i in range(inv.size()):

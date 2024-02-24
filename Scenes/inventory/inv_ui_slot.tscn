@@ -10,6 +10,7 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(9, 9)
 offset_right = 9.0
 offset_bottom = 9.0
+mouse_filter = 1
 script = ExtResource("1_uffxx")
 
 [node name="background" type="Sprite2D" parent="."]

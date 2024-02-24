@@ -14,6 +14,16 @@ func add(add_amount: int):
 		return left_over
 	else:
 		return 0
+		
+func put(put_item:Item, put_amount:int):
+	item = put_item
+	amount = put_amount
+	if(amount > MAX_AMOUNT):
+		var left_over: int = amount - MAX_AMOUNT
+		amount = MAX_AMOUNT
+		return left_over
+	else:
+		return 0
 
 func swap(swap_item: Item, swap_amount: int):
 	item = swap_item
@@ -30,3 +40,6 @@ func take_half():
 		item = null
 	return old_amount - amount
 
+func clear():
+	item = null
+	amount = 0
