@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://baeoxja0iq8td"]
 
 [ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_5c8j2"]
-[ext_resource type="Texture2D" uid="uid://dn2jlurfviun0" path="res://Art/TestTilesheet/tilesheet_complete.png" id="2_2manb"]
+[ext_resource type="Texture2D" uid="uid://buy5jxle5avf2" path="res://Art/TestTilesheet/tilesheet_complete_2X.png" id="2_2manb"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://character/main_char.tscn" id="3_nncip"]
 [ext_resource type="PackedScene" uid="uid://cr76d55vaxv5v" path="res://Scenes/inventory/dropped_item.tscn" id="4_jwcq8"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Scenes/inventory/inventory_manager.tscn" id="5_gnp4g"]
@@ -826,7 +826,7 @@ sources/0 = SubResource("TileSetAtlasSource_q6ggp")
 sources/1 = SubResource("TileSetScenesCollectionSource_g4vqd")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p03fy"]
-size = Vector2(77, 120)
+size = Vector2(16, 24)
 
 [node name="item_drop_test" type="Node2D"]
 
@@ -844,14 +844,13 @@ format = 2
 layer_0/tile_data = PackedInt32Array(65527, 0, 3, 65528, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 7, 0, 3, 8, 0, 3, 9, 0, 3)
 
 [node name="Player" parent="." instance=ExtResource("3_nncip")]
-position = Vector2(566, 435)
+position = Vector2(566, 561)
 collision_layer = 4
 
 [node name="Area2D" type="Area2D" parent="Player"]
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
-position = Vector2(6.5, 9)
 shape = SubResource("RectangleShape2D_p03fy")
 
 [node name="inventory_manager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_gnp4g")]
@@ -866,7 +865,7 @@ scale = Vector2(5, 5)
 player = NodePath("../Player")
 
 [node name="dropped_item" parent="." instance=ExtResource("4_jwcq8")]
-position = Vector2(388, 475)
+position = Vector2(527, 562)
 item = ExtResource("6_fsi0i")
 amount = 10
 

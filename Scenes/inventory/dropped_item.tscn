@@ -6,7 +6,7 @@
 size = Vector2(6, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quru"]
-size = Vector2(54, 54)
+size = Vector2(8, 8)
 
 [node name="dropped_item" type="RigidBody2D"]
 collision_layer = 2
@@ -14,13 +14,11 @@ collision_mask = 5
 script = ExtResource("1_f41t3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(7.5, 7.5)
 shape = SubResource("RectangleShape2D_8ihpi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-4.76837e-07, -4.76837e-07)
-scale = Vector2(6.5, 6.5)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 7
