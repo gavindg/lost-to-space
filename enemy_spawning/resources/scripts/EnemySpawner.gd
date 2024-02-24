@@ -50,4 +50,4 @@ func spawn_enemy():
 	
 
 func choose_enemy():
-	return purple_slime_scene if rng.randf() > 0.5 else green_slime_scene
+	return green_slime_scene # purple_slime_scene if rng.randf() > 0.5 else green_slime_scene

@@ -2,7 +2,7 @@ extends Node2D
 
 var speed = 40
 var player_chase = false
-var player = null
+var player = null  # this is a CharacterBody2D
 
 var health = 100
 var player_inattack_zone = false
@@ -24,23 +24,25 @@ func _physics_process(_delta):
 
 func _on_detection_area_body_entered(body):
 	player = body
-	player_chase = true
+	#player_chase = true
 	
 
 
 func _on_detection_area_body_exited(_body):
 	player = null
-	player_chase = false
+	#player_chase = false
 
 func enemy():
 	pass
 
 
 func _on_enemy_hitbox_body_entered(body):
-	if body.has_method("player"):
+	if "Player" in body.get_groups(): # has_method("player"):
+		player = body 
 		player_inattack_zone = true
 	else:
-		print("player not found")
+		pass
+		#print("player not found")
 
 
 func _on_enemy_hitbox_body_exited(body):
@@ -48,7 +50,14 @@ func _on_enemy_hitbox_body_exited(body):
 		player_inattack_zone = false
 		
 func deal_with_damage():
-	if player_inattack_zone and player.player_current_attack:
+	if player == null:
+		return
+	
+	
+	var player_logic : PlayerLogic = player.get_node("CombatHandling")
+		
+	if player_inattack_zone and player_logic.player_current_attack:
+		print("am i real")
 		if can_take_damage:
 			health = health - 20
 			$take_damage_cooldown.start()

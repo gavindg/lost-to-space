@@ -7,7 +7,7 @@
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fbkow"]
-size = Vector2(4, 4)
+size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bc88l"]
 radius = 20.0
@@ -44,21 +44,6 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_y76hd"]
-resource_name = "inair"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_qx0e2"]
 resource_name = "grounded_right"
 tracks/0/type = "value"
@@ -72,6 +57,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_y76hd"]
+resource_name = "inair"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_sqoep"]
@@ -104,7 +104,7 @@ physics_material_override = SubResource("PhysicsMaterial_14fxo")
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_4cph1")
-speed = 2
+speed = 1
 min_wander_interval = 2
 gravity_strength = 2
 animation_player = NodePath("AnimationPlayer")

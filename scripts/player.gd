@@ -1,3 +1,4 @@
+class_name PlayerLogic
 extends Node2D
 
 var enemy_in_attack_range = false
@@ -10,6 +11,9 @@ var attack_ip = false
 var player_current_attack = false
 var current_dir = "down"
 const speed = 500
+
+
+
 
 func _physics_process(_delta):
 	#player_movement(delta)
@@ -64,6 +68,7 @@ func _on_player_hitbox_body_exited(body):
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown:
 		health = health - 20
+		print("player health ", health)
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 
