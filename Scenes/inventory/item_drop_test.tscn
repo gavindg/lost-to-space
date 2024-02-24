@@ -847,10 +847,10 @@ layer_0/tile_data = PackedInt32Array(65527, 0, 3, 65528, 0, 3, 65529, 0, 3, 6553
 position = Vector2(566, 561)
 collision_layer = 4
 
-[node name="Area2D" type="Area2D" parent="Player"]
+[node name="Area2D2" type="Area2D" parent="Player"]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D2"]
 shape = SubResource("RectangleShape2D_p03fy")
 
 [node name="inventory_manager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_gnp4g")]

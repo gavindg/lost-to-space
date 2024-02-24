@@ -103,7 +103,7 @@ func create_dropped_item(slot: InvSlot):
 	instance.area_entered.connect(_on_dropped_item_area_entered)
 	slot.clear()
 	update_ui()
-	get_parent().add_child(instance)
+	get_parent().get_parent().add_child(instance)
 	return instance
 
 func _on_dropped_item_area_entered(dropped_item):
