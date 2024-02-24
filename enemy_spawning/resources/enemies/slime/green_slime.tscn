@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://twlew2lrot4j"]
+
+[ext_resource type="Script" path="res://Scenes/SlimeEnemy.gd" id="1_wylvl"]
+[ext_resource type="PackedScene" uid="uid://bc5bpweviejgo" path="res://Scenes/EnemyAI/green_slime.tscn" id="2_hv0q0"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="3_xoetl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
+radius = 181.279
+
+[node name="GreenSlime" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_wylvl")
+
+[node name="GreenSlimeAI" parent="." instance=ExtResource("2_hv0q0")]
+position = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("3_xoetl")
+
+[node name="enemy_hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
+shape = SubResource("CircleShape2D_hrobd")
+debug_color = Color(0.313726, 0.494118, 1, 0.419608)
+
+[node name="take_damage_cooldown" type="Timer" parent="GreenSlimeAI/CombatHandler"]
+wait_time = 0.5

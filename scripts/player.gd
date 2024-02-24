@@ -1,8 +1,10 @@
-extends CharacterBody2D
+extends Node2D
 
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
 var health = 100
+
+# can be used for determining when to bring up end screen etc...
 var player_alive = true
 var attack_ip = false
 var player_current_attack = false
@@ -10,7 +12,7 @@ var current_dir = "down"
 const speed = 500
 
 func _physics_process(delta):
-	player_movement(delta)
+	#player_movement(delta)
 	enemy_attack()
 	attack()
 	
@@ -20,28 +22,28 @@ func _physics_process(delta):
 		#print("Player has died.")
 		#self.queue_free()
 
-func player_movement(delta):
-	if Input.is_action_pressed("ui_right"):
-		current_dir = "right"
-		velocity.x = speed
-		velocity.y = 0
-	elif Input.is_action_pressed("ui_left"):
-		current_dir = "left"
-		velocity.x = -speed
-		velocity.y = 0
-	elif Input.is_action_pressed("ui_down"):
-		current_dir = "down"
-		velocity.y = speed
-		velocity.x = 0
-	elif Input.is_action_pressed("ui_up"):
-		current_dir = "up"
-		velocity.y = -speed
-		velocity.x = 0
-	else:
-		velocity.x = 0
-		velocity.y = 0
-		
-	move_and_slide()
+#func player_movement(delta):
+	#if Input.is_action_pressed("ui_right"):
+		#current_dir = "right"
+		#velocity.x = speed
+		#velocity.y = 0
+	#elif Input.is_action_pressed("ui_left"):
+		#current_dir = "left"
+		#velocity.x = -speed
+		#velocity.y = 0
+	#elif Input.is_action_pressed("ui_down"):
+		#current_dir = "down"
+		#velocity.y = speed
+		#velocity.x = 0
+	#elif Input.is_action_pressed("ui_up"):
+		#current_dir = "up"
+		#velocity.y = -speed
+		#velocity.x = 0
+	#else:
+		#velocity.x = 0
+		#velocity.y = 0
+		#
+	#move_and_slide()
 
 func player():
 	pass
@@ -64,7 +66,6 @@ func enemy_attack():
 		health = health - 20
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
-		#print(health)
 
 
 func _on_attack_cooldown_timeout():

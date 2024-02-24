@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 
 var speed = 40
 var player_chase = false
@@ -12,11 +12,12 @@ func _physics_process(delta):
 
 	deal_with_damage()
 	
-	if player_chase:
-		velocity = (player.get_global_position() - position).normalized()*speed*delta
-	else:
-		velocity = lerp(velocity, Vector2.ZERO, 0.07)
-	move_and_collide(velocity)
+	#if player_chase:
+		#velocity = (player.get_global_position() - position).normalized()*speed*delta
+	#else:
+		#velocity = lerp(velocity, Vector2.ZERO, 0.07)
+	# Does it not collide if you don't call this ..?
+	#move_and_collide(velocity)
 		#position += (player.position - position)/speed
 		
 		
@@ -38,6 +39,8 @@ func enemy():
 func _on_enemy_hitbox_body_entered(body):
 	if body.has_method("player"):
 		player_inattack_zone = true
+	else:
+		print("player not found")
 
 
 func _on_enemy_hitbox_body_exited(body):
@@ -50,7 +53,7 @@ func deal_with_damage():
 			health = health - 20
 			$take_damage_cooldown.start()
 			can_take_damage = false
-			#print("Enemy health = ", health)
+			print("Enemy health = ", health)
 			if health <= 0:
 				self.queue_free()
 

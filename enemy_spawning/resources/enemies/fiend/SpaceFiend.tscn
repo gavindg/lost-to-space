@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcm3c43me82pa"]
 
-[ext_resource type="Script" path="res://enemy_spawning/resources/fiend/SpaceFiend.gd" id="1_6ik50"]
-[ext_resource type="Texture2D" uid="uid://b2by1mcovplrk" path="res://enemy_spawning/resources/fiend/mistawhite.jpeg" id="2_s5d04"]
+[ext_resource type="Script" path="res://enemy_spawning/resources/enemies/fiend/SpaceFiend.gd" id="1_6ik50"]
+[ext_resource type="Texture2D" uid="uid://b2by1mcovplrk" path="res://enemy_spawning/resources/enemies/fiend/mistawhite.jpeg" id="2_s5d04"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mim2"]
 size = Vector2(80, 48)

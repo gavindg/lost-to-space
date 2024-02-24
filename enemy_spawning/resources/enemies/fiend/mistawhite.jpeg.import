@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw25o37kapc7c"
-path="res://.godot/imported/tilesheet_complete.png-cb522aff65cea06621ed9cb1f6372c6f.ctex"
+uid="uid://b2by1mcovplrk"
+path="res://.godot/imported/mistawhite.jpeg-7fa9aa94402a648fb6413bf238821d4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TestTilesheet/tilesheet_complete.png"
-dest_files=["res://.godot/imported/tilesheet_complete.png-cb522aff65cea06621ed9cb1f6372c6f.ctex"]
+source_file="res://enemy_spawning/resources/enemies/fiend/mistawhite.jpeg"
+dest_files=["res://.godot/imported/mistawhite.jpeg-7fa9aa94402a648fb6413bf238821d4d.ctex"]
 
 [params]
 
