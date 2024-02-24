@@ -3365,7 +3365,7 @@ position = Vector2(-8, 8)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("10_g6hel")
 
-[node name="inventory_manager" parent="SceneObjects/Player" instance=ExtResource("10_48d8y")]
+[node name="inventory_manager" parent="SceneObjects/Player" node_paths=PackedStringArray("player") instance=ExtResource("10_48d8y")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -3375,6 +3375,7 @@ offset_right = -166.0
 offset_bottom = -116.0
 grow_horizontal = 1
 grow_vertical = 1
+player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
 

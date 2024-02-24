@@ -6,7 +6,7 @@ extends CharacterBody2D
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
 # Regular movements
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 
 
