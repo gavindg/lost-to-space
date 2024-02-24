@@ -46,18 +46,17 @@ func _on_enemy_hitbox_body_entered(body):
 
 
 func _on_enemy_hitbox_body_exited(body):
-	if body.has_method("player"):
+	if "Player" in body.get_groups():
 		player_inattack_zone = false
-		
+	
+	
 func deal_with_damage():
 	if player == null:
 		return
-	
-	
 	var player_logic : PlayerLogic = player.get_node("CombatHandling")
-		
+	
 	if player_inattack_zone and player_logic.player_current_attack:
-		print("am i real")
+		#print("am i real")
 		if can_take_damage:
 			health = health - 20
 			$take_damage_cooldown.start()

@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=17 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://tilesheet_complete.png" id="1_orbgj"]
-[ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Scenes/TilePlacer/tile_placer.tscn" id="1_tux6p"]
 [ext_resource type="Texture2D" path="res://New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://character/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="4_4thsy"]
@@ -3377,12 +3376,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Management" type="Node2D" parent="."]
-
-[node name="TilePlacer" parent="Management" node_paths=PackedStringArray("world", "player") instance=ExtResource("1_tux6p")]
-world = NodePath("../../TileMap")
-player = NodePath("../../SceneObjects/Player")
-block_atlas_id = 2
-debug_messages = true
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player")]
 script = ExtResource("10_x7kja")

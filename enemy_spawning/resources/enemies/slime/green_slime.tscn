@@ -19,7 +19,7 @@ height = 350.0
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_wylvl")
 
-[node name="GreenSlimeAI" parent="." instance=ExtResource("2_hv0q0")]
+[node name="GreenSlimeAI" parent="." groups=["Enemy"] instance=ExtResource("2_hv0q0")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="CombatHandler" type="Node2D" parent="GreenSlimeAI"]

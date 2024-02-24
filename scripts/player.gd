@@ -23,8 +23,8 @@ func _physics_process(_delta):
 	if health <= 0:
 		player_alive = false # end screen / respawn
 		health = 0
-		print("Player has died.")
 		#self.queue_free()
+		print("YOU DEAD !!")
 
 #func player_movement(delta):
 	#if Input.is_action_pressed("ui_right"):
@@ -53,22 +53,18 @@ func player():
 	pass
 	
 func _on_player_hitbox_body_entered(body):
-
-	if body.has_method("enemy"):
-
+	if "Enemy" in body.get_groups():
 		enemy_in_attack_range = true
 
 
 func _on_player_hitbox_body_exited(body):
-
-	if body.has_method("enemy"):
-
+	if "Enemy" in body.get_groups():
 		enemy_in_attack_range = false
 		
-func enemy_attack():
+func enemy_attack():  # problem: not in range
+	#print("enemy in attack range: ", enemy_in_attack_range, "\nenemy attack cooldown: ", enemy_attack_cooldown)
 	if enemy_in_attack_range and enemy_attack_cooldown:
 		health = health - 20
-		print("player health ", health)
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 
