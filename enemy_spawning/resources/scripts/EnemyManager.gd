@@ -24,7 +24,7 @@ func deregister(enemy):
 	enemies.remove_at(enemies.find(enemy))  # sorry
 	
 	
-func out_of_range(enemy) -> bool:
+func out_of_range(_enemy) -> bool:
 	return true  # STUB
 	
 

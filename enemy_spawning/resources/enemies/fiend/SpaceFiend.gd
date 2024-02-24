@@ -8,7 +8,7 @@ extends Node2D
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var direction = (target - position).normalized()
 	if direction.is_equal_approx(Vector2.ZERO):
 		direction = 0

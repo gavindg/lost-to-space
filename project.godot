@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Global="*res://scripts/global.gd"
 Globals="*res://Global/globals.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="Fork to Space"

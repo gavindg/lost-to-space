@@ -1,15 +1,18 @@
 extends Node2D
 
+# export variables -- objects
 @export var world : TileMap = null
 @export var player : CharacterBody2D = null
 
-# export variables
+# export variables -- tile to place
 @export var block_atlas_coords : Vector2i = Vector2i(0, 0)
+@export var block_atlas_id : int = 0
 @export var player_block_placement_radius := 300.0
 
 # for printing debug statements
 @export var debug_messages : bool = false
 
+@onready var screen_center : Vector2 = Vector2()
 
 func _unhandled_input(event: InputEvent) -> void:
 	# on click
@@ -30,8 +33,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			# convert global click coords to map coords
 			var coords = world.local_to_map(world.to_local(click_pos))
 			
+			# TODO: check here if there's already a block in that position...
+			
 			# place block
-			world.set_cell(0, coords, 0, block_atlas_coords)
+			world.set_cell(0, coords, block_atlas_id, block_atlas_coords)
 			
 			# debug
 			if debug_messages:

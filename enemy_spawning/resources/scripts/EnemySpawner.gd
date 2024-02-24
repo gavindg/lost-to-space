@@ -21,7 +21,7 @@ extends Node2D
 @onready var green_slime_scene := preload("res://enemy_spawning/resources/enemies/slime/green_slime.tscn")
 
 # update
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var random_num = rng.randf()
 	if random_num < (1 / spawnRate):  # this might be really slow...
 		spawn_enemy()
@@ -32,12 +32,12 @@ func _physics_process(delta: float) -> void:
 func spawn_enemy():
 	
 	var enemy_prefab = choose_enemy()
-	var sign = 1 if rng.randf() < 0.5 else -1
+	var rand_sign = 1 if rng.randf() < 0.5 else -1
 	if player == null:
 		print("player not found")
 		return
-	var rand_pos_x : int = player.global_position.x + (radiusAwayFromPlayer * sign)
-	var pos_y : int = player.global_position.y - upward_displacement  # because -y is up
+	var rand_pos_x : int = player.global_position.x + (radiusAwayFromPlayer * rand_sign)
+	var pos_y := player.global_position.y - upward_displacement  # because -y is up
 	if enemy_prefab == null:
 		print("enemy prefab invalid")
 		return
@@ -46,7 +46,7 @@ func spawn_enemy():
 	add_child(enemy)
 	if manager != null:
 		manager.register(enemy)
-	print("spawning @", enemy.position)
+	#print("spawning @", enemy.position)
 	
 
 func choose_enemy():

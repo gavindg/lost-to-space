@@ -11,9 +11,13 @@ var wander_timer = 0.0; # internal timer for wander
 var is_jumping = false
 var in_combat = false
 
+# for animations
+@export var animation_player: AnimationPlayer = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Ready")
+	pass
+	#print("Ready")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +31,23 @@ func _process(delta):
 	else:
 		wander()
 	move_and_collide(velocity)
-		
+	
+	# TODO: animation player is null for some reason...
+	
+	# animate (WIP)
+	if animation_player != null:
+		if !is_jumping:
+			if velocity.x < 0:  # its moving left
+				animation_player.play("grounded_left")
+			elif velocity.x > 0:
+				animation_player.play("grounded_right")
+		else:
+			if velocity.x < 0:
+				animation_player.play("inair_left")
+			elif velocity.x > 0:
+				animation_player.play("inair_right")
+	else:
+		print("animation player is null")
 
 # the wander function of the slime
 func wander():
@@ -93,11 +113,11 @@ func calculate_direction_towards_player():
 
 func _on_detection_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		print("player entered")
+		#print("player entered")
 		in_combat = true
 
 
 func _on_detection_area_2d_body_exited(body):
 	if body.is_in_group("player"):
-		print("player exited")
+		#print("player exited")
 		in_combat = false

@@ -111,5 +111,5 @@ func _ready():
 	#gen_normalized_terrain(map_width, map_height)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+#func _process(delta):
+	#pass

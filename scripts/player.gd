@@ -11,7 +11,7 @@ var player_current_attack = false
 var current_dir = "down"
 const speed = 500
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	#player_movement(delta)
 	enemy_attack()
 	attack()
@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if health <= 0:
 		player_alive = false # end screen / respawn
 		health = 0
-		#print("Player has died.")
+		print("Player has died.")
 		#self.queue_free()
 
 #func player_movement(delta):
