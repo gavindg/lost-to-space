@@ -9,8 +9,8 @@ size = Vector2(6, 6)
 size = Vector2(8, 8)
 
 [node name="dropped_item" type="RigidBody2D"]
-collision_layer = 2
-collision_mask = 5
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_f41t3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,8 +21,8 @@ texture_filter = 1
 position = Vector2(-4.76837e-07, -4.76837e-07)
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 7
-collision_mask = 4
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1quru")
