@@ -120,6 +120,8 @@ shape = SubResource("RectangleShape2D_fbkow")
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 visible = false
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 scale = Vector2(10, 10)
