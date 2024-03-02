@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxuan5t7jof4n"]
+[gd_scene load_steps=14 format=3 uid="uid://bxuan5t7jof4n"]
 
 [ext_resource type="Script" path="res://Character/main_char_movement.gd" id="1_rmlvx"]
 [ext_resource type="Texture2D" uid="uid://bh64ao16bh0yr" path="res://Art/PlayerSheet/walking player 16x16.png" id="2_e62me"]
+[ext_resource type="PackedScene" uid="uid://ddaqqklwipreq" path="res://Character/subscenes/combat_handling.tscn" id="2_rr1i4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iva4w"]
 size = Vector2(16, 24)
@@ -392,6 +393,8 @@ size = Vector2(16, 24)
 [node name="main_char_CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_rmlvx")
+
+[node name="CombatHandling" parent="." instance=ExtResource("2_rr1i4")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_iva4w")
