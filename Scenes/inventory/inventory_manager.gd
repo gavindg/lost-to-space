@@ -64,7 +64,7 @@ func _ready():
 	assign_slots()
 	update_ui()
 
-func _process(delta):
+func _process(_delta):
 	check_toggle_inv()
 	check_in_inv()
 	check_drop()

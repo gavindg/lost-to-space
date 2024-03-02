@@ -21,5 +21,5 @@ func update_ui(slot: InvSlot):
 		else:
 			amount_text.visible = false
 
-func _process(delta):
+func _process(_delta):
 	global_position = get_global_mouse_position()

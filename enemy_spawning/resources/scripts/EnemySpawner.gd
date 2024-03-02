@@ -4,7 +4,8 @@ extends Node2D
 @export var player : CharacterBody2D = null
 
 # enemy manager
-@onready var manager : EnemyManager = %EnemyManager
+# @onready var manager : EnemyManager = %EnemyManager
+@onready var manager = null
 
 # this is the denominator of the spawn rate for enemies
 # so basically there is a 1 / (spawnRate) chance that an enemy will spawn per tick
