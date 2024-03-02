@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddaqqklwipreq"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_2v15l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8d6q"]
+radius = 141.796
+
+[node name="CombatHandling" type="Node2D"]
+script = ExtResource("1_2v15l")
+
+[node name="player_hitbox" type="Area2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(1, 3)
+shape = SubResource("CircleShape2D_i8d6q")
+
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="deal_attack_timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
