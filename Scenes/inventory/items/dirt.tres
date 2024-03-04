@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c8ryarrh35evx"]
-
-[ext_resource type="Script" path="res://Scenes/inventory/item.gd" id="1_10tvc"]
-[ext_resource type="Texture2D" uid="uid://cj3ugj0pb2c6c" path="res://Art/developer_art/dirt.png" id="2_h0sqm"]
-
-[resource]
-script = ExtResource("1_10tvc")
-name = "dirt"
-sprite = ExtResource("2_h0sqm")

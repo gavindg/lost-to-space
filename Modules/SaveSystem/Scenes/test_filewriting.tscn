@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl3vxuny8e32j"]
+
+[ext_resource type="Texture2D" uid="uid://d1ihj6d86b18r" path="res://Art/Sprites/DeveloperArt/space.jpeg" id="1_ifyrr"]
+[ext_resource type="Script" path="res://Modules/SaveSystem/Scripts/test_player_movement.gd" id="3_g0kds"]
+[ext_resource type="Texture2D" uid="uid://tvxpsi61ebq8" path="res://Art/Sprites/Etc/icon.svg" id="4_6yevr"]
+[ext_resource type="PackedScene" uid="uid://jd38toy4m66x" path="res://Modules/SaveSystem/Scenes/world_tile_map.tscn" id="4_7ui7r"]
+[ext_resource type="Script" path="res://Modules/SaveSystem/Scripts/game_saver.gd" id="5_dgnda"]
+[ext_resource type="PackedScene" uid="uid://h3tb03wbeylm" path="res://Modules/SaveSystem/Scenes/tile_placer.tscn" id="5_usfib"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ck3t4"]
+size = Vector2(128, 125)
+
+[node name="Game" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="Space" type="Sprite2D" parent="."]
+position = Vector2(573, 319)
+scale = Vector2(1.5225, 1.30025)
+texture = ExtResource("1_ifyrr")
+
+[node name="WorldRoot" type="Node2D" parent="."]
+position = Vector2(567, 585)
+
+[node name="TestPlayer" type="CharacterBody2D" parent="WorldRoot"]
+unique_name_in_owner = true
+position = Vector2(2.08165e-12, -66)
+script = ExtResource("3_g0kds")
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TestPlayer"]
+texture = ExtResource("4_6yevr")
+offset = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TestPlayer"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_ck3t4")
+
+[node name="MainCamera" type="Camera2D" parent="WorldRoot/TestPlayer"]
+position = Vector2(2.08165e-12, -194)
+
+[node name="TilePlacer" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("world", "player")]
+script = ExtResource("4_o6s6a")
+world = NodePath("../WorldTileMap")
+player = NodePath("../TestPlayer")
+
+[node name="GameSaver" type="Node2D" parent="."]
+script = ExtResource("5_dgnda")

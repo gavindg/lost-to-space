@@ -1,0 +1,146 @@
+[gd_scene load_steps=13 format=3 uid="uid://bc5bpweviejgo"]
+
+[ext_resource type="Script" path="res://Modules/Enemies/EnemyAI/Scripts/slime.gd" id="1_4cph1"]
+[ext_resource type="Texture2D" uid="uid://bkltfsbnex3tb" path="res://Art/Sprites/Enemies/Slimes/green slime 16x16.png" id="2_7smce"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_14fxo"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbkow"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc88l"]
+radius = 20.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ewbwa"]
+
+[sub_resource type="Animation" id="Animation_aesf5"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fg02r"]
+resource_name = "grounded"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qx0e2"]
+resource_name = "grounded_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_y76hd"]
+resource_name = "inair"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_sqoep"]
+resource_name = "inair_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s2jxq"]
+_data = {
+"RESET": SubResource("Animation_aesf5"),
+"grounded_left": SubResource("Animation_fg02r"),
+"grounded_right": SubResource("Animation_qx0e2"),
+"inair_left": SubResource("Animation_y76hd"),
+"inair_right": SubResource("Animation_sqoep")
+}
+
+[node name="GreenSlimeAI" type="RigidBody2D" node_paths=PackedStringArray("animation_player")]
+position = Vector2(528, 552)
+physics_material_override = SubResource("PhysicsMaterial_14fxo")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_4cph1")
+speed = 1
+min_wander_interval = 2
+gravity_strength = 2
+animation_player = NodePath("AnimationPlayer")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7smce")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fbkow")
+
+[node name="DetectionArea2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_bc88l")
+debug_color = Color(0.882353, 0, 0.815686, 0.419608)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="DetectionArea2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.388235)
+z_index = -1
+scale = Vector2(563.79, 563.79)
+mesh = SubResource("SphereMesh_ewbwa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s2jxq")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]
+[connection signal="body_exited" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_exited"]

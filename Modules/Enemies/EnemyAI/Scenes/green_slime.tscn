@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://twlew2lrot4j"]
+
+[ext_resource type="Script" path="res://Modules/Enemies/EnemyAI/Scripts/SlimeEnemy.gd" id="1_1wmnx"]
+[ext_resource type="PackedScene" uid="uid://bc5bpweviejgo" path="res://Old/Enemies/green_slime.tscn" id="2_76bra"]
+[ext_resource type="Script" path="res://Modules/Enemies/EnemyCombat/enemy.gd" id="3_iq87o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
+radius = 181.279
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pndt5"]
+transparency = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_vwncm"]
+material = SubResource("StandardMaterial3D_pndt5")
+radius = 175.0
+height = 350.0
+
+[node name="GreenSlime" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_1wmnx")
+
+[node name="GreenSlimeAI" parent="." groups=["Enemy"] instance=ExtResource("2_76bra")]
+position = Vector2(2.08165e-12, 2.08165e-12)
+collision_layer = 4
+
+[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("parent")]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("3_iq87o")
+parent = NodePath("../..")
+
+[node name="enemy_hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler"]
+scale = Vector2(0.3, 0.3)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
+shape = SubResource("CircleShape2D_hrobd")
+debug_color = Color(0.313726, 0.494118, 1, 0.419608)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
+visible = false
+mesh = SubResource("SphereMesh_vwncm")
+
+[node name="take_damage_cooldown" type="Timer" parent="GreenSlimeAI/CombatHandler"]
+wait_time = 0.5
+
+[connection signal="body_entered" from="GreenSlimeAI/CombatHandler/enemy_hitbox" to="GreenSlimeAI/CombatHandler" method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="GreenSlimeAI/CombatHandler/enemy_hitbox" to="GreenSlimeAI/CombatHandler" method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="GreenSlimeAI/CombatHandler/take_damage_cooldown" to="GreenSlimeAI/CombatHandler" method="_on_take_damage_cooldown_timeout"]

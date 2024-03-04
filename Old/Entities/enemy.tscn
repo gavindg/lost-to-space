@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyqpwfd7udtxu"]
+
+[ext_resource type="Texture2D" uid="uid://b17q4wacrfia3" path="res://Art/Sprites/Etc/slime.png" id="1_3jmdh"]
+[ext_resource type="Script" path="res://Modules/Enemies/EnemyCombat/enemy.gd" id="1_k3jsc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6rppg"]
+radius = 278.088
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61u6t"]
+size = Vector2(157, 158)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t631d"]
+radius = 181.279
+
+[node name="enemy" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_k3jsc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.96046e-08, 2)
+scale = Vector2(0.676111, 0.697222)
+texture = ExtResource("1_3jmdh")
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_6rppg")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_61u6t")
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(2, 2)
+shape = SubResource("CircleShape2D_t631d")
+
+[node name="take_damage_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
