@@ -12,10 +12,11 @@ var spawn_location
 @export var octaves : int = 5
 @export var lacunarity : int = 2
 @export var gain : float = 0.5
-@export var noise_threshold : float = -0.25
-@export var cave_offset : int = 50
+@export var noise_threshold : float = -0.08
 @export var cave_biome_change : int = 20
-@export var ore_rarity : float = -0.2
+@export var ore_rarity : float = -0.25
+@export var cave_frequency : float = 5
+@export var ore_frequency : float = 25
 
 @onready var tilemap = $TileMap
 
@@ -64,14 +65,14 @@ func gen_noise_map():
 	return grid	
 	
 func gen_caves():
-	var cave_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 5, octaves, lacunarity, gain)
-	var secondary_noise = gen_new_noise(FastNoiseLite.TYPE_SIMPLEX_SMOOTH, frequency * 10, octaves, lacunarity, gain) 
+	var cave_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * cave_frequency, octaves, lacunarity, gain)
+	var secondary_noise = gen_new_noise(FastNoiseLite.TYPE_SIMPLEX_SMOOTH, frequency * cave_frequency * 2, octaves, lacunarity, gain) 
 	for x in range(-map_width, map_width):
-		for y in range(ground_levels[x] + cave_offset + 1, map_height):
+		for y in range(ground_levels[x] + 1, map_height):
 			if cave_noise.get_noise_2d(x,y) < noise_threshold:
 				if secondary_noise.get_noise_2d(x,y) < 0.35:
 					tilemap.set_cell(0, Vector2i(x,y), 1, BLACKNESS)
-					noise_grid[Vector2i(x,y)] = 12390
+					noise_grid[Vector2i(x,y)] = 12390 # arbitrarily chosen value
 
 func gen_grass():
 	for i in range(-map_width, map_width):
@@ -91,9 +92,9 @@ func gen_spawn_area():
 	spawn_location = sel
 
 func gen_ore():
-	var ore_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 25, octaves, lacunarity, gain)
+	var ore_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * ore_frequency, octaves, lacunarity, gain)
 	for x in range(-map_width, map_width):
-		for y in range(ground_levels[x] + cave_offset +1, map_height):
+		for y in range(ground_levels[x] + 1, map_height):
 			if ore_noise.get_noise_2d(x,y) < ore_rarity:
 				tilemap.set_cell(0, Vector2i(x,y), 2, Vector2i(2,1))
 
