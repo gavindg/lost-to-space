@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxdbse2ol7adn"
-path="res://.godot/imported/slime_ball.png-0bda3d5b4550fa126a4bc57b93c0516d.ctex"
+uid="uid://dud62dqsxpjdv"
+path="res://.godot/imported/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg-a6a7447fa692389739be0731f6920002.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Items/slime_ball.png"
-dest_files=["res://.godot/imported/slime_ball.png-0bda3d5b4550fa126a4bc57b93c0516d.ctex"]
+source_file="res://Modules/Crafting/UI_art/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg"
+dest_files=["res://.godot/imported/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg-a6a7447fa692389739be0731f6920002.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bmr7kutswx2xr"]
 
-[ext_resource type="Script" path="res://Scenes/Crafting/CraftingStation.gd" id="1_b5lpk"]
+[ext_resource type="Script" path="res://Modules/Crafting/CraftingStation.gd" id="1_b5lpk"]
 
 [node name="CraftingStation" type="Node2D"]
 script = ExtResource("1_b5lpk")

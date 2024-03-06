@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmfvln3wdf01g"
-path="res://.godot/imported/glue_test.png-bbcef081ddf599ef1226d2499ae360ec.ctex"
+uid="uid://bxdbse2ol7adn"
+path="res://.godot/imported/slime_ball.png-8186b009a6056b3eaeca0337320190c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Items/glue_test.png"
-dest_files=["res://.godot/imported/glue_test.png-bbcef081ddf599ef1226d2499ae360ec.ctex"]
+source_file="res://Art/Sprites/Items/slime_ball.png"
+dest_files=["res://.godot/imported/slime_ball.png-8186b009a6056b3eaeca0337320190c2.ctex"]
 
 [params]
 
