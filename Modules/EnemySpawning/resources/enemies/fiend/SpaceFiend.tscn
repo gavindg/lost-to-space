@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcm3c43me82pa"]
+
+[ext_resource type="Script" path="res://Modules/EnemySpawning/resources/enemies/fiend/SpaceFiend.gd" id="1_6ik50"]
+[ext_resource type="Texture2D" uid="uid://b2by1mcovplrk" path="res://Modules/EnemySpawning/resources/enemies/fiend/mistawhite.jpeg" id="2_s5d04"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mim2"]
+size = Vector2(80, 48)
+
+[node name="SpaceFiend" type="Node2D"]
+script = ExtResource("1_6ik50")
+target = Vector2(400, 400)
+
+[node name="Body" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_6mim2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(0.022, 0.026)
+texture = ExtResource("2_s5d04")

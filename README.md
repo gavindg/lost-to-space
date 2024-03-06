@@ -1,7 +1,27 @@
 ## About
  Fork to space. VGDC Winter '24. What more is there to say.
 
-## For Programmers
+## Hotkeys
+
+#### movement
+
+ * WASD -- Move the player
+ * Space -- Jump (or double-jump, if in the air; or wall-jump, if touching a wall.)
+ * Shift -- Dash
+
+#### saving and loading 
+NOTE: (all of these are debug inputs... the game will ideally save & load when you exit the game)
+ * L -- Load Last Save
+ * K -- Save
+ * J -- Clear the screen of any blocks.
+
+#### inventory system
+
+ * E -- Open the inventory
+ * RMB -- pick / drop an item
+ * LMB -- pick up / drop a split stack (take / leave half the stack)
+
+## Notes For Programmers
  Hi hi, it's [Gavin](https://github.com/gavindg). Here are a few standards for working on this repo / generally useful information for you programmer folk:
 
  * This project is built with Godot 4.2.1. If you don't have that installed, get it [here](https://godotengine.org/).

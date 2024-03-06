@@ -1,0 +1,189 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwaaqhgl05ahg"]
+
+[ext_resource type="Script" path="res://Modules/Inventory/inventory_manager.gd" id="1_wlnvy"]
+[ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://Modules/Inventory/inv_ui.tscn" id="2_1lnsh"]
+[ext_resource type="PackedScene" uid="uid://b3hubqcgj81et" path="res://Modules/Inventory/hotbar_ui.tscn" id="3_1llls"]
+[ext_resource type="Texture2D" uid="uid://dvvo352rvqxdo" path="res://Art/Sprites/DeveloperArt/hotbar_select.png" id="4_adba1"]
+[ext_resource type="PackedScene" uid="uid://byygkggm2he0t" path="res://Modules/Inventory/inv_ui_cursor_item.tscn" id="4_oer8d"]
+
+[node name="inventory_manager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wlnvy")
+
+[node name="Inv_UI" parent="." instance=ExtResource("2_1lnsh")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 112.0
+offset_bottom = 35.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Hotbar_UI" parent="." instance=ExtResource("3_1llls")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 43.0
+offset_right = 112.0
+offset_bottom = 56.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Select_UI" type="GridContainer" parent="Hotbar_UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -4.5
+offset_right = 54.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 2
+columns = 10
+
+[node name="Panel1" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel1"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel2" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel2"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel3" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel3"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel4" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel4"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel5" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel5"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel6" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel6"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel7" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel7"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel8" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel8"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel9" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel9"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="Panel10" type="Panel" parent="Hotbar_UI/Select_UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Hotbar_UI/Select_UI/Panel10"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+texture = ExtResource("4_adba1")
+centered = false
+
+[node name="cursor_item" parent="." instance=ExtResource("4_oer8d")]
+layout_mode = 0

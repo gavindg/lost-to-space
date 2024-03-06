@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h3tb03wbeylm"]
+
+[ext_resource type="Script" path="res://Modules/TilePlacer/tile_placer.gd" id="1_yaj3s"]
+
+[node name="TilePlacer" type="Node2D"]
+script = ExtResource("1_yaj3s")
