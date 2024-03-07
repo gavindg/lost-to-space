@@ -1,5 +1,7 @@
 extends TileMap
 
+# put this on the tilemap !!!!!!! 
+
 # bc this is on the tilemap right now. change this line if it is moved.
 @onready var tilemap : TileMap = self
 @export var player : CharacterBody2D = null
@@ -24,26 +26,30 @@ func _ready() -> void:
 # as of right now, it'll stay like this
 func _input(event: InputEvent) -> void:
 	# for testing purposes
+	if not valid:
+		return
+		
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed:
 		# get the local position of the mouse cick on this canvas item
-		var local_pos := get_local_mouse_position()
-		var local_to_player := player.to_local(local_pos)
-		var global_from_player := player.to_global(local_to_player)
-		
+		var global_pos := get_global_mouse_position()
+		var local_to_player := player.to_local(global_pos)
+		#
 		if (!in_range(local_to_player)):
 			return
 		
 		# now get the tilemap position of the click.
-		
-		var local_to_tilemap := tilemap.to_local(local_pos)		
+
+		var local_to_tilemap := tilemap.to_local(global_pos)
 		var map_position := tilemap.local_to_map(local_to_tilemap)
 		
 		# depending on what's there, we do something different.
 		var source_at_click := tilemap.get_cell_source_id(0, map_position)
 		
+		print("source of this tile: ", source_at_click)
+		
 		if source_at_click == -1:
 			place_at(map_position)
-		else:
+		elif source_at_click != 1:  # if it's 1, that's a bg tile. i'm not messing w those as of now.
 			remove_at(map_position)
 
 

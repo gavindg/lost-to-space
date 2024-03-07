@@ -3000,6 +3000,7 @@ texture = ExtResource("1_orbgj")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dj0gq"]
 texture = ExtResource("2_e2vwn")
 0:0/0 = 0
+0:0/0/modulate = Color(0, 0, 0, 1)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -3314,6 +3315,7 @@ texture = ExtResource("4_lmo7g")
 7:11/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_iv81b"]
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Main"
@@ -3331,7 +3333,9 @@ ore_rarity = -0.25
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
 format = 2
-layer_0/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0, 2621443, 2, 0, 2621444, 2, 0, 2621445, 2, 0, 2621448, 2, 0, 2621446, 2, 0, 2621447, 2, 0, 2555904, 2, 0, 2555905, 2, 0, 2555906, 2, 0, 2555908, 2, 0, 2555907, 2, 0, 2555909, 2, 0, 2555910, 2, 0, 2555911, 2, 0, 2555912, 2, 0)
+layer_0/name = "background"
+layer_1/name = "foreground"
+layer_1/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0, 2621443, 2, 0, 2621444, 2, 0, 2621445, 2, 0, 2621448, 2, 0, 2621446, 2, 0, 2621447, 2, 0, 2555904, 2, 0, 2555905, 2, 0, 2555906, 2, 0, 2555908, 2, 0, 2555907, 2, 0, 2555909, 2, 0, 2555910, 2, 0, 2555911, 2, 0, 2555912, 2, 0, 131070, 2293761, 6)
 script = ExtResource("5_7sgfv")
 player = NodePath("../SceneObjects/Player")
 
@@ -3379,3 +3383,5 @@ radiusAwayFromPlayer = 300
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_rvhuw")
 autoplay = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
