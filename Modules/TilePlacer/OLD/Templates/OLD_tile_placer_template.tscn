@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhvbnmaemnkoo"]
 
-[ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Modules/TilePlacer/tile_placer.tscn" id="1_d43nf"]
+[ext_resource type="PackedScene" uid="uid://cbegjvuwaqmuu" path="res://Modules/TilePlacer/OLD/tile_placer.tscn" id="1_d43nf"]
 [ext_resource type="Texture2D" path="res://Art/TestTilesheet/tilesheet_complete.png" id="2_j7k4j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6ggp"]

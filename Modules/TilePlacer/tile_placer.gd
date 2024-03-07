@@ -1,55 +1,73 @@
-extends Node2D
+extends TileMap
 
-# export variables -- objects
-@export var world : TileMap = null
+# put this on the tilemap !!!!!!! 
+
+# bc this is on the tilemap right now. change this line if it is moved.
+@onready var tilemap : TileMap = self
 @export var player : CharacterBody2D = null
+@onready var valid := false
 
-# export variables -- tile to place
-@export var block_atlas_coords : Vector2i = Vector2i(0, 0)
-@export var block_atlas_id : int = 0
-@export var player_block_placement_radius := 300.0
+# TODO make this a constant
+@export var player_placement_radius = 200
 
-# for printing debug statements
-@export var debug_messages : bool = false
+# test constants  # TODO change these after testing !!
+const test_layer = 0
+const test_atlas = 2
+const test_atlas_coords = Vector2i(0, 0)
 
-@onready var screen_center : Vector2 = Vector2()
 
-func _unhandled_input(event: InputEvent) -> void:
-	# on click
-	if player == null:
-		if debug_messages:
-			pass
-			#print("player could not be found")
+func _ready() -> void:
+	if tilemap != null && player != null:
+		valid = true
+	print("valid ? ", valid)
+
+# this function could be optimized a bit
+# but it would probably become unreadable
+# as of right now, it'll stay like this
+func _input(event: InputEvent) -> void:
+	# for testing purposes
+	if not valid:
 		return
-
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if world == null || player == null:
-			if debug_messages:
-				print("[TilePlacer]: nothing to do; tilemap is ", world, "player is ", player)
+		
+	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed:
+		# get the local position of the mouse cick on this canvas item
+		var global_pos := get_global_mouse_position()
+		var local_to_player := player.to_local(global_pos)
+		#
+		if (!in_range(local_to_player)):
 			return
 		
-		# first check if click was within the player's placement radius
-		var click_pos : Vector2 = event.global_position  # get click position
-		if in_range(click_pos):
-			# convert global click coords to map coords
-			var coords = world.local_to_map(world.to_local(click_pos))
-			
-			# TODO: check here if there's already a block in that position...
-			
-			# place block
-			world.set_cell(0, coords, block_atlas_id, block_atlas_coords)
-			
-			# debug
-			if debug_messages:
-				print("click @", event.global_position)
-				print("placing @", coords)
-				
-		# if the click was too far
-		elif debug_messages:
-			print("click (too far) @", event.position)
-			print("player @", player.global_position)
-			print("distance:", click_pos.distance_to(player.global_position))
+		# now get the tilemap position of the click.
+
+		var local_to_tilemap := tilemap.to_local(global_pos)
+		var map_position := tilemap.local_to_map(local_to_tilemap)
+		
+		# depending on what's there, we do something different.
+		var source_at_click := tilemap.get_cell_source_id(0, map_position)
+		
+		print("source of this tile: ", source_at_click)
+		
+		if source_at_click == -1:
+			place_at(map_position)
+		elif source_at_click != 1:  # if it's 1, that's a bg tile. i'm not messing w those as of now.
+			remove_at(map_position)
 
 
-func in_range(click_pos) -> bool:
-	return click_pos.distance_to(player.global_position) < player_block_placement_radius;
+
+# takes a position local to the player & checks if it is within
+# the placable radius from the player
+
+# TODO make this check that the player is not placing a block
+# inside themself...
+func in_range(local_pos):
+	return abs(local_pos.length()) < player_placement_radius
+
+
+# places test tile @ local_pos. it's assumed that this
+func place_at(map_position):
+	tilemap.set_cell(test_layer, map_position, 
+					test_atlas, test_atlas_coords)
+					
+
+func remove_at(map_position):
+	tilemap.set_cell(test_layer, map_position, -1)
