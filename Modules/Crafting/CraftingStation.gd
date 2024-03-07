@@ -18,20 +18,14 @@ func can_craft(item: Item, inventory: Inventory) -> bool:
 	return can_craft
 	
 func craft(item: Item, inventory: Inventory):
+	print(inventory.contains(item, 1))
 	if not can_craft(item, inventory):
 		return
 	else:
+		for i in item.recipe:
+			inventory.remove(i, item.recipe[i])
 		inventory.insert(item, 1)
+	print(inventory.contains(item, 1))
 	
 	
 	
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

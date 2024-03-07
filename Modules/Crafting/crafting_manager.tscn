@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr8vlawiw4vy"]
+
+[ext_resource type="Script" path="res://Modules/Crafting/crafting_manager.gd" id="1_yn2hg"]
+[ext_resource type="PackedScene" uid="uid://qpr74x07ayev" path="res://Modules/Crafting/crafting_ui.tscn" id="3_3ftfl"]
+
+[node name="CraftingManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yn2hg")
+
+[node name="Crafting_UI" parent="." instance=ExtResource("3_3ftfl")]

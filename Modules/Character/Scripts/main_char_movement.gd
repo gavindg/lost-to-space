@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var inv: Inventory
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # basic movements: w/a/s/d to move up/left/down/right

@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=15 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/Overworld/New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Art/TileSheets/Overworld/Fork2Space_Tileset_16.png" id="4_lmo7g"]
-[ext_resource type="Resource" uid="uid://biwoopti48wgb" path="res://Modules/Inventory/test_inv.tres" id="6_4sdeu"]
 [ext_resource type="PackedScene" uid="uid://dr8vlawiw4vy" path="res://Modules/Crafting/crafting_manager.tscn" id="8_kt5da"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
@@ -3336,7 +3335,6 @@ layer_0/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0
 
 [node name="Player" parent="SceneObjects" groups=["player"] instance=ExtResource("3_aetbc")]
 position = Vector2(2.08165e-12, 2.08165e-12)
-inv = ExtResource("6_4sdeu")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Player"]
 position = Vector2(8, -24)
@@ -3360,9 +3358,8 @@ grow_horizontal = 1
 grow_vertical = 1
 player = NodePath("..")
 
-[node name="CraftingManager" parent="SceneObjects/Player" node_paths=PackedStringArray("player") instance=ExtResource("8_kt5da")]
-scale = Vector2(0.452134, 0.452134)
-player = NodePath("..")
+[node name="CraftingManager" parent="SceneObjects/Player" instance=ExtResource("8_kt5da")]
+scale = Vector2(0.508819, 0.508819)
 
 [node name="Management" type="Node2D" parent="."]
 

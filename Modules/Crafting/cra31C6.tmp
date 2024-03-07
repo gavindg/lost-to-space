@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://qpr74x07ayev"]
+
+[ext_resource type="Texture2D" uid="uid://yyf06851xdl0" path="res://Art/Sprites/DeveloperArt/crafting menu.png" id="1_78n27"]
+[ext_resource type="Script" path="res://Modules/Crafting/crafting_ui.gd" id="1_ifwuu"]
+[ext_resource type="Texture2D" uid="uid://domjwy25hn4t2" path="res://Art/Sprites/DeveloperArt/CraftButton.png" id="2_i2mh5"]
+[ext_resource type="Texture2D" uid="uid://c72pocmdioilh" path="res://Art/Sprites/DeveloperArt/CraftButtonPressed.png" id="3_t2k8j"]
+[ext_resource type="Script" path="res://Modules/Crafting/VCraftingContainer.gd" id="5_iumu1"]
+[ext_resource type="PackedScene" uid="uid://bmr7kutswx2xr" path="res://Modules/Crafting/CraftingStation.tscn" id="6_oc3ja"]
+
+[node name="Crafting_UI" type="Node2D"]
+script = ExtResource("1_ifwuu")
+
+[node name="CraftMenu" type="TextureRect" parent="."]
+offset_left = -124.0
+offset_top = -82.5
+offset_right = 124.0
+offset_bottom = 82.5
+scale = Vector2(0.999069, 1)
+texture = ExtResource("1_78n27")
+
+[node name="CraftButton" type="TextureButton" parent="."]
+offset_left = -124.0
+offset_top = -99.0
+offset_right = -84.0
+offset_bottom = -59.0
+scale = Vector2(2.67909, 2.67909)
+texture_normal = ExtResource("2_i2mh5")
+texture_pressed = ExtResource("3_t2k8j")
+
+[node name="CraftingContainer" type="ScrollContainer" parent="."]
+offset_left = -121.0
+offset_top = -80.0
+offset_bottom = 79.0
+vertical_scroll_mode = 0
+
+[node name="VCraftingContainer" type="VBoxContainer" parent="CraftingContainer"]
+layout_mode = 2
+script = ExtResource("5_iumu1")
+
+[node name="CraftingStation" parent="CraftingContainer/VCraftingContainer" instance=ExtResource("6_oc3ja")]
