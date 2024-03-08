@@ -18,14 +18,12 @@ func can_craft(item: Item, inventory: Inventory) -> bool:
 	return can_craft
 	
 func craft(item: Item, inventory: Inventory):
-	print(inventory.contains(item, 1))
 	if not can_craft(item, inventory):
 		return
 	else:
 		for i in item.recipe:
 			inventory.remove(i, item.recipe[i])
 		inventory.insert(item, 1)
-	print(inventory.contains(item, 1))
 	
 	
 	
