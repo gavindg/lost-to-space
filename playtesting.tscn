@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
-[ext_resource type="AudioStream" uid="uid://dnpkcsy8ew8dj" path="res://Art/Sound/Music/overworld.wav" id="12_rvhuw"]
+[ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j3hs"]
 texture = ExtResource("1_orbgj")
@@ -3381,7 +3381,7 @@ radiusAwayFromPlayer = 300
 [node name="CanvasLayer" parent="UI" instance=ExtResource("10_31it1")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_rvhuw")
+stream = ExtResource("11_hm7xj")
 autoplay = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
