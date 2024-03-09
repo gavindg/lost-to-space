@@ -69,7 +69,7 @@ func _physics_process(delta):
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
 			# if the character is colliding against the wall and could do wall jump
-			if can_wall_jump == true:
+			if can_wall_jump == true && !is_on_floor():
 				# do wall_jump
 				wall_jump(wall_jump_direction)
 			
