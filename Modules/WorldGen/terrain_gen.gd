@@ -77,7 +77,7 @@ func gen_caves():
 		for y in range(ground_levels[x] + cave_offset + 1, map_height):
 			if cave_noise.get_noise_2d(x,y) < noise_threshold:
 				if secondary_noise.get_noise_2d(x,y) < 0.35:
-					tilemap.set_cell(FOREGROUND, Vector2i(x,y), 0, BLACKNESS)
+					tilemap.set_cell(1, Vector2i(x,y), -1) #, BLACKNESS)
 					noise_grid[Vector2i(x,y)] = 12390
 
 func gen_grass():
@@ -106,7 +106,7 @@ func gen_ore():
 
 func gen_walls():
 	for x in range(-map_width, map_width):
-		for y in range(ground_levels[x] + cave_biome_change, map_height):
+		for y in range(ground_levels[x] + 1, map_height):
 			tilemap.set_cell(BACKGROUND, Vector2i(x,y), 0, BLACKNESS)
 
 # Called when the node enters the scene tree for the first time.

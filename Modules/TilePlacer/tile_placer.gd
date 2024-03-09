@@ -12,8 +12,12 @@ extends TileMap
 
 # test constants  # TODO change these after testing !!
 const test_layer = 0
-const test_atlas = 2
+const test_atlas = 0
 const test_atlas_coords = Vector2i(0, 0)
+
+const FOREGROUND_LAYER = 1
+const BACKGROUND_LAYER = 0
+const SOURCE = 0
 
 
 func _ready() -> void:
@@ -43,14 +47,16 @@ func _input(event: InputEvent) -> void:
 		var map_position := tilemap.local_to_map(local_to_tilemap)
 		
 		# depending on what's there, we do something different.
-		var source_at_click := tilemap.get_cell_source_id(0, map_position)
+		var fg_source := tilemap.get_cell_source_id(FOREGROUND_LAYER, map_position)
+		var bg_source := tilemap.get_cell_source_id(BACKGROUND_LAYER, map_position)
 		
-		print("source of this tile: ", source_at_click)
+		#print("foreground source: ", fg_source)
+		#print("background source: ", bg_source)
 		
-		if source_at_click == -1:
-			place_at(map_position)
-		elif source_at_click != 1:  # if it's 1, that's a bg tile. i'm not messing w those as of now.
-			remove_at(map_position)
+		if fg_source == 0:  # foreground tile is there, remove it
+			remove_fg_at(map_position)
+		else:
+			place_fg_at(map_position)
 
 
 
@@ -64,10 +70,10 @@ func in_range(local_pos):
 
 
 # places test tile @ local_pos. it's assumed that this
-func place_at(map_position):
-	tilemap.set_cell(test_layer, map_position, 
+func place_fg_at(map_position):
+	tilemap.set_cell(FOREGROUND_LAYER, map_position, 
 					test_atlas, test_atlas_coords)
 					
 
-func remove_at(map_position):
-	tilemap.set_cell(test_layer, map_position, -1)
+func remove_fg_at(map_position):
+	tilemap.set_cell(FOREGROUND_LAYER, map_position, -1)
