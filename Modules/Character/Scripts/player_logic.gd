@@ -65,6 +65,14 @@ func enemy_attack():  # problem: not in range
 	#print("enemy in attack range: ", enemy_in_attack_range, "\nenemy attack cooldown: ", enemy_attack_cooldown)
 	if enemy_in_attack_range and enemy_attack_cooldown:
 		health = health - 20
+		Globals.player_health -= 20
+		print("current health: ", Globals.player_health)
+		# go back to the Playtesting Scene from the Player Scene
+		var parent = get_parent().get_parent().get_parent()
+		# Go to the CanvasLayer Scene
+		var UI_node = parent.get_node("UI").get_node("CanvasLayer")
+		if UI_node and UI_node.has_method("update_health_bar"):
+			UI_node.update_health_bar()
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 

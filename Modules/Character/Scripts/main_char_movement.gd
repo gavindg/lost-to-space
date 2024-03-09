@@ -151,15 +151,16 @@ func wall_jump(wall_jump_dir):
 	
 # below are health mechanism
 
-func take_damage():
-	Globals.player_health -= 10
-	print("current health: ", Globals.player_health)
-	var parent = get_parent()
-	var sibling = parent.get_node("user_interface_CanvasLayer")
-	if sibling and sibling.has_method("update_health_bar"):
-		sibling.update_health_bar()
-	if Globals.player_health <= 0:
-		die()
+#currently not dealing with damage logic here
+#func take_damage():
+	#Globals.player_health -= 10
+	#print("current health: ", Globals.player_health)
+	#var parent = get_parent()
+	#var sibling = parent.get_node("user_interface_CanvasLayer")
+	#if sibling and sibling.has_method("update_health_bar"):
+		#sibling.update_health_bar()
+	#if Globals.player_health <= 0:
+		#die()
 
 
 func die():
