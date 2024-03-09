@@ -8,6 +8,7 @@ extends CharacterBody2D
 # Regular movements
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
+const SLIDING_GRAVITY = 200
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -55,6 +56,11 @@ func _physics_process(delta):
 		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = 1
+			# Sliding when colliding and facing against the wall
+			if velocity.y > 0:
+				gravity = SLIDING_GRAVITY
+		#else:
+			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 	# collide with the right wall and jmup left-up-wards
 	elif $right_RayCast2D.is_colliding():
@@ -62,8 +68,15 @@ func _physics_process(delta):
 		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = -1
+			# Sliding when colliding and facing against the wall
+			if velocity.y > 0:
+				gravity = SLIDING_GRAVITY
+		#else:
+			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+			
 	else:
 		can_wall_jump = false
+		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		
 	if is_special_movement == false:
 		# Handle jump.
