@@ -2,7 +2,6 @@ extends Control
 
 @onready var inv: Inventory = preload("res://Modules/Inventory/test_inv.tres")
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
-@onready var cursor = $cursor_item
 
 
 func update_ui():
