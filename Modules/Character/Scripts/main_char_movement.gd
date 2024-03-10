@@ -8,6 +8,7 @@ extends CharacterBody2D
 # Regular movements
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
+const SLIDING_GRAVITY = 200
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -55,6 +56,11 @@ func _physics_process(delta):
 		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = 1
+			# Sliding when colliding and facing against the wall
+			if velocity.y > 0:
+				gravity = SLIDING_GRAVITY
+		#else:
+			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 	# collide with the right wall and jmup left-up-wards
 	elif $right_RayCast2D.is_colliding():
@@ -62,16 +68,24 @@ func _physics_process(delta):
 		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = -1
+			# Sliding when colliding and facing against the wall
+			if velocity.y > 0:
+				gravity = SLIDING_GRAVITY
+		#else:
+			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+			
 	else:
 		can_wall_jump = false
+		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		
 	if is_special_movement == false:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
 			# if the character is colliding against the wall and could do wall jump
-			if can_wall_jump == true:
-				# do wall_jump
-				wall_jump(wall_jump_direction)
+			if can_wall_jump == true && !is_on_floor():
+				if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+					# do wall_jump
+					wall_jump(wall_jump_direction)
 			
 			# if the character could jump for the first time
 			elif !has_jumped && is_on_floor():
@@ -151,15 +165,16 @@ func wall_jump(wall_jump_dir):
 	
 # below are health mechanism
 
-func take_damage():
-	Globals.player_health -= 10
-	print("current health: ", Globals.player_health)
-	var parent = get_parent()
-	var sibling = parent.get_node("user_interface_CanvasLayer")
-	if sibling and sibling.has_method("update_health_bar"):
-		sibling.update_health_bar()
-	if Globals.player_health <= 0:
-		die()
+#currently not dealing with damage logic here
+#func take_damage():
+	#Globals.player_health -= 10
+	#print("current health: ", Globals.player_health)
+	#var parent = get_parent()
+	#var sibling = parent.get_node("user_interface_CanvasLayer")
+	#if sibling and sibling.has_method("update_health_bar"):
+		#sibling.update_health_bar()
+	#if Globals.player_health <= 0:
+		#die()
 
 
 func die():
