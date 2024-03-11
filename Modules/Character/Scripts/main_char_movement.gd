@@ -6,29 +6,30 @@ extends CharacterBody2D
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
 # Regular movements
-const SPEED = 200.0
-const JUMP_VELOCITY = -300.0
+const speed = Globals.SPEED
+const jump_speed = Globals.JUMP_SPEED
+const vertical_speed_limit = Globals.VERTICAL_SPEED_LIMIT
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-const SLIDING_GRAVITY = 200
+const sliding_gravity = Globals.SLIDING_GRAVITY
 
 # double-jump
 var has_jumped = false
 var has_double_jumped = false
-const double_jump_speed = -300
+const double_jump_speed = Globals.DOUBLE_JUMP_SPEED
 
 # dash
 var is_dashing = false
 var has_dashed = false
-var dash_speed = 300
+const dash_speed = Globals.DASH_SPEED
 
 # wall-jump
 var can_wall_jump = false
 var wall_jump_direction = 0
-var wall_jump_speed_againstwall = 200
-var wall_jump_speed_upwards = -300
+const wall_jump_speed_againstwall = Globals.WALL_JUMP_SPEED_AGAINST_WALL
+const wall_jump_speed_upwards = Globals.WALL_JUMP_SPEED_UPWARDS
 
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
@@ -44,9 +45,11 @@ func _physics_process(delta):
 		has_double_jumped = false
 		has_dashed = false
 	
-	# Add the gravity.
+	# Add the gravity and restrict maxium vertical speed for falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		if velocity.y > vertical_speed_limit:
+			velocity.y = vertical_speed_limit
 		
 	# handle collision and slide_wall
 	# character needs to collide against the wall to slide
@@ -55,7 +58,7 @@ func _physics_process(delta):
 		var colliderL = $left_RayCast2D.get_collider()
 		if (colliderR is TileMap || colliderL is TileMap) && (Input.is_action_pressed("left") || Input.is_action_pressed("right")) && !is_on_floor():
 			if velocity.y > 0:
-				gravity = SLIDING_GRAVITY
+				gravity = sliding_gravity
 	else:
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		
@@ -91,7 +94,7 @@ func _physics_process(delta):
 			
 			# if the character could jump for the first time
 			elif !has_jumped && is_on_floor():
-				velocity.y = JUMP_VELOCITY
+				velocity.y = jump_speed
 				has_jumped = true
 			# if not, check for availbility to jump again
 			else:
@@ -109,9 +112,9 @@ func _physics_process(delta):
 				if direction != 0:
 					last_move_direction = direction
 				if direction:
-					velocity.x = direction * SPEED
+					velocity.x = direction * speed
 				else:
-					velocity.x = move_toward(velocity.x, 0, SPEED)
+					velocity.x = move_toward(velocity.x, 0, speed)
 			# do dash
 			if Input.is_action_just_pressed("dash") && has_dashed == false:
 				dash()
