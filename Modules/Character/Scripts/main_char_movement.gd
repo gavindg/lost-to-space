@@ -8,11 +8,11 @@ extends CharacterBody2D
 # Regular movements
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
-const SLIDING_GRAVITY = 200
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+const SLIDING_GRAVITY = 200
 
 # double-jump
 var has_jumped = false
@@ -48,6 +48,18 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
+	# handle collision and slide_wall
+	# character needs to collide against the wall to slide
+	if $left_RayCast2D.is_colliding() || $right_RayCast2D.is_colliding():
+		var colliderR = $right_RayCast2D.get_collider()
+		var colliderL = $left_RayCast2D.get_collider()
+		if (colliderR is TileMap || colliderL is TileMap) && (Input.is_action_pressed("left") || Input.is_action_pressed("right")) && !is_on_floor():
+			if velocity.y > 0:
+				gravity = SLIDING_GRAVITY
+	else:
+		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+		
+		
 		
 	# handle collision and wall_jump
 	# collide with the left wall and jmup right-up-wards
@@ -56,31 +68,21 @@ func _physics_process(delta):
 		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = 1
-			# Sliding when colliding and facing against the wall
-			if velocity.y > 0:
-				gravity = SLIDING_GRAVITY
-		#else:
-			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 	# collide with the right wall and jmup left-up-wards
 	elif $right_RayCast2D.is_colliding():
 		var collider = $right_RayCast2D.get_collider()
 		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = -1
-			# Sliding when colliding and facing against the wall
-			if velocity.y > 0:
-				gravity = SLIDING_GRAVITY
-		#else:
-			#gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 			
 	else:
 		can_wall_jump = false
-		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+	
 		
 	if is_special_movement == false:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
+			gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 			# if the character is colliding against the wall and could do wall jump
 			if can_wall_jump == true && !is_on_floor():
 				if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
@@ -134,6 +136,7 @@ enum directions {
 # the character should be able to dash for a fixed distance for one of the 8 directions on the ground or in the air
 # you can dash once before you land to the ground again
 func dash():
+	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 	is_special_movement = true
 	var x_direction = Input.get_axis("left", "right")
 	var y_direction = Input.get_axis("up", "down")
