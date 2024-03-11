@@ -6,30 +6,30 @@ extends CharacterBody2D
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
 # Regular movements
-const speed = Globals.SPEED
-const jump_speed = Globals.JUMP_SPEED
-const vertical_speed_limit = Globals.VERTICAL_SPEED_LIMIT
+@export var speed = 200
+@export var jump_speed = -300.0
+@export var vertical_speed_limit = 600
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-const sliding_gravity = Globals.SLIDING_GRAVITY
+@export var sliding_gravity = 200
 
 # double-jump
 var has_jumped = false
 var has_double_jumped = false
-const double_jump_speed = Globals.DOUBLE_JUMP_SPEED
+@export var double_jump_speed = -300
 
 # dash
 var is_dashing = false
 var has_dashed = false
-const dash_speed = Globals.DASH_SPEED
+@export var dash_speed = 300
 
 # wall-jump
 var can_wall_jump = false
 var wall_jump_direction = 0
-const wall_jump_speed_againstwall = Globals.WALL_JUMP_SPEED_AGAINST_WALL
-const wall_jump_speed_upwards = Globals.WALL_JUMP_SPEED_UPWARDS
+@export var wall_jump_speed_againstwall = 200
+@export var wall_jump_speed_upwards = -300
 
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
