@@ -393,6 +393,7 @@ size = Vector2(16, 24)
 [node name="main_char_CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_c28td")
+speed = 200.0
 
 [node name="CombatHandling" parent="." instance=ExtResource("2_x20g2")]
 
