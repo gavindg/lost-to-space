@@ -50,13 +50,23 @@ func _input(event: InputEvent) -> void:
 		var fg_source := tilemap.get_cell_source_id(FOREGROUND_LAYER, map_position)
 		var bg_source := tilemap.get_cell_source_id(BACKGROUND_LAYER, map_position)
 		
-		#print("foreground source: ", fg_source)
-		#print("background source: ", bg_source)
+		print("foreground source: ", fg_source)
+		print("background source: ", bg_source)
 		
 		if fg_source == 0:  # foreground tile is there, remove it
 			remove_fg_at(map_position)
 		else:
-			place_fg_at(map_position)
+			# if there's a background tile there, let's place a block
+			# in the foreground.
+			if bg_source != -1:
+				place_fg_at(map_position)
+			
+			else:
+				var adj = get_adjacent_source_ids(map_position)
+				for source in adj:
+					if source != -1:
+						place_fg_at(map_position)
+					# TODO: check here if the foreground source exists...
 
 
 
@@ -77,3 +87,16 @@ func place_fg_at(map_position):
 
 func remove_fg_at(map_position):
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, -1)
+
+
+func get_adjacent_source_ids(map_position):
+	var adj = []
+	adj.append(tilemap.get_cell_source_id(FOREGROUND_LAYER,
+				 map_position + Vector2i.LEFT))
+	adj.append(tilemap.get_cell_source_id(FOREGROUND_LAYER,
+				 map_position + Vector2i.UP))
+	adj.append(tilemap.get_cell_source_id(FOREGROUND_LAYER,
+				 map_position + Vector2i.RIGHT))
+	adj.append(tilemap.get_cell_source_id(FOREGROUND_LAYER,
+				 map_position + Vector2i.DOWN))
+	return adj
