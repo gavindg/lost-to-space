@@ -3,7 +3,7 @@ extends Node2D
 
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
-var health = 100
+#var health = 100
 
 # can be used for determining when to bring up end screen etc...
 var player_alive = true
@@ -20,9 +20,15 @@ func _physics_process(_delta):
 	enemy_attack()
 	attack()
 	
-	if health <= 0:
+	#if health <= 0:
+		#player_alive = false # end screen / respawn
+		#health = 0
+		##self.queue_free()
+		#print("YOU DEAD !!")
+
+	if Globals.player_health <= 0:
 		player_alive = false # end screen / respawn
-		health = 0
+		Globals.player_health = 0
 		#self.queue_free()
 		print("YOU DEAD !!")
 
@@ -64,7 +70,15 @@ func _on_player_hitbox_body_exited(body):
 func enemy_attack():  # problem: not in range
 	#print("enemy in attack range: ", enemy_in_attack_range, "\nenemy attack cooldown: ", enemy_attack_cooldown)
 	if enemy_in_attack_range and enemy_attack_cooldown:
-		health = health - 20
+		#health = health - 20
+		Globals.player_health -= 20
+		print("current health: ", Globals.player_health)
+		# go back to the Playtesting Scene from the Player Scene
+		var parent = get_parent().get_parent().get_parent()
+		# Go to the CanvasLayer Scene
+		var UI_node = parent.get_node("UI").get_node("CanvasLayer")
+		if UI_node and UI_node.has_method("update_health_bar"):
+			UI_node.update_health_bar()
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 
