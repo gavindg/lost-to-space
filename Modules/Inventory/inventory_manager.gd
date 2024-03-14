@@ -61,6 +61,7 @@ func assign_slots():
 	hotbar_ui.assign_slots(width,height)
 
 func _ready():
+	Globals.inv_manager = self
 	assign_slots()
 	update_ui()
 

@@ -32,7 +32,8 @@ var wall_jump_speed_upwards = -300
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
 
-
+func _ready():
+	Globals.player = self
 
 func _physics_process(delta):
 	animation_handler()
