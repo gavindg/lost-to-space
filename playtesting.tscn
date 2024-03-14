@@ -3459,9 +3459,10 @@ player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
 
-[node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player")]
+[node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
 script = ExtResource("10_x7kja")
 player = NodePath("../../SceneObjects/Player")
+tilemap = NodePath("../../TileMap")
 spawnRate = 100.0
 radiusAwayFromPlayer = 300
 
