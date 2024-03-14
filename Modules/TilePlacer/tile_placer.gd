@@ -50,8 +50,8 @@ func _input(event: InputEvent) -> void:
 		var fg_source := tilemap.get_cell_source_id(FOREGROUND_LAYER, map_position)
 		var bg_source := tilemap.get_cell_source_id(BACKGROUND_LAYER, map_position)
 		
-		print("foreground source: ", fg_source)
-		print("background source: ", bg_source)
+		#print("foreground source: ", fg_source)
+		#print("background source: ", bg_source)
 		
 		if fg_source == 0:  # foreground tile is there, remove it
 			remove_fg_at(map_position)
