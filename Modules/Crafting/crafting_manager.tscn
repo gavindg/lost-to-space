@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr8vlawiw4vy"]
+[gd_scene load_steps=3 format=3 uid="uid://bhtsd5f6gbnyl"]
 
 [ext_resource type="Script" path="res://Modules/Crafting/crafting_manager.gd" id="1_yn2hg"]
-[ext_resource type="PackedScene" uid="uid://qpr74x07ayev" path="res://Modules/Crafting/crafting_ui.tscn" id="3_3ftfl"]
+[ext_resource type="PackedScene" uid="uid://qex17x66s1qr" path="res://Modules/Crafting/crafting_ui.tscn" id="3_3ftfl"]
 
 [node name="CraftingManager" type="Control"]
 layout_mode = 3

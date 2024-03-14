@@ -15,12 +15,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	check_toggle_craft()
-
+	
 func check_toggle_craft():
-	if Input.is_action_just_pressed("c"):
+	if Input.is_action_just_pressed("e"):
 		if is_open:
 			is_open = false
 			visible = false
 		else: 
 			is_open = true
 			visible = true
+
+

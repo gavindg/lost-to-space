@@ -43,6 +43,8 @@ script = ExtResource("5_iumu1")
 layout_mode = 2
 script = ExtResource("6_ub6vo")
 
+[node name="CraftingStation" parent="CraftingContainer/VCraftingContainer/RecipeUI" instance=ExtResource("6_oc3ja")]
+
 [node name="NinePatchRect" type="NinePatchRect" parent="CraftingContainer/VCraftingContainer/RecipeUI"]
 layout_mode = 0
 offset_left = 121.0
@@ -83,5 +85,3 @@ layout_mode = 2
 
 [node name="Recipe_UI_Slot9" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
-
-[node name="CraftingStation" parent="CraftingContainer/VCraftingContainer" instance=ExtResource("6_oc3ja")]
