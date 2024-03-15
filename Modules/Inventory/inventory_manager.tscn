@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwaaqhgl05ahg"]
+[gd_scene load_steps=7 format=3 uid="uid://cwaaqhgl05ahg"]
 
 [ext_resource type="Script" path="res://Modules/Inventory/inventory_manager.gd" id="1_wlnvy"]
 [ext_resource type="PackedScene" uid="uid://c0p3upkksbl3u" path="res://Modules/Inventory/inv_ui.tscn" id="2_1lnsh"]
 [ext_resource type="PackedScene" uid="uid://b3hubqcgj81et" path="res://Modules/Inventory/hotbar_ui.tscn" id="3_1llls"]
 [ext_resource type="Texture2D" uid="uid://dvvo352rvqxdo" path="res://Art/Sprites/DeveloperArt/hotbar_select.png" id="4_adba1"]
 [ext_resource type="PackedScene" uid="uid://byygkggm2he0t" path="res://Modules/Inventory/inv_ui_cursor_item.tscn" id="4_oer8d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fhcjf"]
+font_size = 15
 
 [node name="inventory_manager" type="Control"]
 layout_mode = 3
@@ -190,3 +193,12 @@ centered = false
 [node name="cursor_item" parent="." instance=ExtResource("4_oer8d")]
 visibility_layer = 2
 layout_mode = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 56.0
+offset_right = 40.0
+offset_bottom = 79.0
+scale = Vector2(0.5, 0.5)
+text = "Text"
+label_settings = SubResource("LabelSettings_fhcjf")

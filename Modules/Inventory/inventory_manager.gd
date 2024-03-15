@@ -2,6 +2,8 @@ extends Control
 
 @export var player: CharacterBody2D
 
+@onready var test_label = $Label
+
 @onready var inv: Inventory = preload("res://Modules/Inventory/test_inv.tres")
 @onready var inv_ui = $Inv_UI
 @onready var hotbar_ui = $Hotbar_UI
@@ -19,6 +21,9 @@ extends Control
 
 @onready var holding: bool  = false #whether there is an item in the cursor slot
 @onready var mouse_in_inv: bool = false #whether mouse hovering over the inventory
+
+func update_test_label(pos):
+	test_label.text = str(pos)
 
 func check_holding():
 	if(inv.cursor_slot.item == null):

@@ -45,6 +45,7 @@ func _input(event: InputEvent) -> void:
 
 		var local_to_tilemap := tilemap.to_local(global_pos)
 		var map_position := tilemap.local_to_map(local_to_tilemap)
+		Globals.inv_manager.update_test_label(map_position)
 		
 		# depending on what's there, we do something different.
 		var fg_source := tilemap.get_cell_source_id(FOREGROUND_LAYER, map_position)
