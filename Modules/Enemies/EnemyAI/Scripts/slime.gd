@@ -12,7 +12,7 @@ var is_jumping = false
 var in_combat = false
 
 # for animations
-@export var animation_player: AnimationPlayer = null
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
