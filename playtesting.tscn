@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=18 format=3 uid="uid://kchygqvutju4"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
