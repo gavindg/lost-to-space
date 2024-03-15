@@ -184,7 +184,7 @@ func _ready():
 	gen_plants()
 	gen_walls()
 	
-	tilemap.set_cell(FOREGROUND, Vector2i(0,0), 1, Vector2i(2,6))
+	#tilemap.set_cell(FOREGROUND, Vector2i(0,0), 1, Vector2i(2,6))
 	#gen_normalized_terrain(map_width, map_height)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
