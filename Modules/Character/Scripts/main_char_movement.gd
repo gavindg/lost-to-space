@@ -93,14 +93,16 @@ func _physics_process(delta):
 					wall_jump(wall_jump_direction)
 			
 			# if the character could jump for the first time
-			elif !has_jumped && is_on_floor():
+			elif !has_jumped:
 				velocity.y = jump_speed
 				has_jumped = true
 			# if not, check for availbility to jump again
 			else:
-				if !has_double_jumped:
+				if has_jumped && !has_double_jumped && !is_on_floor():
 					velocity.y = double_jump_speed
 					has_double_jumped = true
+					
+					
 				
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
