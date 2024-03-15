@@ -54,9 +54,10 @@ func _physics_process(delta):
 		
 	# handle collision and slide_wall
 	# character needs to collide against the wall to slide
-	if $left_RayCast2D.is_colliding() || $right_RayCast2D.is_colliding():
-		var colliderR = $right_RayCast2D.get_collider()
-		var colliderL = $left_RayCast2D.get_collider()
+	
+	if $CollisionShape2D/left_RayCast2D.is_colliding() || $CollisionShape2D/right_RayCast2D.is_colliding():
+		var colliderR = $CollisionShape2D/right_RayCast2D.get_collider()
+		var colliderL = $CollisionShape2D/left_RayCast2D.get_collider()
 		if (colliderR is TileMap || colliderL is TileMap) && (Input.is_action_pressed("left") || Input.is_action_pressed("right")) && !is_on_floor():
 			if velocity.y > 0:
 				gravity = sliding_gravity
@@ -67,14 +68,14 @@ func _physics_process(delta):
 		
 	# handle collision and wall_jump
 	# collide with the left wall and jmup right-up-wards
-	if $left_RayCast2D.is_colliding():
-		var collider = $left_RayCast2D.get_collider()
+	if $CollisionShape2D/left_RayCast2D.is_colliding():
+		var collider = $CollisionShape2D/left_RayCast2D.get_collider()
 		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = 1
 	# collide with the right wall and jmup left-up-wards
-	elif $right_RayCast2D.is_colliding():
-		var collider = $right_RayCast2D.get_collider()
+	elif $CollisionShape2D/right_RayCast2D.is_colliding():
+		var collider = $CollisionShape2D/right_RayCast2D.get_collider()
 		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
 			can_wall_jump = true
 			wall_jump_direction = -1
