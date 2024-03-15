@@ -131,22 +131,25 @@ func gen_decor_grass(col):
 func gen_decor_tree(col):
 	if noise_grid[Vector2i(col, ground_levels[col])] == BLANK:
 		return
+	var ground = ground_levels[col]
 	var height = randi() % 10 + 1
 	var rand = randi() % 3
-	var dec 	
+	var dec     
 	if rand == 0:
 		dec = DECOR_TREE_1
-		tilemap.set_cell(BACKGROUND, Vector2i(col, -height), 0, DECOR_TREE_1_TOP)
+		tilemap.set_cell(BACKGROUND, Vector2i(col, ground-1), 0, DECOR_TREE_1)
+		tilemap.set_cell(BACKGROUND, Vector2i(col, ground-2), 0, DECOR_TREE_1_TOP)
+		return
 	elif rand == 1:
 		dec = DECOR_TREE_2
-		tilemap.set_cell(BACKGROUND, Vector2i(col, -height), 0, DECOR_TREE_2_TOP)
+		tilemap.set_cell(BACKGROUND, Vector2i(col, ground-height), 0, DECOR_TREE_2_TOP)
 	elif rand == 2:
 		dec = DECOR_BIG_TREE
-		tilemap.set_cell(BACKGROUND, Vector2i(col, -height), 0, DECOR_BIG_TREE_TOP_1)
-		tilemap.set_cell(BACKGROUND, Vector2i(col, -height-1), 0, DECOR_BIG_TREE_TOP_2)
-	for h in range(ground_levels[col]-1, -height, -1):
+		tilemap.set_cell(BACKGROUND, Vector2i(col, ground-height), 0, DECOR_BIG_TREE_TOP_1)
+		tilemap.set_cell(BACKGROUND, Vector2i(col, ground-height-1), 0, DECOR_BIG_TREE_TOP_2)
+	for h in range(ground-1, ground-height, -1):
 		tilemap.set_cell(BACKGROUND, Vector2i(col, h), 0, dec)
-	
+
 
 func gen_spawn_area():
 	var sel 
