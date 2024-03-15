@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://iewnssaf1eg4"]
+
+[ext_resource type="Script" path="res://Modules/Inventory/item.gd" id="1_0cjsi"]
+[ext_resource type="Texture2D" uid="uid://cbysuxwavl787" path="res://Art/Sprites/DeveloperArt/ore_temp.png" id="2_3aqin"]
+
+[resource]
+script = ExtResource("1_0cjsi")
+name = "ore"
+sprite = ExtResource("2_3aqin")
+item_type = 0

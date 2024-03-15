@@ -1,6 +1,10 @@
 extends Node
 # health
 var player_health = 100
+var inv_manager
+var player
+
+enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
 
 
 ## movement

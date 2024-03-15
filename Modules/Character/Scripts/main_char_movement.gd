@@ -34,7 +34,8 @@ var wall_jump_direction = 0
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
 
-
+func _ready():
+	Globals.player = self
 
 func _physics_process(delta):
 	animation_handler()
