@@ -12,7 +12,7 @@ var is_jumping = false
 var in_combat = false
 
 # for animations
-@export var animation_player: AnimationPlayer = null
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,16 +36,13 @@ func _process(delta):
 	
 	# animate (WIP)
 	if animation_player != null:
-		if !is_jumping:
+		if is_jumping && velocity.x != 0:
 			if velocity.x < 0:  # its moving left
 				animation_player.play("grounded_left")
 			elif velocity.x > 0:
 				animation_player.play("grounded_right")
 		else:
-			if velocity.x < 0:
-				animation_player.play("inair_left")
-			elif velocity.x > 0:
-				animation_player.play("inair_right")
+			animation_player.play("idle")
 	else:
 		print("animation player is null")
 
