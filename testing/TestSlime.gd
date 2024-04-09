@@ -2,13 +2,14 @@ extends CharacterBody2D
 
 # player reference
 @export var player : CharacterBody2D = null
+var valid = true  # false if no player is found
 
 # movement variables
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-const vert_jump_max = 800
-const vert_jump_min = 500
-const horiz_jump_min = 200
-const horiz_jump_max = 400
+@export var vert_jump_max = 800
+@export var vert_jump_min = 500
+@export var horiz_jump_min = 200
+@export var horiz_jump_max = 400
 var dir : float = 0
 var just_jumped = false
 var hit_a_wall = false
@@ -24,14 +25,17 @@ const MAX_WAIT : float = 2.5
 
 
 func _ready():
-	print("player exists: ", player != null)
-	print("starting")
+	if player == null:
+		print("Player not found")
+		valid = false
 
 
 func _physics_process(delta):
+	# debug: stop if no player is found
+	if !valid: return
+	
 	# state action
-	call(state_action, delta)
-	print("current state: ", state_action)
+	call(state_action, delta)  # some states need delta
 	
 	# process gravity 
 	velocity.y += gravity * delta
@@ -58,7 +62,7 @@ func touching_wall(_delta):
 
 
 # state: pausing in between jumps
-func waiting(delta):
+func on_cooldown(delta):
 	wait_time -= delta
 	if wait_time < 0 and is_on_floor():
 		# wait is over
@@ -70,7 +74,7 @@ func jumping(delta):
 	if !just_jumped and is_on_floor():
 		velocity = Vector2.ZERO
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
-		state_action = "waiting"
+		state_action = "on_cooldown"
 		return
 	
 	just_jumped = false
@@ -82,5 +86,4 @@ func jump():
 	var vert_vel = randi() % (vert_jump_max - vert_jump_min) + vert_jump_min
 	
 	velocity = (dir * Vector2.RIGHT * horiz_vel) + (up_direction * vert_vel)
-	#print("set velocity to ", velocity)
 	just_jumped = true
