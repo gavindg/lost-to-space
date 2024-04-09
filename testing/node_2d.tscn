@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2nxp2dtyotex"]
+
+[ext_resource type="Script" path="res://testing/TestSlime.gd" id="1_78w6o"]
+[ext_resource type="Texture2D" uid="uid://ba4l0w67vc022" path="res://Art/Sprites/DeveloperArt/slime_icon.png" id="2_13yl2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
+size = Vector2(1149.5, 85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fnrl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(575.25, 604)
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1107, 375)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="TestSlime" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(310, 278)
+scale = Vector2(5.176, 5.223)
+script = ExtResource("1_78w6o")
+player = NodePath("../CharacterBody2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestSlime"]
+shape = SubResource("RectangleShape2D_b8u5d")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestSlime"]
+scale = Vector2(2.2, 2.16803)
+texture = ExtResource("2_13yl2")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(1410, 307)
+shape = SubResource("RectangleShape2D_4fnrl")

@@ -7,4 +7,3 @@
 script = ExtResource("1_10tvc")
 name = "dirt"
 sprite = ExtResource("2_h0sqm")
-item_type = 1
