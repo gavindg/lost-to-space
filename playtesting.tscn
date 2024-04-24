@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=21 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
+[ext_resource type="Script" path="res://enter_spaceship.gd" id="14_2uiie"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3416,6 +3417,9 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bn34d"]
+radius = 245.815
+
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
 noise_threshold = -0.05
@@ -3481,6 +3485,16 @@ autoplay = true
 
 [node name="Ship-1_png3" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, -70)
+position = Vector2(-3, -70)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_xuo76")
+
+[node name="Area2D" type="Area2D" parent="Ship-1_png3"]
+script = ExtResource("14_2uiie")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ship-1_png3/Area2D"]
+position = Vector2(70, 195)
+shape = SubResource("CircleShape2D_bn34d")
+
+[connection signal="body_entered" from="Ship-1_png3/Area2D" to="Ship-1_png3/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Ship-1_png3/Area2D" to="Ship-1_png3/Area2D" method="_on_body_exited"]
