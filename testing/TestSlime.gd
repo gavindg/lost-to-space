@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-# player reference
+# player reference ## TODO: change this to a global reference eventually
 @export var player : CharacterBody2D = null
 var valid = true  # false if no player is found
 
