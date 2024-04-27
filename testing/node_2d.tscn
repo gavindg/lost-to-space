@@ -1,12 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://c2nxp2dtyotex"]
 
 [ext_resource type="Script" path="res://testing/TestSlime.gd" id="1_78w6o"]
-[ext_resource type="Texture2D" uid="uid://ba4l0w67vc022" path="res://Art/Sprites/DeveloperArt/slime_icon.png" id="2_13yl2"]
+[ext_resource type="Texture2D" uid="uid://dcdsyyxpjl3uj" path="res://Art/Sprites/Enemies/Slimes/GreenSlime_Sprites.png" id="2_lcero"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
 size = Vector2(1149.5, 85)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
+size = Vector2(27.8207, 22.018)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4fnrl"]
 
@@ -32,11 +33,16 @@ script = ExtResource("1_78w6o")
 player = NodePath("../CharacterBody2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestSlime"]
+position = Vector2(0, 2.96764)
 shape = SubResource("RectangleShape2D_b8u5d")
 
-[node name="Sprite2D" type="Sprite2D" parent="TestSlime"]
-scale = Vector2(2.2, 2.16803)
-texture = ExtResource("2_13yl2")
+[node name="Sprite2D2" type="Sprite2D" parent="TestSlime"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_lcero")
+hframes = 8
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 144, 32)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 

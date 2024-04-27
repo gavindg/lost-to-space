@@ -3442,7 +3442,7 @@ zoom = Vector2(3.32, 3.32)
 
 [node name="FinalBackground" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED"]
 z_index = -2
-position = Vector2(-8, 8)
+position = Vector2(-4, 1)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("10_g6hel")
 
