@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=21 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
+[ext_resource type="PackedScene" uid="uid://bhtsd5f6gbnyl" path="res://Modules/Crafting/crafting_manager.tscn" id="10_p63ng"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
@@ -3458,6 +3459,13 @@ offset_bottom = -116.0
 grow_horizontal = 1
 grow_vertical = 1
 player = NodePath("..")
+
+[node name="CraftingManager" parent="SceneObjects/Player" instance=ExtResource("10_p63ng")]
+offset_left = 132.0
+offset_top = -82.0
+offset_right = 132.0
+offset_bottom = -82.0
+scale = Vector2(0.4, 0.4)
 
 [node name="Management" type="Node2D" parent="."]
 

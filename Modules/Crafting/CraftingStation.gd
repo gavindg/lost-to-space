@@ -22,8 +22,8 @@ func craft(item: Item, inventory: Inventory):
 		return
 	else:
 		for i in item.recipe:
-			inventory.remove(i, item.recipe[i])
-		inventory.insert(item, 1)
+			Globals.inv_manager.remove_item(i, item.recipe[i])
+		Globals.inv_manager.insert_item(item, 1)
 	
 	
 	

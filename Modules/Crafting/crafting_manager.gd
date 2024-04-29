@@ -1,14 +1,12 @@
 extends Control
 
-@export var player: CharacterBody2D
-
 @onready var craft_ui = $Crafting_UI
 @onready var is_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	craft_ui.create_item_arrays()
-	craft_ui.set_crafting(player.inv)
+	craft_ui.set_crafting(Globals.inv_manager.inv)
 	visible = false
 
 

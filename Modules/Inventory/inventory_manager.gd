@@ -2,7 +2,7 @@ extends Control
 
 @export var player: CharacterBody2D
 
-
+@onready var inv: Inventory = preload("res://Modules/Inventory/test_inv.tres")
 @onready var inv_ui = $Inv_UI
 @onready var hotbar_ui = $Hotbar_UI
 @onready var cursor = $cursor_item
@@ -21,7 +21,7 @@ extends Control
 @onready var mouse_in_inv: bool = false #whether mouse hovering over the inventory
 
 func check_holding():
-	if(player.inv.cursor_slot.item == null):
+	if(inv.cursor_slot.item == null):
 		holding = false
 	else:
 		holding = true
@@ -60,7 +60,7 @@ func update_ui():
 	update_select()
 
 func update_cursor():
-	cursor.update_ui(player.inv.cursor_slot)
+	cursor.update_ui(inv.cursor_slot)
 
 func update_select():
 	for i in range(width):
@@ -88,8 +88,8 @@ func check_toggle_inv():
 	if Input.is_action_just_pressed("e"):
 		if is_open:
 			is_open = false
-			if(player.inv.cursor_slot.item != null):
-				var left_over = player.inv.insert(player.inv.cursor_slot.item, player.inv.cursor_slot.amount)
+			if(inv.cursor_slot.item != null):
+				var left_over = inv.insert(inv.cursor_slot.item, inv.cursor_slot.amount)
 				if(left_over != 0):
 					inv.cursor_slot.amount = left_over
 					create_dropped_item(inv.cursor_slot).position = player.position
@@ -109,8 +109,8 @@ func check_in_inv():
 			mouse_in_inv = false
 
 func check_drop():
-	if(player.inv.cursor_slot.item != null and !mouse_in_inv and Input.is_action_just_pressed("right_mouse")):
-		create_dropped_item(player.inv.cursor_slot).position = get_global_mouse_position()
+	if(inv.cursor_slot.item != null and !mouse_in_inv and Input.is_action_just_pressed("right_mouse")):
+		create_dropped_item(inv.cursor_slot).position = get_global_mouse_position()
 
 func create_dropped_item(slot: InvSlot):
 	var instance = dropped_item_scene.instantiate()
@@ -123,7 +123,7 @@ func create_dropped_item(slot: InvSlot):
 	return instance
 
 func _on_dropped_item_area_entered(dropped_item):
-	var remaining = player.inv.insert(dropped_item.item, dropped_item.amount)
+	var remaining = inv.insert(dropped_item.item, dropped_item.amount)
 	update_ui()
 	if(remaining != 0):
 		dropped_item.amount = remaining
@@ -132,8 +132,17 @@ func _on_dropped_item_area_entered(dropped_item):
 
 func test_button():
 	if Input.is_action_just_pressed("test_func"):
-		print(player.inv.remove(load("res://Scenes/inventory/items/dirt.tres"),10))
+		print(inv.remove(load("res://Scenes/inventory/items/dirt.tres"),10))
 		update_ui()
+
+func insert_item(item: Item, qty: int):
+	inv.insert(item,qty)
+	update_ui()
+
+func remove_item(item: Item, qty: int):
+	var success = inv.remove(item, qty)
+	update_ui()
+	return success
 
 func give_dirt():
 	inv.insert(dirt,1)
