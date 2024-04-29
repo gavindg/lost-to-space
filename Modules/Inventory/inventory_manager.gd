@@ -12,6 +12,10 @@ extends Control
 @onready var dropped_item_scene = preload("res://Modules/Inventory/dropped_item.tscn")
 @onready var is_open = false
 @onready var hotbar_slot: int = 0
+@onready var held_item_type: int = 0
+
+@onready var dirt: Item = preload("res://Modules/Inventory/items/dirt.tres")
+@onready var ore: Item = preload("res://Modules/Inventory/items/ore.tres")
 
 @onready var holding: bool  = false #whether there is an item in the cursor slot
 @onready var mouse_in_inv: bool = false #whether mouse hovering over the inventory
@@ -22,19 +26,28 @@ func check_holding():
 	else:
 		holding = true
 
+func check_select_type():
+	if(inv.inv[30+hotbar_slot].item):
+		held_item_type = inv.inv[30+hotbar_slot].item.item_type
+	else:
+		held_item_type = Globals.USELESS
+
 func left(slot_num: int):
 	if(is_open):
-		player.inv.left(slot_num)
+		inv.left(slot_num)
+		check_select_type()
 		check_holding()
 		update_ui()
 	else:
 		hotbar_slot = slot_num - (width * (height-1))
+		check_select_type()
 		update_ui()
 
 func right(slot_num: int):
 	if(is_open):
-		player.inv.right(slot_num)
-		if(player.inv.cursor_slot.item == null):
+		inv.right(slot_num)
+		check_select_type()
+		if(inv.cursor_slot.item == null):
 			holding = false
 		else:
 			holding = true
@@ -55,12 +68,14 @@ func update_select():
 			select_slots[i].modulate = Color(1,1,1,1)
 		else:
 			select_slots[i].modulate = Color(1,1,1,0)
+	check_select_type()
 
 func assign_slots():
 	inv_ui.assign_slots(width*(height-1))
 	hotbar_ui.assign_slots(width,height)
 
 func _ready():
+	Globals.inv_manager = self
 	assign_slots()
 	update_ui()
 
@@ -76,9 +91,10 @@ func check_toggle_inv():
 			if(player.inv.cursor_slot.item != null):
 				var left_over = player.inv.insert(player.inv.cursor_slot.item, player.inv.cursor_slot.amount)
 				if(left_over != 0):
-					player.inv.cursor_slot.amount = left_over
-					create_dropped_item(player.inv.cursor_slot).position = player.position
-				player.inv.cursor_slot.clear()
+					inv.cursor_slot.amount = left_over
+					create_dropped_item(inv.cursor_slot).position = player.position
+				inv.cursor_slot.clear()
+				check_select_type()
 				update_ui()
 			inv_ui.close()
 		else: 
@@ -118,3 +134,28 @@ func test_button():
 	if Input.is_action_just_pressed("test_func"):
 		print(player.inv.remove(load("res://Scenes/inventory/items/dirt.tres"),10))
 		update_ui()
+
+func give_dirt():
+	inv.insert(dirt,1)
+	update_ui()
+
+func give_ore():
+	inv.insert(ore,1)
+	update_ui()
+
+func remove_dirt():
+	var success = inv.remove(dirt,1)
+	update_ui()
+	return success
+
+func _input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		hotbar_slot += 1
+		if(hotbar_slot >= 10):
+			hotbar_slot -= 10
+		update_select()
+	elif event is InputEventMouseButton and event.pressed and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
+		hotbar_slot -= 1
+		if(hotbar_slot < 0):
+			hotbar_slot += 10
+		update_select()

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Modules/Character/Scripts/main_char_movement.gd" id="1_c28td"]
 [ext_resource type="PackedScene" uid="uid://ddaqqklwipreq" path="res://Modules/Character/Scenes/combat_handling.tscn" id="2_x20g2"]
-[ext_resource type="Texture2D" uid="uid://bmht57as3anou" path="res://Art/Sprites/Player/walking_and_idle_player 64 x 80px.png" id="3_sg6ln"]
+[ext_resource type="Texture2D" uid="uid://dvxtknbfp2nru" path="res://Art/Sprites/Player/player walk_stand.png" id="3_ledvf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iva4w"]
-size = Vector2(12, 24)
+size = Vector2(15, 24)
 
 [sub_resource type="Animation" id="Animation_g2qn7"]
 length = 0.001
@@ -388,7 +388,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsti7"]
-size = Vector2(16, 24)
+size = Vector2(15, 24)
 
 [node name="main_char_CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -399,18 +399,18 @@ script = ExtResource("1_c28td")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_iva4w")
 
-[node name="left_RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(-40, 0)
+[node name="left_RayCast2D" type="RayCast2D" parent="CollisionShape2D"]
+position = Vector2(-7, 3)
 target_position = Vector2(-3, 0)
 
-[node name="right_RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(40, 0)
+[node name="right_RayCast2D" type="RayCast2D" parent="CollisionShape2D"]
+position = Vector2(7, 3)
 target_position = Vector2(3, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.60933e-06, 0.5)
 scale = Vector2(1, 1.188)
-texture = ExtResource("3_sg6ln")
+texture = ExtResource("3_ledvf")
 hframes = 4
 vframes = 2
 region_enabled = true

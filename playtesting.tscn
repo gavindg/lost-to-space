@@ -7,13 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Art/TileSheets/Overworld/Fork2Space_Tileset_16.png" id="4_lmo7g"]
 [ext_resource type="Script" path="res://Modules/TilePlacer/tile_placer.gd" id="5_7sgfv"]
-[ext_resource type="Resource" uid="uid://biwoopti48wgb" path="res://Modules/Inventory/test_inv.tres" id="6_4sdeu"]
-[ext_resource type="PackedScene" uid="uid://bhtsd5f6gbnyl" path="res://Modules/Crafting/crafting_manager.tscn" id="8_kt5da"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
+[ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
+[ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3419,7 +3419,7 @@ sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
-noise_threshold = -0.08
+noise_threshold = -0.05
 cave_offset = 0
 ore_rarity = -0.25
 
@@ -3435,15 +3435,14 @@ player = NodePath("../SceneObjects/Player")
 [node name="SceneObjects" type="Node2D" parent="."]
 
 [node name="Player" parent="SceneObjects" groups=["player"] instance=ExtResource("3_aetbc")]
-position = Vector2(2.08165e-12, 2.08165e-12)
-inv = ExtResource("6_4sdeu")
+position = Vector2(0, -24)
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Player"]
 position = Vector2(8, -24)
 zoom = Vector2(3.32, 3.32)
 
 [node name="FinalBackground" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED"]
-z_index = -1
+z_index = -2
 position = Vector2(-8, 8)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("10_g6hel")
@@ -3458,10 +3457,6 @@ offset_right = -166.0
 offset_bottom = -116.0
 grow_horizontal = 1
 grow_vertical = 1
-player = NodePath("..")
-
-[node name="CraftingManager" parent="SceneObjects/Player" node_paths=PackedStringArray("player") instance=ExtResource("8_kt5da")]
-scale = Vector2(0.490672, 0.490672)
 player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
@@ -3482,5 +3477,12 @@ radiusAwayFromPlayer = 300
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
 autoplay = true
+script = ExtResource("13_ypctl")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="Ship-1_png3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -70)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_xuo76")

@@ -18,6 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_wlnvy")
 
 [node name="Inv_UI" parent="." instance=ExtResource("2_1lnsh")]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -28,6 +29,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Hotbar_UI" parent="." instance=ExtResource("3_1llls")]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -186,4 +188,5 @@ texture = ExtResource("4_adba1")
 centered = false
 
 [node name="cursor_item" parent="." instance=ExtResource("4_oer8d")]
+visibility_layer = 2
 layout_mode = 0

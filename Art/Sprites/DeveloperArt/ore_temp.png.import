@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4r7dqgl21sau"
-path="res://.godot/imported/player_sheet_2.png-2af0af20626c22897ae08dd8dbc89ae6.ctex"
+uid="uid://cbysuxwavl787"
+path="res://.godot/imported/ore_temp.png-8146a64362aa57aba326e499a2f3f99f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Sprites/Player/player_sheet_2.png"
-dest_files=["res://.godot/imported/player_sheet_2.png-2af0af20626c22897ae08dd8dbc89ae6.ctex"]
+source_file="res://Art/Sprites/DeveloperArt/ore_temp.png"
+dest_files=["res://.godot/imported/ore_temp.png-8146a64362aa57aba326e499a2f3f99f.ctex"]
 
 [params]
 
