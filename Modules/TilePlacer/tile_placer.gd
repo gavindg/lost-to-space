@@ -40,6 +40,13 @@ func _input(event: InputEvent) -> void:
 		#
 		if (!in_range(local_to_player)):
 			return
+			
+		print(local_to_player)
+			
+		if (abs(local_to_player.x) < 8 and (local_to_player.y > -20 and local_to_player.y < 12)):
+			return
+		
+		
 		
 		# now get the tilemap position of the click.
 
