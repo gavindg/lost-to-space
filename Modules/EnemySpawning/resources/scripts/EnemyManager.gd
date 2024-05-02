@@ -2,11 +2,18 @@ class_name EnemyManager
 
 extends Node2D
 
-@export var enemyDespawnDistance = 3000;
-@export var minDespawnRange = 200;
+@export var enemyDespawnDistance = 2000;
 
-var maxEnemiesByType = {
-	"greenSlime": 10
+# epic nested dict of enemy info
+# spawn rate is incremented in 1/10ths, e.g. 1.1, 0.5 and is relative to other enemies
+var enemyData = {
+	"greenSlime": {
+		"max": 10,
+		"spawn_rad_min": 400,
+		"spawn_rad_max": 1000,
+		"spawn_rate": 0.5,
+		"spawn_type": "surface"
+	}
 }
 
 var enemyDict = {
@@ -20,7 +27,7 @@ func register(enemy):
 
 # Allow / Deny spawn based on number of existing enemies of same type
 func allowEnemySpawn(enemy_type):
-	if len(enemyDict[enemy_type]) > maxEnemiesByType[enemy_type]:
+	if len(enemyDict[enemy_type]) > enemyData[enemy_type]["max"]:
 		print("hit enemy cap, not spawning")
 		return false
 	else:
