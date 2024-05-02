@@ -5,8 +5,9 @@ extends Node2D
 @export var tilemap : TileMap = null
 
 # enemy manager
-# @onready var manager : EnemyManager = %EnemyManager
-@onready var manager = null
+#@onready var manager : EnemyManager = %EnemyManager
+const managerScript = preload("res://Modules/EnemySpawning/resources/scripts/EnemyManager.gd")
+@onready var manager = managerScript.new()
 
 # this is the denominator of the spawn rate for enemies
 # so basically there is a 1 / (spawnRate) chance that an enemy will spawn per tick
@@ -33,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 	var random_num = rng.randf()
 	if random_num < (1 / spawnRate) and valid:  # this might be really slow...
 		spawn_enemy()
-
+	manager.check_enemies(player)
 
 # spawns an enemy
 # TODO: make this readable...
@@ -59,6 +60,7 @@ func spawn_enemy():
 	add_child(enemy)
 	if manager != null:
 		manager.register(enemy)
+		print("registered")
 	
 	#print("spawn successfull!")
 
