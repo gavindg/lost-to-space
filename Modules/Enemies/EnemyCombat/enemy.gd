@@ -65,8 +65,7 @@ func deal_with_damage():
 			can_take_damage = false
 			print("Enemy health = ", health)
 			if health <= 0 && parent != null:
-				parent.queue_free()
-				#self.queue_free()
+				Globals.manager.despawn(parent)
 
 
 func _on_take_damage_cooldown_timeout():

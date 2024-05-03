@@ -6,7 +6,7 @@ extends Node2D
 
 # load enemy manager class
 const managerScript = preload("res://Modules/EnemySpawning/resources/scripts/EnemyManager.gd")
-@onready var manager = managerScript.new()
+#@onready var manager = managerScript.new()
 
 # this is the denominator of the spawn rate for enemies
 # so basically there is a 1 / (spawnRate) chance that an enemy will spawn per tick
@@ -26,17 +26,18 @@ var safe_zones = [
 var spawntable = []
 
 func _ready():
+	Globals.manager = managerScript.new()
 	construct_enemy_spawntable()
 
 
 func _physics_process(_delta):
 	if (rng.randf() < (1 / globalSpawnRate)):
 		spawn_enemy()
-	manager.check_enemies(player)
+	Globals.manager.check_enemies(player)
 	
 func construct_enemy_spawntable():
-	for key in manager.enemyData:
-		var choices = manager.enemyData[key]["spawn_rate"] * 10
+	for key in Globals.manager.enemyData:
+		var choices = Globals.manager.enemyData[key]["spawn_rate"] * 10
 		assert(choices == floor(choices))
 		
 		for _x in choices:
@@ -50,8 +51,8 @@ func spawn_enemy():
 	var enemy_name = choose_enemy()
 	var enemy_prefab = enemies[enemy_name]
 	
-	var rad_min = manager.enemyData[enemy_name]["spawn_rad_min"]
-	var rad_max = manager.enemyData[enemy_name]["spawn_rad_max"]
+	var rad_min = Globals.manager.enemyData[enemy_name]["spawn_rad_min"]
+	var rad_max = Globals.manager.enemyData[enemy_name]["spawn_rad_max"]
 	
 	var rand_sign = 1 if rng.randf() < 0.5 else -1
 	var radius_away = randi_range(rad_min, rad_max)
@@ -73,7 +74,7 @@ func spawn_enemy():
 	var enemy = enemy_prefab.instantiate()
 	enemy.position = enemy_pos
 	add_child(enemy)
-	manager.register(enemy)
+	Globals.manager.register(enemy)
 	
 func tile_source_at(pos):
 	var map_local := tilemap.to_local(pos)
