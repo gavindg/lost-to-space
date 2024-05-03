@@ -6,7 +6,6 @@ extends Node2D
 
 # load enemy manager class
 const managerScript = preload("res://Modules/EnemySpawning/resources/scripts/EnemyManager.gd")
-#@onready var manager = managerScript.new()
 
 # this is the denominator of the spawn rate for enemies
 # so basically there is a 1 / (spawnRate) chance that an enemy will spawn per tick
