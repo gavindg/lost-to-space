@@ -33,6 +33,15 @@ var hit_a_wall = false
 # current state
 @onready var state_action = "jumping"
 
+# NOTE: this could cause a problem... this object will be constructed
+# after the hitbox & hurtbox, so accessing it before it exists might
+# be an issue...
+@onready var stats : EnemyStats = EnemyStats.new(
+	100,  # health
+	5,    # defense
+	20    # attack
+)
+
 
 func _ready():
 	# get player object
@@ -43,6 +52,8 @@ func _ready():
 		return
 	valid = false  # otherwise we are cooked
 
+
+### MOVEMENT ###
 
 func _physics_process(delta):
 	# debug: stop if no player is found
@@ -103,6 +114,7 @@ func jumping(delta):
 		return
 	just_jumped = false
 
+
 # state: dash towards the player
 func dashing(delta):
 	if !just_jumped and is_on_floor():
@@ -111,6 +123,7 @@ func dashing(delta):
 		state_action = "on_cooldown"
 		return
 	just_jumped = false
+
 
 # adds instantaneous velocity to make bro yump
 func jump():
@@ -144,8 +157,10 @@ func dash():
 	state_action = 'dashing'
 
 
-
-
 # state: do nothing while the dash animation is playing
 func dash_tell(_delta):
 	pass
+
+
+### COMBAT ###
+

@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2nxp2dtyotex"]
+[gd_scene load_steps=6 format=3 uid="uid://c2nxp2dtyotex"]
 
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="1_grhys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
 size = Vector2(1149.5, 85)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wrlgd"]
+size = Vector2(40, 40)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4fnrl"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17ooj"]
+size = Vector2(40, 40)
 
 [node name="Node2D" type="Node2D"]
 
@@ -28,8 +35,20 @@ position = Vector2(312, 280)
 player = NodePath("../Player")
 MAX_WAIT = 2.0
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(1296, 320)
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(776, 496)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = SubResource("PlaceholderTexture2D_wrlgd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_4fnrl")
+
+[node name="PlayerHurt" type="Area2D" parent="Player" groups=["PlayerHurt"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerHurt"]
+shape = SubResource("RectangleShape2D_17ooj")

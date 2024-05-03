@@ -1,21 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://rddlv34uetpb"]
+[gd_scene load_steps=6 format=3 uid="uid://rddlv34uetpb"]
 
-[ext_resource type="Script" path="res://testing/TestSlime.gd" id="1_sj43w"]
+[ext_resource type="Script" path="res://testing/slimus_movement.gd" id="1_2vdtj"]
+[ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="2_8bx65"]
 [ext_resource type="Texture2D" uid="uid://dcdsyyxpjl3uj" path="res://Art/Sprites/Enemies/Slimes/GreenSlime_Sprites.png" id="2_ktu0q"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
-size = Vector2(20.0927, 19.7205)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tttw"]
 size = Vector2(25.8887, 20.6778)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
+size = Vector2(20.0927, 19.7205)
+
 [node name="TestSlime" type="CharacterBody2D"]
-position = Vector2(310, 278)
+position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(5.176, 5.223)
-script = ExtResource("1_sj43w")
+collision_layer = 0
+script = ExtResource("1_2vdtj")
 MAX_WAIT = 0.0
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="CombatMan" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox")]
+script = ExtResource("2_8bx65")
+hitbox = NodePath("Hitbox")
+hurtbox = NodePath("Hurtbox")
+
+[node name="Hitbox" type="Area2D" parent="CombatMan"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="CombatMan/Hitbox"]
+position = Vector2(-0.193199, 3.06337)
+shape = SubResource("RectangleShape2D_8tttw")
+debug_color = Color(0, 0.686275, 0.137255, 0.419608)
+
+[node name="Hurtbox" type="Area2D" parent="CombatMan"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="CombatMan/Hurtbox"]
+position = Vector2(-0.193199, 3.06337)
+shape = SubResource("RectangleShape2D_8tttw")
+debug_color = Color(0.819608, 0.145098, 0, 0.419608)
+
+[node name="MovementCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.386398, 4.11641)
 shape = SubResource("RectangleShape2D_b8u5d")
 
@@ -26,15 +51,3 @@ hframes = 8
 vframes = 2
 region_enabled = true
 region_rect = Rect2(0, 0, 144, 32)
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.193199, 3.06337)
-shape = SubResource("RectangleShape2D_8tttw")
-debug_color = Color(0, 0.686275, 0.137255, 0.419608)
-
-[node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.193199, 3.06337)
-shape = SubResource("RectangleShape2D_8tttw")
-debug_color = Color(0.819608, 0.145098, 0, 0.419608)
