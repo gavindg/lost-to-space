@@ -30,7 +30,6 @@ func _ready():
 
 
 func _physics_process(_delta):
-	print(player.global_position)
 	if (rng.randf() < (1 / globalSpawnRate)):
 		spawn_enemy()
 	manager.check_enemies(player)
