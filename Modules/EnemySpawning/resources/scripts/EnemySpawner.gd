@@ -1,6 +1,7 @@
 extends Node2D
+
 @onready var rng = RandomNumberGenerator.new()
-@onready var player : CharacterBody2D = get_tree().get_nodes_in_group("player")[0]
+@export var player : CharacterBody2D = null
 @export var tilemap : TileMap = null
 
 # load enemy manager class
@@ -17,6 +18,11 @@ const managerScript = preload("res://Modules/EnemySpawning/resources/scripts/Ene
 	# add new enemies here
 }
 
+# areas where enemies cannot spawn
+var safe_zones = [
+	Rect2i(Vector2i(0, 0), Vector2i(500, 75))
+]
+
 var spawntable = []
 
 func _ready():
@@ -24,6 +30,7 @@ func _ready():
 
 
 func _physics_process(_delta):
+	print(player.global_position)
 	if (rng.randf() < (1 / globalSpawnRate)):
 		spawn_enemy()
 	manager.check_enemies(player)
@@ -55,6 +62,14 @@ func spawn_enemy():
 	var pos_y := player.global_position.y - 40  # because -y is up
 	
 	var enemy_pos = Vector2i(rand_pos_x, pos_y)
+	
+	if tile_source_at(enemy_pos) != -1:
+		#print("tried to spawn an enemy in a wall...")
+		return
+		
+	for zone in safe_zones:
+		if zone.has_point(enemy_pos):
+			return
 	
 	var enemy = enemy_prefab.instantiate()
 	enemy.position = enemy_pos

@@ -11,7 +11,7 @@ var enemyData = {
 		"max": 10,
 		"spawn_rad_min": 400,
 		"spawn_rad_max": 1000,
-		"spawn_rate": 0.5,
+		"spawn_rate": 1,
 		"spawn_type": "surface"
 	}
 }

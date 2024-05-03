@@ -3461,8 +3461,10 @@ player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
 
-[node name="EnemySpawner" type="Node2D" parent="Management"]
+[node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
 script = ExtResource("10_oxk83")
+player = NodePath("../../SceneObjects/Player")
+tilemap = NodePath("../../TileMap")
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
 
