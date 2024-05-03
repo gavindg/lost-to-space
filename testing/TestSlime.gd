@@ -7,13 +7,13 @@ var valid = true  # false if no player is found
 # movement variables
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-## max vertical height the slime can jump
+## max vertical height the slime can jump (MUST BE > THE MIN)
 @export var vert_jump_max = 800
-## min vertical height the slime can jump
+## min vertical height the slime can jump (MUST BE < THE MAX)
 @export var vert_jump_min = 400
-## asbsolute fastest yump the slmie can speed
+## asbsolute fastest yump the slmie can speed (MUST BE > THE MIN)
 @export var horiz_jump_max = 400
-## min horizontal height that the slime can jump
+## min horizontal height that the slime can jump (MUST BE < THE MAX)
 @export var horiz_jump_min = 200
 ## how fast man go speed mode
 @export var dash_speed = 1000
@@ -62,7 +62,8 @@ func _physics_process(delta):
 # state: not touching a wall; jump towards player
 # in this state the slime decides what it will do next; jump or dash
 func aggro(_delta):
-	dir = 1 if player.global_position.direction_to(global_position).x > 0 else -1
+	dir = 1 if global_position.x < player.global_position.x else -1
+		
 	if randi() % 4 == 1:
 		dash()
 		state_action = "dashing"

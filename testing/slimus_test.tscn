@@ -9,26 +9,27 @@ size = Vector2(1149.5, 85)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="FLOOR" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FLOOR"]
 position = Vector2(575.25, 604)
 shape = SubResource("RectangleShape2D_nmxqb")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="WALL" type="StaticBody2D" parent="."]
 scale = Vector2(0.877338, 0.80695)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WALL"]
 position = Vector2(1107, 375)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nmxqb")
 
-[node name="TestSlime" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
+[node name="Slimus" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
+position = Vector2(312, 280)
 player = NodePath("../Player")
 MAX_WAIT = 2.0
 
 [node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(1296, 320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(1410, 307)
 shape = SubResource("RectangleShape2D_4fnrl")

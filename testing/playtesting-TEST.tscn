@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="9_yfqw4"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="11_lnkv3"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="12_kdjai"]
-[ext_resource type="PackedScene" uid="uid://bdguaq2lhnem7" path="res://testing/test_slime.tscn" id="13_aoxy8"]
+[ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="13_05py6"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_kdabu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
@@ -3478,35 +3478,13 @@ position = Vector2(0, -70)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_kdabu")
 
-[node name="TestSlime" parent="." instance=ExtResource("13_aoxy8")]
-position = Vector2(-192, -48)
-scale = Vector2(0.5, 0.505)
-vert_jump_max = 400
-vert_jump_min = 200
-horiz_jump_max = 200
+[node name="TestSlime" parent="." node_paths=PackedStringArray("player") instance=ExtResource("13_05py6")]
+position = Vector2(136, -96)
+scale = Vector2(1, 1)
+player = NodePath("../SceneObjects/Player")
+vert_jump_max = 200
+vert_jump_min = 100
+horiz_jump_max = 150
 horiz_jump_min = 100
-dash_speed = 1000
-slowdown_speed = 800
-MIN_WAIT = 0.75
-
-[node name="TestSlime2" parent="." instance=ExtResource("13_aoxy8")]
-position = Vector2(-32, -46)
-scale = Vector2(0.5, 0.505)
-vert_jump_max = 800
-vert_jump_min = 400
-horiz_jump_max = 400
-horiz_jump_min = 200
-dash_speed = 1000
-slowdown_speed = 800
-MIN_WAIT = 0.75
-
-[node name="TestSlime3" parent="." instance=ExtResource("13_aoxy8")]
-position = Vector2(304, -85)
-scale = Vector2(0.5, 0.505)
-vert_jump_max = 800
-vert_jump_min = 400
-horiz_jump_max = 400
-horiz_jump_min = 200
-dash_speed = 1000
-slowdown_speed = 800
-MIN_WAIT = 0.75
+dash_speed = 400
+MAX_WAIT = 2.0
