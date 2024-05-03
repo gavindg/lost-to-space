@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7t5lp4fe0v32"]
+[gd_scene load_steps=7 format=3 uid="uid://b7t5lp4fe0v32"]
 
-[ext_resource type="Texture2D" path="res://Art/TestTilesheet/tilesheet_complete.png" id="1_35rik"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="2_nyx5w"]
 [ext_resource type="PackedScene" uid="uid://d6x47dr81hk" path="res://Old/Enemies/purple_slime.tscn" id="3_ut4hf"]
 
@@ -8,7 +7,6 @@
 distance = -651.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdq8k"]
-texture = ExtResource("1_35rik")
 6:12/0 = 0
 6:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:12/0/physics_layer_0/angular_velocity = 0.0
@@ -202,7 +200,6 @@ texture = ExtResource("1_35rik")
 4:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0yjno"]
-texture = ExtResource("1_35rik")
 16:12/0 = 0
 16:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 16:12/0/physics_layer_0/angular_velocity = 0.0
