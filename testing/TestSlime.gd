@@ -28,6 +28,7 @@ var hit_a_wall = false
 @export var MIN_WAIT : float = 0.75
 @export var MAX_WAIT : float = 2
 @onready var wait_time : float = 0
+@onready var dash_chance : int = 2  # 1 / dash_chance chance to dash per action
 
 # current state
 @onready var state_action = "jumping"
@@ -64,9 +65,9 @@ func _physics_process(delta):
 func aggro(_delta):
 	dir = 1 if global_position.x < player.global_position.x else -1
 		
-	if randi() % 4 == 1:
+	if randi() % dash_chance == 1:
 		dash()
-		state_action = "dashing"
+		state_action = "dash_tell"
 	else:
 		jump()
 		state_action = "jumping"
@@ -114,17 +115,37 @@ func dashing(delta):
 # adds instantaneous velocity to make bro yump
 func jump():
 	var horiz_vel = randi() % (horiz_jump_max - horiz_jump_min) + horiz_jump_min
-	# var vert_vel = randi() % (vert_jump_max - vert_jump_min) + vert_jump_min
 	var vert_vel = vert_jump_max if randi() % 2 == 0 else vert_jump_min
 	
 	velocity = (dir * Vector2.RIGHT * horiz_vel) + (up_direction * vert_vel)
 	just_jumped = true
 
 
+# adds instantaneous velocity to make bro dash
+# also, short pause before dashing
 func dash():
+	
+	# makes bro go aauuuaaAAAHUHAHGH for a sec before dashing
+	print('giration')
+	for i in range(3):
+		global_position.x += 10
+		await get_tree().create_timer(0.05).timeout
+		global_position.x -= 10
+		await get_tree().create_timer(0.05).timeout
+	print('girated')
+	
+	# actually dash
 	print("dashing")
 	var horiz_vel = dash_speed
 	var vert_vel = vert_jump_min / 2
 	
 	velocity = (dir * Vector2.RIGHT * horiz_vel) + (up_direction * vert_vel)
 	just_jumped = true
+	state_action = 'dashing'
+
+
+
+
+# state: do nothing while the dash animation is playing
+func dash_tell(_delta):
+	pass
