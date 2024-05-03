@@ -38,6 +38,15 @@ func _ready():
 	Globals.player = self
 
 func _physics_process(delta):
+	
+	if global_position.x >= 200 * 16:
+		var other_side := global_position.x - (200 * 16)
+		global_position.x = -(200 * 16) + other_side
+		
+	if global_position.x <= - (200 * 16):
+		var other_side := -(200 * 16) + global_position.x
+		global_position.x = (200*16) - other_side
+	
 	animation_handler()
 	
 	# reset jump and double jump status
