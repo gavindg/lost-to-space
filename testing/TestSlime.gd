@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # player reference ## TODO: change this to a global reference eventually
-@export var player : CharacterBody2D = null
+@export var player : CharacterBody2D = Globals.player
 var valid = true  # false if no player is found
 
 # movement variables
@@ -26,7 +26,7 @@ var hit_a_wall = false
 
 # range that the slime might wait in between jumping (in seconds)
 @export var MIN_WAIT : float = 0.75
-@export var MAX_WAIT : float = 2.5
+@export var MAX_WAIT : float = 2
 @onready var wait_time : float = 0
 
 # current state
@@ -34,9 +34,13 @@ var hit_a_wall = false
 
 
 func _ready():
-	if player == null:
-		print("Player not found")
-		valid = false
+	# get player object
+	if player != null:  # default is the exported player object
+		return
+	if Globals.player != null:  # then the global player ref
+		player = Globals.player
+		return
+	valid = false  # otherwise we are cooked
 
 
 func _physics_process(delta):
@@ -46,19 +50,20 @@ func _physics_process(delta):
 	# state action
 	call(state_action, delta)  # some states need delta
 	
-	# process gravity 
+	# always process gravity 
 	velocity.y += gravity * delta
 	move_and_slide()
 	
+	# should be callsed after move&slide
 	if is_on_wall():
 		hit_a_wall = true
 
 
-# state: not touching a wall; jump towards player like normal
-# basically, in this state the slime decides what it will do next
+# state: not touching a wall; jump towards player
+# in this state the slime decides what it will do next; jump or dash
 func aggro(_delta):
 	dir = 1 if player.global_position.direction_to(global_position).x > 0 else -1
-	if randi() % 3 == 1:
+	if randi() % 4 == 1:
 		dash()
 		state_action = "dashing"
 	else:
@@ -67,7 +72,8 @@ func aggro(_delta):
 
 
 # state: touching a wall; needs to jump away from the wall
-# TODO: test me !
+# essentially the same as aggro, but the slime will always jump away
+# from the wall it touched, even if its away from the player.
 func touching_wall(_delta):
 	dir = get_wall_normal().x
 
@@ -95,6 +101,7 @@ func jumping(delta):
 		return
 	just_jumped = false
 
+# state: dash towards the player
 func dashing(delta):
 	if !just_jumped and is_on_floor():
 		velocity.y = 0
