@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
-[ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
+[ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
@@ -3462,11 +3462,9 @@ player = NodePath("..")
 [node name="Management" type="Node2D" parent="."]
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
-script = ExtResource("10_x7kja")
+script = ExtResource("10_oxk83")
 player = NodePath("../../SceneObjects/Player")
 tilemap = NodePath("../../TileMap")
-spawnRate = 100.0
-radiusAwayFromPlayer = 300
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
 
