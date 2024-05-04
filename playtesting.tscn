@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=21 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Art/TileSheets/Overworld/Fork2Space_Tileset_16.png" id="4_lmo7g"]
 [ext_resource type="Script" path="res://Modules/TilePlacer/tile_placer.gd" id="5_7sgfv"]
+[ext_resource type="Texture2D" uid="uid://n3nexu676733" path="res://1 sky.png" id="8_34jo6"]
+[ext_resource type="Texture2D" uid="uid://cobnn3e7nxdun" path="res://2 planets.png" id="9_jmhhf"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
-[ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
@@ -3441,11 +3442,48 @@ position = Vector2(0, -24)
 position = Vector2(8, -24)
 zoom = Vector2(3.32, 3.32)
 
-[node name="FinalBackground" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="SceneObjects/Player/INSANELYSCUFFED"]
+
+[node name="Sky Parallax" type="ParallaxLayer" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="Sky" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Sky Parallax"]
 z_index = -2
-position = Vector2(-8, 8)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("10_g6hel")
+position = Vector2(2.08165e-12, -40)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("8_34jo6")
+
+[node name="Sky2" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Sky Parallax"]
+z_index = -2
+position = Vector2(-537, -40)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("8_34jo6")
+
+[node name="Sky3" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Sky Parallax"]
+z_index = -2
+position = Vector2(537, -40)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("8_34jo6")
+
+[node name="Sky4" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Sky Parallax"]
+z_index = -2
+position = Vector2(1074, -40)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("8_34jo6")
+
+[node name="Sky5" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Sky Parallax"]
+z_index = -2
+position = Vector2(-1074, -40)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("8_34jo6")
+
+[node name="Planet Parallax" type="ParallaxLayer" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground"]
+
+[node name="Planets" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/Planet Parallax"]
+z_index = -2
+position = Vector2(2.08165e-12, -40)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("9_jmhhf")
 
 [node name="inventory_manager" parent="SceneObjects/Player" node_paths=PackedStringArray("player") instance=ExtResource("10_48d8y")]
 anchors_preset = 0
