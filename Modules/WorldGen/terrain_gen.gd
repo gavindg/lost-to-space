@@ -5,9 +5,9 @@ extends Node2D
 # MAP DIMENSIONS!!!
 
 ## The map generated width
-@export var map_width : int = 200
+var map_width : int = Globals.map_width
 ## The map generated height
-@export var map_height : int = 200
+var map_height : int = Globals.map_height
 
 # NOISE SETTINGS!!!
 
@@ -111,14 +111,14 @@ func gen_surface(forward):
 	var next_move = 0
 	var section_width = 0
 	
-	var r = range(0, map_width+1)
+	var r = range(0, map_width+1-10)
 	
 	if not forward:
 		r = range(0, -map_width-1, -1)
 	
 	for x in r:
 		if forward and x < 0:
-			continue
+			continue	
 		var min_section_width = randi() % 10 + min_flat_width
 		next_move = randi() % 2
 		
@@ -129,23 +129,42 @@ func gen_surface(forward):
 			last_height += 1
 			section_width = 0
 			
+		if last_height > 10:
+			last_height -= 1
+		elif last_height < -10:
+			last_height += 1
+			
 		section_width += 1
-		
-		for y in range(last_height, map_height):
-			var pos = Vector2i(x, y)
-			fg_tile_matrix[pos] = 'DIRT'
-			#tilemap.set_cell(FOREGROUND, pos, 0, GRASS)
-			if y > last_height + cave_biome_change:
-				fg_tile_matrix[pos] = 'STONE'
-				#tilemap.set_cell(FOREGROUND, pos, 0, STONE)
-			#elif y > last_height + cave_biome_change * 2:
-				#tilemap.set_cell(FOREGROUND, pos, 0, Vector2i(0,3))
-			#elif y > last_height + cave_biome_change * 3:
-				#tilemap.set_cell(FOREGROUND, pos, 0, Vector2i(0,5))
-			elif y == last_height:
-				fg_tile_matrix[pos] = 'DIRT_TOP'
-				noise_grid[pos] = GRASS_LEVEL
-		ground_levels[x] = last_height
+		_gen_column(x, last_height)
+
+	# Generates a stairwell at the end, if the heights differ
+	if forward:
+		var start = map_width-10
+		var diff = ground_levels[-map_width]
+		var h = ground_levels[start]
+		for x in range(start+1, map_width+1):
+			if h < diff:
+				h += 1
+			if h > diff:
+				h -= 1
+			_gen_column(x, h)
+	
+func _gen_column(x, h):
+	for y in range(h, map_height):
+		var pos = Vector2i(x, y)
+		fg_tile_matrix[pos] = 'DIRT'
+		#tilemap.set_cell(FOREGROUND, pos, 0, GRASS)
+		if y > h + cave_biome_change:
+			fg_tile_matrix[pos] = 'STONE'
+			#tilemap.set_cell(FOREGROUND, pos, 0, STONE)
+		#elif y > last_height + cave_biome_change * 2:
+			#tilemap.set_cell(FOREGROUND, pos, 0, Vector2i(0,3))
+		#elif y > last_height + cave_biome_change * 3:
+			#tilemap.set_cell(FOREGROUND, pos, 0, Vector2i(0,5))
+		elif y == h:
+			fg_tile_matrix[pos] = 'DIRT_TOP'
+			noise_grid[pos] = GRASS_LEVEL
+		ground_levels[x] = h
 
 ## Generates caves using "perlin worms." 
 func gen_caves():
@@ -276,8 +295,9 @@ func _flip_if_exists(layer, og, new):
 
 ## Generates all of the terrain from the noise maps.
 func gen_terrain():
-	gen_surface(true)
 	gen_surface(false)
+	gen_surface(true)
+
 	gen_ore()
 	gen_caves()
 	gen_walls()
