@@ -6,6 +6,9 @@ var player
 
 enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
 
+# World Gen
+@export var map_width = 200
+@export var map_height = 200
 
 ## movement
 ## initial walk speed

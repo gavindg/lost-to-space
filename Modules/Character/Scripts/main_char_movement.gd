@@ -39,13 +39,14 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if global_position.x >= 200 * 16:
-		var other_side := global_position.x - (200 * 16)
-		global_position.x = -(200 * 16) + other_side
-		
-	if global_position.x <= - (200 * 16):
-		var other_side := -(200 * 16) + global_position.x
-		global_position.x = (200*16) - other_side
+	# World edge, teleports to other side
+	# multiplies by 16 to become pixels
+	if global_position.x >= Globals.map_width * 16:
+		global_position.x += -(Globals.map_width * 16) - (Globals.map_width * 16)
+		print("PAST RIGHT LIMIT")
+	if global_position.x <= - (Globals.map_width * 16):
+		global_position.x += (Globals.map_width * 16) + (Globals.map_width * 16)
+		print("PAST LEFT LIMIT")
 	
 	animation_handler()
 	
