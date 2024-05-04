@@ -3445,7 +3445,7 @@ zoom = Vector2(3.32, 3.32)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground"]
 position = Vector2(-3, -78)
-motion_scale = Vector2(0.6, 0.9)
+motion_scale = Vector2(0.2, 0.6)
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneObjects/Player/INSANELYSCUFFED/ParallaxBackground/ParallaxLayer"]
 texture_repeat = 2
