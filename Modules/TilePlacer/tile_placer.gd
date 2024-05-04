@@ -5,6 +5,7 @@ extends TileMap
 # bc this is on the tilemap right now. change this line if it is moved.
 @onready var tilemap : TileMap = self
 @export var player : CharacterBody2D = null
+@export var player_nobuild_size = Vector2(15, 30)
 @onready var valid := false
 
 # TODO make this a constant
@@ -40,18 +41,37 @@ func _input(event: InputEvent) -> void:
 		#
 		if (!in_range(local_to_player)):
 			return
-			
-		print(local_to_player)
-			
-		if (abs(local_to_player.x) < 8 and (local_to_player.y > -20 and local_to_player.y < 12)):
-			return
 		
+		# get a list of nobuild tilemap coordinates based on the player's position
+		var left_bound = player.global_position.x - (player_nobuild_size.x / 2)
+		var right_bound = player.global_position.x + (player_nobuild_size.x / 2)
+		var upper_bound = player.global_position.y - (player_nobuild_size.y / 2)
+		var lower_bound = player.global_position.y + (player_nobuild_size.y / 2) - 12
+		var nobuild_blocks = []
 		
+		# a traditional for loop would be really nice to have here
+		
+		# THE A L G O R I T H M
+		var x = left_bound
+		var y = upper_bound
+		while x <= right_bound:
+			while y <= lower_bound:
+				var block = tilemap.local_to_map(tilemap.to_local(Vector2(x,  y)))
+				if nobuild_blocks.find(block) == -1:
+					nobuild_blocks.append(block)
+				y += (player_nobuild_size.y / 2)
+			
+			y = upper_bound
+			x += (player_nobuild_size.x / 2)
 		
 		# now get the tilemap position of the click.
 
 		var local_to_tilemap := tilemap.to_local(global_pos)
 		var map_position := tilemap.local_to_map(local_to_tilemap)
+		
+		if nobuild_blocks.find(map_position) != -1:
+			# Player is attempting to build in a block they are currently occupying
+			return 
 		
 		# depending on what's there, we do something different.
 		var fg_source := tilemap.get_cell_source_id(FOREGROUND_LAYER, map_position)
