@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=22 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
+[ext_resource type="Script" path="res://leftedge.gd" id="2_7jmup"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/Overworld/New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="2_ty63p"]
 [ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="3_aetbc"]
@@ -15,6 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x847c"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8be8d"]
+viewport_path = NodePath("SubViewport2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3458,9 +3465,41 @@ sources/0 = SubResource("TileSetAtlasSource_u0wc3")
 
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
-noise_threshold = -0.05
-cave_offset = 0
-ore_rarity = -0.25
+camera_left = NodePath("SubViewport/LeftCamera")
+camera_right = NodePath("SubViewport2/RightCamera")
+sprite_left = NodePath("LeftSprite")
+sprite_right = NodePath("RightSprite")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+canvas_cull_mask = 4294967293
+size = Vector2i(1000, 1000)
+render_target_update_mode = 3
+script = ExtResource("2_7jmup")
+
+[node name="LeftCamera" type="Camera2D" parent="SubViewport"]
+position = Vector2(-3200, 32)
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+transparent_bg = true
+canvas_cull_mask = 4294967293
+size = Vector2i(1000, 1000)
+render_target_update_mode = 3
+script = ExtResource("2_7jmup")
+
+[node name="RightCamera" type="Camera2D" parent="SubViewport2"]
+position = Vector2(3200, 0)
+
+[node name="RightSprite" type="Sprite2D" parent="."]
+visibility_layer = 2
+position = Vector2(3200, 0)
+texture = SubResource("ViewportTexture_x847c")
+
+[node name="LeftSprite" type="Sprite2D" parent="."]
+visible = false
+visibility_layer = 2
+position = Vector2(-3200, 0)
+texture = SubResource("ViewportTexture_8be8d")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
