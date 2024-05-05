@@ -9,6 +9,14 @@ var map_width : int = Globals.map_width
 ## The map generated height
 var map_height : int = Globals.map_height
 
+# SIDE CAMERAS
+
+@export var camera_left : Camera2D
+@export var camera_right : Camera2D
+
+@export var sprite_left : Sprite2D
+@export var sprite_right : Sprite2D
+
 # NOISE SETTINGS!!!
 
 ## The base frequency, likely do not change
@@ -320,7 +328,15 @@ func gen_terrain():
 			elif val == 'CAVE':
 				tilemap.set_cell(FOREGROUND, pos, -1)
 				
-	gen_cloned_sides()
+	#camera_left.position.x = -map_width * 16
+	camera_left.position.y = ground_levels[-map_width] * 16
+	#camera_right.position.x = map_width * 16
+	camera_right.position.y = ground_levels[map_width] * 16
+	#
+	sprite_left.position.y = ground_levels[-map_width] * 16
+	sprite_right.position.y = ground_levels[map_width] * 16
+				
+	#gen_cloned_sides()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
