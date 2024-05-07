@@ -26,7 +26,7 @@ const SOURCE = 0
 func _ready() -> void:
 	if tilemap != null && player != null:
 		valid = true
-	print("valid ? ", valid)
+	#print("valid ? ", valid)
 
 # this function could be optimized a bit
 # but it would probably become unreadable
