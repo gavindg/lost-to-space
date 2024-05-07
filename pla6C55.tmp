@@ -3482,9 +3482,9 @@ script = ExtResource("12_vwr5h")
 player = NodePath("../Player")
 
 [node name="Sword3" type="Sprite2D" parent="SceneObjects" node_paths=PackedStringArray("player")]
-position = Vector2(3.85918, -62.7033)
-rotation = 5.49789
-scale = Vector2(0.045, 0.045)
+position = Vector2(1.98699, -88.8215)
+rotation = -1.57059
+scale = Vector2(0.002025, 0.002025)
 texture = ExtResource("10_4vhuh")
 offset = Vector2(408.153, -403.405)
 script = ExtResource("13_x1b1e")
