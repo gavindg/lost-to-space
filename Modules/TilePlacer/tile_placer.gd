@@ -7,7 +7,6 @@ extends TileMap
 @onready var ghost_tile_map = get_parent().get_node("GhostTileMap")
 @export var player : CharacterBody2D = null
 @export var player_nobuild_size = Vector2(15, 30)
-var player_ghost_block_pos = Vector2i()
 @onready var valid := false
 
 # TODO make this a constant
@@ -22,6 +21,19 @@ const FOREGROUND_LAYER = 1
 const BACKGROUND_LAYER = 0
 const SOURCE = 0
 
+var player_ghost_block_pos = Vector2i()
+var current_block_mining_time = 0
+var player_mining_block_pos = Vector2i()
+var is_mining = false
+var current_mining_block_type = "none"
+var current_required_mining_time = 0
+var prev_break_texture_stage
+
+const dirt_mining_time = 50
+const ore_mining_time = 100
+
+const break_texture_array = [Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(4, 1), Vector2i(5, 1), Vector2i(6, 1)]
+
 
 func _ready() -> void:
 	if tilemap != null && player != null:
@@ -35,6 +47,14 @@ func _input(event: InputEvent) -> void:
 	# for testing purposes
 	if not valid:
 		return
+		
+	if event is InputEventMouseMotion or event is InputEventKey or event is InputEventMouse:
+		var global_pos := get_global_mouse_position()
+		var local_to_tilemap := tilemap.to_local(global_pos)
+		var map_position := tilemap.local_to_map(local_to_tilemap)
+		if is_mining and map_position != player_mining_block_pos:
+			stop_mining()
+		
 	
 	# update ghost block
 	if Globals.inv_manager.held_item_type == Globals.PLACEABLE:
@@ -77,6 +97,7 @@ func _input(event: InputEvent) -> void:
 	
 	
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		# a left click has just occured
 		# get the local position of the mouse cick on this canvas item
 		var global_pos := get_global_mouse_position()
 		var local_to_player := player.to_local(global_pos)
@@ -118,7 +139,25 @@ func _input(event: InputEvent) -> void:
 				if is_adj and Globals.inv_manager.remove_dirt():
 					place_fg_at(map_position)
 					# TODO: check here if the foreground source exists...
+	elif event is InputEventMouseButton && !(event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		# left mouse button has been released
+		stop_mining()
 
+
+func _physics_process(delta):
+	if is_mining:
+		current_block_mining_time += 1
+		var break_texture_stage = round(6 * float(current_block_mining_time) / current_required_mining_time)
+		if (break_texture_stage != prev_break_texture_stage):
+			prev_break_texture_stage = break_texture_stage
+			ghost_tile_map.set_cell(BACKGROUND_LAYER, player_mining_block_pos, test_atlas, break_texture_array[break_texture_stage])
+		
+		if current_mining_block_type == "dirt" and current_block_mining_time >= dirt_mining_time:
+			break_block(player_mining_block_pos)
+			stop_mining()
+		elif current_mining_block_type == "ore" and current_block_mining_time >= ore_mining_time:
+			break_block(player_mining_block_pos)
+			stop_mining()
 
 
 # takes a position local to the player & checks if it is within
@@ -156,16 +195,38 @@ func in_player_bounds(block_pos):
 	
 
 func start_mining(block_pos):
-	pass
+	is_mining = true
+	player_mining_block_pos = block_pos
+	
+	var atlas_coords = tilemap.get_cell_atlas_coords(FOREGROUND_LAYER, block_pos)
+	if(atlas_coords.x == 0 or atlas_coords == Vector2i(1,0) or atlas_coords == Vector2i(2,0)):
+		current_mining_block_type = "dirt"
+		current_required_mining_time = dirt_mining_time
+	elif(atlas_coords == Vector2i(2,1)):
+		current_mining_block_type = "ore"
+		current_required_mining_time = ore_mining_time
+	else:
+		current_mining_block_type = "other"
+		current_required_mining_time = 0
+		
+
+func stop_mining():
+	print("stop mining")
+	is_mining = false
+	current_block_mining_time = 0
+	current_mining_block_type = "none"
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, player_mining_block_pos, -1)
+	player_mining_block_pos = Vector2i()
 	
 	
 func break_block(block_pos):
-	var atlas_coords = tilemap.get_cell_atlas_coords(FOREGROUND_LAYER, block_pos)
 	remove_fg_at(block_pos)
-	if(atlas_coords.x == 0 or atlas_coords == Vector2i(1,0) or atlas_coords == Vector2i(2,0)):
+	if current_mining_block_type == "dirt":
 		Globals.inv_manager.give_dirt()
-	elif(atlas_coords == Vector2i(2,1)):
+	elif current_mining_block_type == "ore":
 		Globals.inv_manager.give_ore()
+	else:
+		pass # nothin
 		
 
 # places test tile @ local_pos. it's assumed that this
