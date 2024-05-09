@@ -3507,9 +3507,9 @@ tilemap = NodePath("../../TileMap")
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
 
-[node name="UI" type="Node2D" parent="."]
+[node name="CanvasLayer" parent="Management/EnemyManager" instance=ExtResource("10_31it1")]
 
-[node name="CanvasLayer" parent="UI" instance=ExtResource("10_31it1")]
+[node name="UI" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c8ryarrh35evx"]
+[gd_resource type="Resource" script_class="Placeable" load_steps=3 format=3 uid="uid://cexg4ldu3kpka"]
 
-[ext_resource type="Script" path="res://Modules/Inventory/item.gd" id="1_10tvc"]
+[ext_resource type="Script" path="res://Modules/Inventory/placeable.gd" id="1_tkgj2"]
 [ext_resource type="Texture2D" uid="uid://cj3ugj0pb2c6c" path="res://Art/Sprites/DeveloperArt/dirt.png" id="2_h0sqm"]
 
 [resource]
-script = ExtResource("1_10tvc")
-name = "dirt"
+script = ExtResource("1_tkgj2")
+atlas_coords = Vector2(0, 0)
+name = "Dirt"
 sprite = ExtResource("2_h0sqm")
-item_type = 1
