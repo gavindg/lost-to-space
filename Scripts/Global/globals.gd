@@ -5,7 +5,6 @@ var inv_manager
 var player
 var manager
 
-enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
 
 
 ## movement
