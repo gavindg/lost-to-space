@@ -22,7 +22,7 @@ script = ExtResource("2_8bx65")
 hitbox = NodePath("Hitbox")
 hurtbox = NodePath("Hurtbox")
 
-[node name="Hitbox" type="Area2D" parent="CombatMan"]
+[node name="Hitbox" type="Area2D" parent="CombatMan" groups=["EnemyHit"]]
 collision_layer = 2
 collision_mask = 2
 
@@ -31,7 +31,7 @@ position = Vector2(-0.193199, 3.06337)
 shape = SubResource("RectangleShape2D_8tttw")
 debug_color = Color(0, 0.686275, 0.137255, 0.419608)
 
-[node name="Hurtbox" type="Area2D" parent="CombatMan"]
+[node name="Hurtbox" type="Area2D" parent="CombatMan" groups=["EnemyHurt"]]
 collision_layer = 2
 collision_mask = 2
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cifor0bbb60dr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44pc6"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d8w7h"]
+size = Vector2(20, 20)
+
+[node name="TestHitbox" type="Area2D" groups=["PlayerHit"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-16, 0)
+shape = SubResource("RectangleShape2D_44pc6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, 0)
+texture = SubResource("PlaceholderTexture2D_d8w7h")

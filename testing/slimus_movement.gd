@@ -36,7 +36,7 @@ var hit_a_wall = false
 # NOTE: this could cause a problem... this object will be constructed
 # after the hitbox & hurtbox, so accessing it before it exists might
 # be an issue...
-@onready var stats : EnemyStats = EnemyStats.new(
+@onready var stats : Stats = Stats.new(
 	100,  # health
 	5,    # defense
 	20    # attack

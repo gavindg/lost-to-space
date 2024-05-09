@@ -159,8 +159,6 @@ func dash():
 	is_special_movement = false
 
 
-
-
 # the character should be able to kick the wall to jump to an opposite direction
 func wall_jump(wall_jump_dir):
 	is_special_movement = true
@@ -171,8 +169,8 @@ func wall_jump(wall_jump_dir):
 	await get_tree().create_timer(0.3).timeout
 	is_special_movement = false
 	can_wall_jump = false
-	
-	
+
+
 # below are health mechanism
 
 #currently not dealing with damage logic here
@@ -185,7 +183,6 @@ func wall_jump(wall_jump_dir):
 		#sibling.update_health_bar()
 	#if Globals.player_health <= 0:
 		#die()
-
 
 func die():
 	#Globals.player_health = 100 # for testing: reset character health

@@ -1,54 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2nxp2dtyotex"]
+[gd_scene load_steps=5 format=3 uid="uid://c2nxp2dtyotex"]
 
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="1_grhys"]
+[ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="2_77r76"]
+[ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="3_gxp8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
-size = Vector2(1149.5, 85)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wrlgd"]
-size = Vector2(40, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fnrl"]
-size = Vector2(40, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_17ooj"]
-size = Vector2(40, 40)
+size = Vector2(1855.5, 85)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="FLOOR" type="StaticBody2D" parent="."]
+[node name="Terrain" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FLOOR"]
-position = Vector2(575.25, 604)
+[node name="FLOOR" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/FLOOR"]
+position = Vector2(928, 600)
 shape = SubResource("RectangleShape2D_nmxqb")
 
-[node name="WALL" type="StaticBody2D" parent="."]
+[node name="WALL" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1896, 280)
 scale = Vector2(0.877338, 0.80695)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WALL"]
-position = Vector2(1107, 375)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/WALL"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="WALL2" type="StaticBody2D" parent="Terrain"]
+position = Vector2(-31.9998, 280)
+scale = Vector2(0.877338, 0.80695)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/WALL2"]
+position = Vector2(2.08165e-12, 2.08165e-12)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nmxqb")
 
 [node name="Slimus" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
 position = Vector2(312, 280)
-player = NodePath("../Player")
+player = NodePath("../Michael")
 MAX_WAIT = 2.0
 
-[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(776, 496)
-collision_layer = 0
-collision_mask = 2
+[node name="Michael" parent="." instance=ExtResource("2_77r76")]
+position = Vector2(744, 464)
+scale = Vector2(3, 3)
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = SubResource("PlaceholderTexture2D_wrlgd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_4fnrl")
-
-[node name="PlayerHurt" type="Area2D" parent="Player" groups=["PlayerHurt"]]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerHurt"]
-shape = SubResource("RectangleShape2D_17ooj")
+[node name="Musician" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gxp8c")
+autoplay = true
