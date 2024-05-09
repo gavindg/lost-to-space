@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=27 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Sword3.gd" id="13_x1b1e"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
+[ext_resource type="Script" path="res://Line2D.gd" id="14_oxi32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3421,6 +3422,13 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
+[sub_resource type="Curve" id="Curve_n0rjn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vwusi"]
+colors = PackedColorArray(0, 0.894118, 0, 1, 1, 1, 1, 0)
+
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
 noise_threshold = -0.05
@@ -3464,31 +3472,73 @@ grow_vertical = 1
 player = NodePath("..")
 
 [node name="Sword1" type="Sprite2D" parent="SceneObjects" node_paths=PackedStringArray("player")]
-position = Vector2(3.85918, -62.7033)
+position = Vector2(4.07812, -76.9609)
 rotation = 5.49789
 scale = Vector2(0.045, 0.045)
 texture = ExtResource("10_4vhuh")
-offset = Vector2(408.153, -403.405)
+offset = Vector2(180.698, -182.785)
 script = ExtResource("10_bdh3m")
 player = NodePath("../Player")
 
 [node name="Sword2" type="Sprite2D" parent="SceneObjects" node_paths=PackedStringArray("player")]
-position = Vector2(3.85918, -86.7033)
+position = Vector2(18.1838, -101.244)
 rotation = -0.785294
 scale = Vector2(0.045, 0.045)
 texture = ExtResource("10_4vhuh")
-offset = Vector2(408.153, -403.405)
+offset = Vector2(181.459, -182.44)
 script = ExtResource("12_vwr5h")
 player = NodePath("../Player")
 
 [node name="Sword3" type="Sprite2D" parent="SceneObjects" node_paths=PackedStringArray("player")]
-position = Vector2(3.85918, -62.7033)
+position = Vector2(4.03411, -76.8895)
 rotation = 5.49789
 scale = Vector2(0.045, 0.045)
 texture = ExtResource("10_4vhuh")
-offset = Vector2(408.153, -403.405)
+offset = Vector2(182.512, -183.216)
 script = ExtResource("13_x1b1e")
 player = NodePath("../Player")
+
+[node name="Line2D" type="Line2D" parent="SceneObjects" node_paths=PackedStringArray("sword")]
+top_level = true
+width = 6.0
+width_curve = SubResource("Curve_n0rjn")
+gradient = SubResource("Gradient_vwusi")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.1
+antialiased = true
+script = ExtResource("14_oxi32")
+MAX_LENGTH = 20
+sword = NodePath("../Sword1")
+
+[node name="Line2D2" type="Line2D" parent="SceneObjects" node_paths=PackedStringArray("sword")]
+top_level = true
+width = 6.0
+width_curve = SubResource("Curve_n0rjn")
+gradient = SubResource("Gradient_vwusi")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.1
+antialiased = true
+script = ExtResource("14_oxi32")
+MAX_LENGTH = 20
+sword = NodePath("../Sword2")
+
+[node name="Line2D3" type="Line2D" parent="SceneObjects" node_paths=PackedStringArray("sword")]
+top_level = true
+width = 6.0
+width_curve = SubResource("Curve_n0rjn")
+gradient = SubResource("Gradient_vwusi")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.1
+antialiased = true
+script = ExtResource("14_oxi32")
+MAX_LENGTH = 20
+sword = NodePath("../Sword3")
 
 [node name="Management" type="Node2D" parent="."]
 
