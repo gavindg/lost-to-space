@@ -3442,6 +3442,7 @@ render_target_update_mode = 3
 script = ExtResource("7_1sgt5")
 
 [node name="LeftCamera" type="Camera2D" parent="SubViewport"]
+position = Vector2(-3200, 32)
 
 [node name="SubViewport2" type="SubViewport" parent="."]
 transparent_bg = true
@@ -3451,13 +3452,16 @@ render_target_update_mode = 3
 script = ExtResource("7_1sgt5")
 
 [node name="RightCamera" type="Camera2D" parent="SubViewport2"]
+position = Vector2(3200, 0)
 
 [node name="RightSprite" type="Sprite2D" parent="."]
 visibility_layer = 2
+position = Vector2(3200, 0)
 texture = SubResource("ViewportTexture_r8dfc")
 
 [node name="LeftSprite" type="Sprite2D" parent="."]
 visibility_layer = 2
+position = Vector2(-3200, 0)
 texture = SubResource("ViewportTexture_2dawt")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
