@@ -17,6 +17,8 @@ var map_height : int = Globals.map_height
 @export var sprite_left : Sprite2D
 @export var sprite_right : Sprite2D
 
+@export var player : CharacterBody2D
+
 # NOISE SETTINGS!!!
 
 ## The base frequency, likely do not change
@@ -150,7 +152,7 @@ func gen_surface(forward):
 		var start = map_width-10
 		var diff = ground_levels[-map_width]
 		var h = ground_levels[start]
-		for x in range(start+1, map_width+1):
+		for x in range(start+1, map_width):
 			if h < diff:
 				h += 1
 			if h > diff:
@@ -284,22 +286,44 @@ func gen_walls():
 
 ## Generates cloned sides for an attempt at wrapping the tilemap.
 func gen_cloned_sides():
-	for x in range(-map_width, -map_width+50):
-		for y in range(-100, map_height):
-			var og_right = Vector2i(x, y)
-			var og_left = Vector2i(x + 2 * map_width - 50, y)
-			var right_pos = Vector2i(x + 2 * map_width, y)
-			var left_pos = Vector2i(x - 50, y)
-			_flip_if_exists(FOREGROUND, og_right, right_pos)
-			_flip_if_exists(BACKGROUND, og_right, right_pos)
-			_flip_if_exists(FOREGROUND, og_left, left_pos)
-			_flip_if_exists(BACKGROUND, og_left, left_pos)
+	var offset = 1
+	for y in range(-100, map_height):
+		var og_left = Vector2i(-map_width, y)
+		var new_right = Vector2i(map_width, y)
+		var og_right = Vector2i(map_width-1, y)
+		var new_left = Vector2i(-map_width-1, y)
+		_flip_if_exists(FOREGROUND, og_left, new_right)
+		_flip_if_exists(FOREGROUND, og_right, new_left)
+	#for x in range(-map_width, -map_width+offset):
+		#for y in range(-100, map_height):
+			#var og_right = Vector2i(x, y)
+			#var og_left = Vector2i(x + 2 * map_width - offset, y)
+			#var right_pos = Vector2i(x + 2 * map_width, y)
+			#var left_pos = Vector2i(x - offset, y)
+			#_flip_if_exists(FOREGROUND, og_right, right_pos)
+			##_flip_if_exists(BACKGROUND, og_right, right_pos)
+			#_flip_if_exists(FOREGROUND, og_left, left_pos)
+			#_flip_if_exists(BACKGROUND, og_left, left_pos)
 
 ## Helper function to flip a tile to a new position, if exists
-func _flip_if_exists(layer, og, new):
+func _flip_if_exists(layer, og, new_pos):
 	if tilemap.get_cell_source_id(layer, og) != -1:
 		var sprite = tilemap.get_cell_atlas_coords(layer, og)
-		tilemap.set_cell(layer, new, source_id, sprite)
+		#if og.y < 20:
+			#print("OG", og, new_pos, sprite)
+		tilemap.set_cell(layer, new_pos, source_id, sprite)
+		
+func create_rect_gradient():
+	var gradient = {}
+	
+	for x in range(-map_width, map_width+1):
+		for y in range(0, map_height):
+			var distance = max(abs(-x), abs(map_height/2 - y))
+			# normalize
+			distance = 1 - (distance / (map_height/2))
+			gradient[Vector2i(x, y)] = distance
+	
+	return gradient
 
 ## Generates all of the terrain from the noise maps.
 func gen_terrain():
@@ -312,6 +336,7 @@ func gen_terrain():
 	gen_plants()
 	
 	for x in range(-map_width, map_width):
+		print(x)
 		for y in range(-100, map_height):
 			var pos = Vector2i(x, y)
 			if not pos in fg_tile_matrix:
@@ -328,15 +353,19 @@ func gen_terrain():
 			elif val == 'CAVE':
 				tilemap.set_cell(FOREGROUND, pos, -1)
 				
-	#camera_left.position.x = -map_width * 16
+	camera_left.position.x = (-map_width) * 16
 	camera_left.position.y = ground_levels[-map_width] * 16
-	#camera_right.position.x = map_width * 16
-	camera_right.position.y = ground_levels[map_width] * 16
+	camera_right.position.x = (map_width) * 16
+	camera_right.position.y = ground_levels[map_width-1] * 16
 	#
+	sprite_left.position.x = -map_width * 16
 	sprite_left.position.y = ground_levels[-map_width] * 16
-	sprite_right.position.y = ground_levels[map_width] * 16
+	sprite_right.position.x = map_width * 16
+	sprite_right.position.y = ground_levels[map_width-1] * 16
 				
-	#gen_cloned_sides()
+	gen_cloned_sides()
+
+var prev 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -351,10 +380,17 @@ func _ready():
 	#gen_walls()
 	#gen_cloned_sides()
 	gen_terrain()
+	prev = floor(player.position.x/16)
 	
 	#tilemap.set_cell(FOREGROUND, Vector2i(0,0), 1, Vector2i(2,6))
 	#gen_normalized_terrain(map_width, map_height)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#pass
+func _process(delta):
+	#print(player.position.x)
+	if player.position.x + 16 * map_width < 160 or 16 * map_width - player.position.x < 160:
+		if (floor(player.position.x/16) != prev):
+			prev = floor(player.position.x/16)
+			print(floor(player.position.x/16))
+		#print(player.position.x/16)
+		gen_cloned_sides()
