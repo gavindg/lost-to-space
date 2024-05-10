@@ -8,7 +8,7 @@ var time_passed = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	timer.start()
+	if timer: timer.start()
 	
 
 

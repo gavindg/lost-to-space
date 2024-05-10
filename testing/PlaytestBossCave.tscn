@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cugspn5eoq1q"]
+[gd_scene load_steps=18 format=3 uid="uid://cugspn5eoq1q"]
 
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="1_2ht68"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="2_bba2q"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="7_6ohfh"]
 [ext_resource type="PackedScene" uid="uid://l2w388u8rege" path="res://testing/braindead.tscn" id="7_vwfja"]
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="8_jvd0m"]
+[ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="9_54iwa"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, -6.25, -8, -6.125)
@@ -3475,3 +3476,7 @@ horiz_jump_max = 300
 horiz_jump_min = 150
 dash_speed = 300
 MAX_WAIT = 2.0
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="CanvasLayer" parent="UI" instance=ExtResource("9_54iwa")]

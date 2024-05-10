@@ -26,13 +26,16 @@ func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 
 
-func _process(_delta) -> void:
-	if player_controller.velocity.x > 0:
-		facing = 1
-	elif player_controller.velocity.x < 0:
-		facing = -1
-	
-	if Input.is_action_just_pressed("attack"):
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		#if Globals.inv_manager.held_item_type != Globals.WEAPON:
+			#return
+		var global_pos := get_global_mouse_position()
+		var local_to_player := player_controller.to_local(global_pos)
+		if local_to_player.x > 0:
+			facing = 1
+		elif local_to_player.x < 0:
+			facing = -1
 		_animate_hitbox()
 
 
