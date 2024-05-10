@@ -12,7 +12,7 @@ extends Control
 @onready var dropped_item_scene = preload("res://Modules/Inventory/dropped_item.tscn")
 @onready var is_open = false
 @onready var hotbar_slot: int = 0
-@onready var held_item_type: int = 0
+@onready var held_item: Item
 
 @onready var dirt: Item = preload("res://Modules/Inventory/items/dirt.tres")
 @onready var ore: Item = preload("res://Modules/Inventory/items/ore.tres")
@@ -27,10 +27,7 @@ func check_holding():
 		holding = true
 
 func check_select_type():
-	if(inv.inv[30+hotbar_slot].item):
-		held_item_type = inv.inv[30+hotbar_slot].item.item_type
-	else:
-		held_item_type = Globals.USELESS
+	held_item = inv.inv[30+hotbar_slot].item
 
 func left(slot_num: int):
 	if(is_open):

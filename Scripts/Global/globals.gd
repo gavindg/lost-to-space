@@ -3,8 +3,8 @@ extends Node
 var player_health = 100
 var inv_manager
 var player
+var manager
 
-enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
 
 
 ## flags
