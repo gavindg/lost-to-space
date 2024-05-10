@@ -97,14 +97,22 @@ func _input(event: InputEvent) -> void:
 		#print("foreground source: ", fg_source)
 		#print("background source: ", bg_source)
 		
+		print(map_position)
+		
+
+		
 		if fg_source == 0:
 			if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
-				start_mining(map_position)
+				#start_mining(map_position)
+				remove_fg_at(map_position)
+		        if map_position.x <= -Globals.map_width:
+		        	remove_fg_at(map_position+Vector2i(Globals.map_width * 2, 0))
+		        elif map_position.x >= Globals.map_width-1:
+		        	remove_fg_at(map_position-Vector2i(Globals.map_width*2, 0))
 		elif Globals.inv_manager.held_item is Placeable:
 			# don't let the player suffocate themself
 			if (in_player_bounds(map_position)):
 				return
-				
 			# if there's a background tile there, let's place a block
 			# in the foreground.
 			if bg_source != -1 && Globals.inv_manager.remove_dirt():
