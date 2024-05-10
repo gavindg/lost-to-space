@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://seioie7spxpn"]
+
+[ext_resource type="Script" path="res://Modules/Character/Scenes/sword_swing.gd" id="1_ospa5"]
+
+[node name="Sword_Swing" type="Node2D"]
+script = ExtResource("1_ospa5")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(560, 341)
+target_position = Vector2(32, -116)
