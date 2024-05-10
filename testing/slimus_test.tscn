@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2nxp2dtyotex"]
+[gd_scene load_steps=4 format=3 uid="uid://c2nxp2dtyotex"]
 
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="1_grhys"]
 [ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="2_77r76"]
-[ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="3_gxp8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
 size = Vector2(1855.5, 85)
@@ -44,6 +43,5 @@ MAX_WAIT = 2.0
 position = Vector2(744, 464)
 scale = Vector2(3, 3)
 
-[node name="Musician" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_gxp8c")
-autoplay = true
+[node name="Cam" type="Camera2D" parent="Michael"]
+position = Vector2(0, -69.3333)

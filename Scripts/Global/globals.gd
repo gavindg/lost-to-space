@@ -7,6 +7,9 @@ var player
 enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
 
 
+## flags
+var player_locked : bool = false
+
 ## movement
 ## initial walk speed
 #@export var SPEED = 200.0

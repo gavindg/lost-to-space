@@ -42,6 +42,8 @@ var hit_a_wall = false
 	20    # attack
 )
 
+@export var combatman : EnemyCombat = null
+var dead = false
 
 func _ready():
 	# get player object
@@ -56,6 +58,13 @@ func _ready():
 ### MOVEMENT ###
 
 func _physics_process(delta):
+	if dead:
+		return
+	
+	if combatman.is_dead == true:
+		dead = true
+		die()
+	
 	# debug: stop if no player is found
 	if !valid: return
 	
@@ -162,5 +171,8 @@ func dash_tell(_delta):
 	pass
 
 
-### COMBAT ###
+### ON DEATH ###
 
+func die():
+	print('bye bye')
+	queue_free()

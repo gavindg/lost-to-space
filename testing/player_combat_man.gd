@@ -12,9 +12,11 @@ class_name PlayerCombat
 @export var hurtbox : Area2D = null
 
 @export var player_controller : CharacterBody2D = null
+@export var facing = 1
 
 @export var i_frames_sec = 1
-@export var knockback_amt = 600
+@export var knockback_amt = 200
+@onready var current_id = 1
 
 @onready var is_attacking := false
 
@@ -25,9 +27,13 @@ func _ready() -> void:
 
 
 func _process(_delta) -> void:
+	if player_controller.velocity.x > 0:
+		facing = 1
+	elif player_controller.velocity.x < 0:
+		facing = -1
+	
 	if Input.is_action_just_pressed("attack"):
 		_animate_hitbox()
-	
 
 
 func _on_hurtbox_area_entered(area: Area2D):
@@ -54,10 +60,6 @@ func _on_hurtbox_area_entered(area: Area2D):
 
 
 func apply_knockback(from: Area2D):
-	#var dir = (from.global_position
-				#.direction_to(player_controller.global_position)
-				#.normalized())
-	
 	var dir = 1 if from.global_position.x < global_position.x else -1
 	player_controller.velocity = knockback_amt * Vector2(dir, -1)
 
@@ -67,19 +69,28 @@ func _animate_hitbox():
 	this whole fxn is used for testing...
 	there will be a real animation here !!
 	"""
-	#hitbox.area_entered.connect(_on_hitbox_area_entered)
-	is_attacking = true
-	# spawn that sucka in
-	var box = sword_hitbox.instantiate()
-	add_child(box)
-	hitboxSprite = box.get_child(1) 
-	hitboxSprite.modulate.a = 1
-	
-	await get_tree().create_timer(1.5).timeout
-	
-	hitboxSprite.modulate.a = 0
-	is_attacking = false
-	box.queue_free()
-	
-	#print('so visible: ', hitbox.visible)
-	#hitbox.area_entered.disconnect(_on_hitbox_area_entered)
+	if not is_attacking:
+		is_attacking = true
+		
+		var box : Node2D = sword_hitbox.instantiate()
+		
+		# give the hitbox a unique id
+		box.set_meta("ID", current_id)
+		current_id += 1
+		
+		# scuffed: place the hitbox in the players dir
+		
+		
+		
+		# spawn that sucka in
+		add_child(box)
+		box.global_position.x += facing * 20  # 20 px displacement
+		hitboxSprite = box.get_child(1) 
+		hitboxSprite.modulate.a = 1
+		
+		await get_tree().create_timer(0.35).timeout
+		
+		# remove the hitbox
+		hitboxSprite.modulate.a = 0
+		is_attacking = false
+		box.queue_free()
