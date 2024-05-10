@@ -156,3 +156,6 @@ func _input(event: InputEvent):
 		if(hotbar_slot < 0):
 			hotbar_slot += 10
 		update_select()
+	elif event is InputEventKey and event.is_pressed() and 48 <= (event as InputEventKey).keycode and (event as InputEventKey).keycode <= 57:
+		hotbar_slot = posmod(((event as InputEventKey).keycode - 49),10)
+		update_select()
