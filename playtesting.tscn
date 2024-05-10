@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -14,9 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
+[ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
+0:0/next_alternative_id = 4
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -3417,6 +3419,43 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11ydt"]
+shader = ExtResource("15_uk5xg")
+shader_parameter/brightness = 1.9
+shader_parameter/alpha = 0.3
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u0wc3"]
+texture = ExtResource("2_ty63p")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ujm3u"]
+sources/0 = SubResource("TileSetAtlasSource_u0wc3")
+
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_3yw20")
 noise_threshold = -0.05
@@ -3469,9 +3508,9 @@ tilemap = NodePath("../../TileMap")
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
 
-[node name="UI" type="Node2D" parent="."]
+[node name="CanvasLayer" parent="Management/EnemyManager" instance=ExtResource("10_31it1")]
 
-[node name="CanvasLayer" parent="UI" instance=ExtResource("10_31it1")]
+[node name="UI" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
@@ -3485,3 +3524,8 @@ z_index = -1
 position = Vector2(0, -70)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_xuo76")
+
+[node name="GhostTileMap" type="TileMap" parent="."]
+material = SubResource("ShaderMaterial_11ydt")
+tile_set = SubResource("TileSet_ujm3u")
+format = 2
