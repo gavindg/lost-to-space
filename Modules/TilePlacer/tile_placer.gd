@@ -53,10 +53,20 @@ func _input(event: InputEvent) -> void:
 		#print("foreground source: ", fg_source)
 		#print("background source: ", bg_source)
 		
+		print(map_position)
+		
+		if map_position.x <= -Globals.map_width:
+			remove_fg_at(map_position+Vector2i(Globals.map_width * 2, 0))
+		elif map_position.x >= Globals.map_width-1:
+			remove_fg_at(map_position-Vector2i(Globals.map_width*2, 0))
+
+		
 		if fg_source == 0:
 			if Globals.inv_manager.held_item_type == Globals.TOOL:  # foreground tile is there, remove it
 				var atlas_coords = tilemap.get_cell_atlas_coords(FOREGROUND_LAYER,map_position)
+
 				remove_fg_at(map_position)
+				
 				if(atlas_coords.x == 0 or atlas_coords == Vector2i(1,0) or atlas_coords == Vector2i(2,0)):
 					Globals.inv_manager.give_dirt()
 				elif(atlas_coords == Vector2i(2,1)):
