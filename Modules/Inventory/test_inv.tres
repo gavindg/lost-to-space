@@ -3,8 +3,8 @@
 [ext_resource type="Resource" uid="uid://bhpt0lg643tws" path="res://Modules/Inventory/items/slimeball.tres" id="1_obbyd"]
 [ext_resource type="Script" path="res://Modules/Inventory/inv_slot.gd" id="2_ctjqj"]
 [ext_resource type="Script" path="res://Modules/Inventory/inventory.gd" id="2_hxhdy"]
-[ext_resource type="Resource" uid="uid://c8ryarrh35evx" path="res://Modules/Inventory/items/dirt.tres" id="3_8idhv"]
-[ext_resource type="Resource" path="res://Modules/Inventory/items/drill.tres" id="4_56t3j"]
+[ext_resource type="Resource" uid="uid://cexg4ldu3kpka" path="res://Modules/Inventory/items/dirt.tres" id="3_8idhv"]
+[ext_resource type="Resource" uid="uid://c1rvjvc8b2fl6" path="res://Modules/Inventory/items/drill.tres" id="4_56t3j"]
 
 [sub_resource type="Resource" id="Resource_wa8dr"]
 script = ExtResource("2_ctjqj")

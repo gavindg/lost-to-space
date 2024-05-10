@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name BossMovement
 
 # player reference ## TODO: change this to a global reference eventually
 @export var player : CharacterBody2D = Globals.player
@@ -45,6 +46,12 @@ var hit_a_wall = false
 @export var combatman : EnemyCombat = null
 var dead = false
 
+# for the "intro cutscene"
+var started = false
+var triggered = false
+
+@export var musician : AudioStreamPlayer
+
 func _ready():
 	# get player object
 	if player != null:  # default is the exported player object
@@ -54,11 +61,16 @@ func _ready():
 		return
 	valid = false  # otherwise we are cooked
 
+# called to start 
+func start_boss():
+	visible = true
+	started = true
+	combatman.start()
 
 ### MOVEMENT ###
 
 func _physics_process(delta):
-	if dead:
+	if dead or not started:
 		return
 	
 	if combatman.is_dead == true:
@@ -84,7 +96,7 @@ func _physics_process(delta):
 # in this state the slime decides what it will do next; jump or dash
 func aggro(_delta):
 	dir = 1 if global_position.x < player.global_position.x else -1
-		
+	
 	if randi() % dash_chance == 1:
 		dash()
 		state_action = "dash_tell"
@@ -148,16 +160,13 @@ func jump():
 func dash():
 	
 	# makes bro go aauuuaaAAAHUHAHGH for a sec before dashing
-	print('giration')
 	for i in range(3):
 		global_position.x += 10
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.05).timeout
-	print('girated')
 	
 	# actually dash
-	print("dashing")
 	var horiz_vel = dash_speed
 	var vert_vel = vert_jump_min / 2
 	
@@ -171,8 +180,41 @@ func dash_tell(_delta):
 	pass
 
 
+func girate():
+	for i in range(45):
+		print(i)
+		global_position.x += 10
+		await get_tree().create_timer(0.1).timeout
+		global_position.x -= 10
+		await get_tree().create_timer(0.1).timeout
+	for i in range(25):
+		print(i)
+		global_position.x += 25
+		await get_tree().create_timer(0.1).timeout
+		global_position.x -= 25
+		await get_tree().create_timer(0.1).timeout
+	for i in range(10):
+		print(i)
+		global_position.x += 30
+		await get_tree().create_timer(0.05).timeout
+		global_position.x -= 30
+		await get_tree().create_timer(0.05).timeout
+
 ### ON DEATH ###
 
 func die():
 	print('bye bye')
 	queue_free()
+
+
+func _on_boss_starter_body_entered(body: Node2D) -> void:
+	if triggered: return
+	triggered = true
+	player.frozen = true
+	if musician:
+		musician.play()
+	girate()
+	await get_tree().create_timer(16).timeout
+	player.frozen = false
+	if "Player" in body.get_groups():
+		start_boss()

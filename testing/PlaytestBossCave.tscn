@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cugspn5eoq1q"]
+[gd_scene load_steps=23 format=3 uid="uid://cugspn5eoq1q"]
 
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="1_2ht68"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="2_bba2q"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="6_pn78n"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="7_6ohfh"]
 [ext_resource type="PackedScene" uid="uid://l2w388u8rege" path="res://testing/braindead.tscn" id="7_vwfja"]
+[ext_resource type="Script" path="res://Modules/UI/user_interface_canvas_layer.gd" id="8_3vwkb"]
+[ext_resource type="Script" path="res://testing/BossStarter.gd" id="8_4cxfg"]
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="8_jvd0m"]
-[ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="9_54iwa"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, -6.25, -8, -6.125)
@@ -3424,6 +3425,26 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w18px"]
+size = Vector2(20, 400)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b0b6"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_655b7"]
+bg_color = Color(0.494118, 1, 0.305882, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbc8q"]
+bg_color = Color(0.894118, 0, 0, 1)
+
 [node name="PlaytestBossCave" type="Node2D"]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -3450,33 +3471,98 @@ position = Vector2(0, -24)
 zoom = Vector2(3.32, 3.32)
 
 [node name="inventory_manager" parent="Michael" instance=ExtResource("7_6ohfh")]
-light_mask = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -168.0
-offset_top = -112.0
-offset_right = -168.0
-offset_bottom = -112.0
+offset_left = -126.0
+offset_top = -70.0
+offset_right = -126.0
+offset_bottom = -70.0
 grow_horizontal = 1
 grow_vertical = 1
-metadata/_edit_use_anchors_ = true
+scale = Vector2(1.5, 1.5)
 
 [node name="FakeBoss" parent="." instance=ExtResource("7_vwfja")]
 visible = false
 position = Vector2(512, 288)
 scale = Vector2(5, 5)
 
-[node name="TestSlime" parent="." instance=ExtResource("8_jvd0m")]
-position = Vector2(512, 288)
+[node name="BossStarter" type="Area2D" parent="."]
+position = Vector2(520, 296)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_4cxfg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossStarter"]
+position = Vector2(0, -184)
+shape = SubResource("RectangleShape2D_w18px")
+
+[node name="TestSlime" parent="." node_paths=PackedStringArray("musician") instance=ExtResource("8_jvd0m")]
+position = Vector2(624, 288)
 scale = Vector2(5, 5)
 vert_jump_max = 400
-vert_jump_min = 200
+vert_jump_min = 300
 horiz_jump_max = 300
 horiz_jump_min = 150
 dash_speed = 300
-MAX_WAIT = 2.0
+MIN_WAIT = 2.08165e-12
+MAX_WAIT = 0.1
+musician = NodePath("AudioStreamPlayer")
+
+[node name="CombatMan" parent="TestSlime" index="1" node_paths=PackedStringArray("healthbar")]
+healthbar = NodePath("../../UI/CanvasLayer/boss_healthbar")
 
 [node name="UI" type="Node2D" parent="."]
 
-[node name="CanvasLayer" parent="UI" instance=ExtResource("9_54iwa")]
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+script = ExtResource("8_3vwkb")
+
+[node name="game_name_Label" type="Label" parent="UI/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "-- Lost  to Space Playtest --"
+
+[node name="health_ProgressBar" type="ProgressBar" parent="UI/CanvasLayer"]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -27.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_7b0b6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_655b7")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="boss_healthbar" type="ProgressBar" parent="UI/CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 50.0
+offset_right = 350.0
+offset_bottom = 77.0
+grow_horizontal = 2
+pivot_offset = Vector2(350, 2.08165e-12)
+theme_override_styles/background = SubResource("StyleBoxFlat_7b0b6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dbc8q")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
+
+[editable path="TestSlime"]

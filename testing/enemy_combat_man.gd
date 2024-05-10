@@ -11,18 +11,26 @@ class_name EnemyCombat
 @export var hurtbox : Area2D = null
 
 # if this enemy has boss music...
-@export var musician : AudioStreamPlayer = null
+#@export var musician : AudioStreamPlayer = null
+@export var healthbar : ProgressBar
 var is_dead : bool = false
 
 var hitme = []
 
-func _ready() -> void:
-	if musician:
-		musician.play()
+#func _ready() -> void:
+	#start()  # debug...
+	
+
+func start():
+	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+	if healthbar:
+		healthbar.max_value = stats.max_hp
+		healthbar.value = stats.max_hp
+		healthbar.visible = true
+	#if musician:
+		#musician.play()
 	print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
 	# connect signals
-	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
-
 
 # collision between the player's hitbox and the enemy's hurtbox
 # (aka PLAYER hit ENEMY)
@@ -41,7 +49,14 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			hitme = [area.get_meta("ID")]
 		
 		stats.hp -= player.stats.get_raw_damage() - stats.b_def
+		if healthbar:
+			healthbar.value = stats.hp
 		if stats.hp <= 0:
-			is_dead = true
-		else:
-			print('[SLIMUS]: hp = ', stats.hp, '/', stats.max_hp)
+			die()
+		#else:
+			#print('[SLIMUS]: hp = ', stats.hp, '/', stats.max_hp)
+
+func die():
+	is_dead = true
+	if healthbar:
+		healthbar.queue_free()

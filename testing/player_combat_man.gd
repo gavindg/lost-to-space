@@ -46,12 +46,17 @@ func _on_hurtbox_area_entered(area: Area2D):
 	"""
 	if 'EnemyHit' in area.get_groups():
 		var enemy : EnemyCombat = area.get_parent()
+		# take damage
 		stats.hp -= enemy.stats.get_raw_damage() - stats.b_def
+		
+		# update the value in globals...
+		if Globals.player_health: Globals.player_health = stats.hp
+		
 		if stats.hp <= 0:
-			print('[PLAYER]: dead as hell')
+			#print('[PLAYER]: dead as hell')
 			return
 			
-		print('[PLAYER]: hp = ', stats.hp, '/', stats.max_hp)
+		#print('[PLAYER]: hp = ', stats.hp, '/', stats.max_hp)
 		
 		# calculate & apply knockback
 		apply_knockback(area)
