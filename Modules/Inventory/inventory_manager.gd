@@ -104,6 +104,8 @@ func check_in_inv():
 			mouse_in_inv = true
 		else:
 			mouse_in_inv = false
+	else:
+		mouse_in_inv = false
 
 func check_drop():
 	if(inv.cursor_slot.item != null and !mouse_in_inv and Input.is_action_just_pressed("right_mouse")):
@@ -159,3 +161,29 @@ func _input(event: InputEvent):
 	elif event is InputEventKey and event.is_pressed() and 48 <= (event as InputEventKey).keycode and (event as InputEventKey).keycode <= 57:
 		hotbar_slot = posmod(((event as InputEventKey).keycode - 49),10)
 		update_select()
+
+func handle_use():
+	if(mouse_in_inv):
+		return
+	if held_item is Useless:
+		return
+	elif held_item is Placeable:
+		place()
+	elif held_item is Consumable:
+		consume()
+	elif held_item is Tool:
+		use_tool()
+	elif held_item is Weapon:
+		use_weapon()
+
+func place():
+	pass
+
+func consume():
+	pass
+
+func use_tool():
+	pass
+
+func use_weapon():
+	pass
