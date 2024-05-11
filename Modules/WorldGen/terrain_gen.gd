@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var tilemap = $TileMap
+@export var player : CharacterBody2D
 
 # MAP DIMENSIONS!!!
 
@@ -11,13 +12,13 @@ var map_height : int = Globals.map_height
 
 # SIDE CAMERAS
 
-@export var camera_left : Camera2D
-@export var camera_right : Camera2D
+# @export var camera_left : Camera2D
+# @export var camera_right : Camera2D
 
-@export var sprite_left : Sprite2D
-@export var sprite_right : Sprite2D
+# @export var sprite_left : Sprite2D
+# @export var sprite_right : Sprite2D
 
-@export var player : CharacterBody2D
+# @export var player : CharacterBody2D
 
 # NOISE SETTINGS!!!
 
@@ -102,8 +103,6 @@ var noise_grid = {}
 var fg_tile_matrix = {}
 var bg_tile_matrix = {}
 
-var spawn_location
-
 ## Generates a new FastNoiseLite object given a noise type, frequency, octaves, lacunarity, and gain. 
 func gen_new_noise(noise_type, freq = frequency, oct = octaves, lac = lacunarity, g = gain):
 	var fnl = FastNoiseLite.new()
@@ -121,11 +120,11 @@ func gen_surface(forward):
 	var next_move = 0
 	var section_width = 0
 	
+	# First generate from -200 to 190
 	var r = range(0, map_width+1-10)
-	
 	if not forward:
 		r = range(0, -map_width-1, -1)
-	
+
 	for x in r:
 		if forward and x < 0:
 			continue	
@@ -147,7 +146,7 @@ func gen_surface(forward):
 		section_width += 1
 		_gen_column(x, last_height)
 
-	# Generates a stairwell at the end, if the heights differ
+	# Generates a stairwell at the end from 191-199, if the heights differ
 	if forward:
 		var start = map_width-10
 		var diff = ground_levels[-map_width]
@@ -159,6 +158,7 @@ func gen_surface(forward):
 				h -= 1
 			_gen_column(x, h)
 	
+## Generates a column
 func _gen_column(x, h):
 	for y in range(h, map_height):
 		var pos = Vector2i(x, y)
@@ -195,18 +195,6 @@ func gen_caves():
 			if y == ground_levels[x]:
 				noise_grid[pos] = BLANK
 	
-## Old way of generating caves, using a noise threshold and then generating little platforms using a secondary simplex noise.
-#func gen_caves_old():
-	#var cave_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 7, octaves, lacunarity, gain)
-	#var secondary_noise = gen_new_noise(FastNoiseLite.TYPE_SIMPLEX_SMOOTH, frequency * 16, octaves, lacunarity, gain) 
-	#for x in range(-map_width, map_width):	
-		#for y in range(ground_levels[x] + cave_offset, map_height):
-			#if x in range(-10, 10) && y in range(-10, 10):
-				#continue
-			#if cave_noise.get_noise_2d(x,y) < cave_threshold:
-				#if secondary_noise.get_noise_2d(x,y) < -cave_threshold:
-					#tilemap.set_cell(1, Vector2i(x,y), -1) #, BLACKNESS)
-					#noise_grid[Vector2i(x,y)] = BLANK
 
 ## Replaces top layer tiles with grass. Will be obsolete once autotiling is implemented.
 func gen_grass():
@@ -257,17 +245,6 @@ func gen_decor_tree(col):
 	for h in range(ground-1, ground-height, -1):
 		tilemap.set_cell(BACKGROUND, Vector2i(col, h), 0, dec)
 
-
-#func gen_spawn_area():
-	#var sel 
-	#
-	#for i in range(0, map_width):
-		#var ground = ground_levels[i]
-		#var pos = Vector2i(i, ground)
-		#if noise_grid[pos] == GRASS_LEVEL: # if there is grass here
-			#sel = Vector2i(pos)
-			#break
-	#spawn_location = sel
 
 ## Generates the ore using a new perlin noise. 
 func gen_ore():
@@ -352,38 +329,69 @@ func gen_terrain():
 				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_ORE1)
 			elif val == 'CAVE':
 				tilemap.set_cell(FOREGROUND, pos, -1)
-				
-	camera_left.position.x = (-map_width) * 16
-	camera_left.position.y = ground_levels[-map_width] * 16
-	camera_right.position.x = (map_width) * 16
-	camera_right.position.y = ground_levels[map_width-1] * 16
-	#
-	sprite_left.position.x = -map_width * 16
-	sprite_left.position.y = ground_levels[-map_width] * 16
-	sprite_right.position.x = map_width * 16
-	sprite_right.position.y = ground_levels[map_width-1] * 16
-				
+
 	gen_cloned_sides()
 
+func setup_side_cams():
+	var side_cams = Node2D.new()
+	
+	var left_vp = SubViewport.new()
+	var right_vp = SubViewport.new()	
+	
+	left_vp.world_2d = get_tree().get_root().get_world_2d()
+	right_vp.world_2d = get_tree().get_root().get_world_2d()
+	
+	var left_cam = Camera2D.new()
+	var right_cam = Camera2D.new()
+	
+	left_vp.add_child(left_cam)
+	right_vp.add_child(right_cam)
+	left_vp.transparent_bg = true
+	right_vp.transparent_bg = true
+	
+	left_vp.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
+	right_vp.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
+	left_vp.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	right_vp.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	
+	var left_sprite = Sprite2D.new()
+	var right_sprite = Sprite2D.new()
+	
+	left_vp.size = Vector2i(1000, 3 * Globals.map_height * 16)
+	right_vp.size = Vector2i(1000, 3 * Globals.map_height * 16)
+	
+	left_cam.position = Vector2i((-map_width) * 16, ground_levels[-map_width] * 16)
+	right_cam.position = Vector2i((map_width) * 16, ground_levels[map_width-1] * 16)
+	
+	left_sprite.position = Vector2i(-map_width * 16, ground_levels[-map_width] * 16)
+	right_sprite.position = Vector2i(map_width * 16, ground_levels[map_width-1] * 16)
+	
+	# Prevent the viewport from seeing the other sprite
+	left_vp.set_canvas_cull_mask_bit(1, false)
+	right_vp.set_canvas_cull_mask_bit(1, false)
+	left_sprite.visibility_layer = 2
+	right_sprite.visibility_layer = 2
+	
+	left_sprite.texture = right_vp.get_texture()
+	right_sprite.texture = left_vp.get_texture()
+	
+	side_cams.add_child(left_vp)
+	side_cams.add_child(right_vp)
+	side_cams.add_child(left_sprite)
+	side_cams.add_child(right_sprite)
+	
+	add_child(side_cams)
+
+## Just for logging
 var prev 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#noise_grid = gen_noise_map()
-	#gen_surface(true)
-	#gen_surface(false)
-	#gen_ore()
-	#gen_caves()
-	##gen_spawn_area()
-	#gen_grass()
-	#gen_plants()
-	#gen_walls()
-	#gen_cloned_sides()
 	gen_terrain()
+	await RenderingServer.frame_post_draw
+	setup_side_cams()
 	prev = floor(player.position.x/16)
 	
-	#tilemap.set_cell(FOREGROUND, Vector2i(0,0), 1, Vector2i(2,6))
-	#gen_normalized_terrain(map_width, map_height)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
