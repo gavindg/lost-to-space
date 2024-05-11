@@ -2,9 +2,9 @@ extends Node2D
 class_name EnemyCombat
 
 @onready var stats : Stats = Stats.new(
-	1000,  # health
-	5,    # defense
-	20    # attack
+	1000,   # health
+	5,      # defense
+	12.5    # attack
 )
 
 @export var hitbox : Area2D = null

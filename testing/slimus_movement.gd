@@ -160,11 +160,12 @@ func jump():
 func dash():
 	
 	# makes bro go aauuuaaAAAHUHAHGH for a sec before dashing
-	for i in range(3):
+	for i in range(6):
 		global_position.x += 10
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.05).timeout
+	#await tell()
 	
 	# actually dash
 	var horiz_vel = dash_speed
@@ -179,6 +180,13 @@ func dash():
 func dash_tell(_delta):
 	pass
 
+
+func tell():
+	for i in range(3):
+		global_position.x += 10
+		await get_tree().create_timer(0.05).timeout
+		global_position.x -= 10
+		await get_tree().create_timer(0.05).timeout
 
 func girate():
 	for i in range(45):

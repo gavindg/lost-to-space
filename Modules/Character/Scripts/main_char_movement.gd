@@ -40,10 +40,7 @@ var frozen = false
 func _ready():
 	Globals.player = self
 
-func _physics_process(delta):
-	if frozen:
-		return
-	
+func _physics_process(delta):	
 	animation_handler()
 	
 	# reset jump and double jump status
@@ -123,6 +120,8 @@ func _physics_process(delta):
 					last_move_direction = direction
 				if direction:
 					velocity.x = direction * speed
+					if frozen:
+						velocity.x = 0
 				else:
 					velocity.x = move_toward(velocity.x, 0, speed)
 			# do dash
