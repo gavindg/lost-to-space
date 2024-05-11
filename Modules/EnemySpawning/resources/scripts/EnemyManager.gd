@@ -2,36 +2,61 @@ class_name EnemyManager
 
 extends Node2D
 
-@export var despawnRadius : int = 800
-@onready var despawn_freq : int = 600  # enemies will be despawned every 60 sec
-@onready var tick := 0
+@export var enemyDespawnDistance = 2000;
 
-@onready var enemies : Array[SpaceFiend] = []  # we'll want to change this to our actual enemy class
+# epic nested dict of enemy info
+# spawn rate is incremented in 1/10ths, e.g. 1.1, 0.5 and is relative to other enemies
+var enemyData = {
+	"greenSlime": {
+		"max": 10,
+		"spawn_rad_min": 400,
+		"spawn_rad_max": 1000,
+		"spawn_rate": 1,
+		"spawn_type": "surface"
+	}
+}
 
-func _physics_process(_delta: float) -> void:
-	print(tick)
-	if (tick % despawn_freq == 0):
-		despawn_enemies()
-	tick += 1
+var enemyDict = {
+	"greenSlime": {}
+}
 	
 	
 func register(enemy):
-	enemies.push_back(enemy);
-	print("registered")
-	
+	# find enemy dict by cname then add to dict
+	enemyDict[enemy.enemy_type][enemy.get_instance_id()] = enemy
 
-func deregister(enemy):
-	enemies.remove_at(enemies.find(enemy))  # sorry
+# Allow / Deny spawn based on number of existing enemies of same type
+func allowEnemySpawn(enemy_type):
+	if len(enemyDict[enemy_type]) > enemyData[enemy_type]["max"]:
+		print("hit enemy cap, not spawning")
+		return false
+	else:
+		return true
 	
+func deregister(enemy_id, enemy_name):
+	enemyDict[enemy_name].erase(enemy_id)
 	
-func out_of_range(_enemy) -> bool:
-	return true  # STUB
+func is_out_of_range(enemy, player):
+	var player_pos = player.global_position
+	var enemy_pos = enemy.global_position
 	
+	var distance = player_pos.distance_to(enemy_pos)
+	
+	if distance > enemyDespawnDistance:
+		print("DISTANCE: "+str(distance))
+		return true
+	else:
+		return false
 
-func despawn_enemies():
-	print("despawning")
-	for enemy in enemies:
-		if out_of_range(enemy):
-			print("deleting", enemy)
-			deregister(enemy)
-			enemy.queue_free()
+func despawn(enemy):
+	var enemy_id = enemy.get_instance_id()
+	var enemy_name = enemy.enemy_type
+	enemy.queue_free()
+	deregister(enemy_id, enemy_name)
+	print("despawned")
+	
+func check_enemies(player):
+	for key in enemyDict:
+		for enemyID in enemyDict[key]:
+			if is_out_of_range(enemyDict[key][enemyID], player):
+				despawn(enemyDict[key][enemyID])
