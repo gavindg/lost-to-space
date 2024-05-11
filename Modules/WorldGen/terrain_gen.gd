@@ -10,16 +10,6 @@ var map_width : int = Globals.map_width
 ## The map generated height
 var map_height : int = Globals.map_height
 
-# SIDE CAMERAS
-
-# @export var camera_left : Camera2D
-# @export var camera_right : Camera2D
-
-# @export var sprite_left : Sprite2D
-# @export var sprite_right : Sprite2D
-
-# @export var player : CharacterBody2D
-
 # NOISE SETTINGS!!!
 
 ## The base frequency, likely do not change
@@ -63,6 +53,8 @@ var map_height : int = Globals.map_height
 ## Max and min height of the tree
 @export var min_tree_height : int = 1
 @export var max_tree_height : int = 10
+
+## TODO: Modularize the below
 
 const GRASS_LEVEL = -20
 const BLANK = -30
