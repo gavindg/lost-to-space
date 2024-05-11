@@ -99,7 +99,6 @@ func _input(event: InputEvent) -> void:
 		
 		print(map_position)
 		
-<<<<<<< HEAD
 		#if fg_source == 0:
 			#if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
 				##start_mining(map_position)
@@ -125,17 +124,16 @@ func _input(event: InputEvent) -> void:
 				#if is_adj and Globals.inv_manager.remove_dirt():
 					#place_fg_at(map_position)
 					## TODO: check here if the foreground source exists...
-=======
 
 		
 		if fg_source == 0:
 			if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
 				#start_mining(map_position)
 				remove_fg_at(map_position)
-		        if map_position.x <= -Globals.map_width:
-		        	remove_fg_at(map_position+Vector2i(Globals.map_width * 2, 0))
-		        elif map_position.x >= Globals.map_width-1:
-		        	remove_fg_at(map_position-Vector2i(Globals.map_width*2, 0))
+				if map_position.x <= -Globals.map_width:
+					remove_fg_at(map_position+Vector2i(Globals.map_width * 2, 0))
+				elif map_position.x >= Globals.map_width-1:
+					remove_fg_at(map_position-Vector2i(Globals.map_width*2, 0))
 		elif Globals.inv_manager.held_item is Placeable:
 			# don't let the player suffocate themself
 			if (in_player_bounds(map_position)):
@@ -153,7 +151,6 @@ func _input(event: InputEvent) -> void:
 				if is_adj and Globals.inv_manager.remove_dirt():
 					place_fg_at(map_position)
 					# TODO: check here if the foreground source exists...
->>>>>>> parent of f91b103 (Revert "Merge branch 'main' into world-gen-modular")
 
 
 

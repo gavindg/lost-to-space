@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -3419,9 +3419,6 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
-<<<<<<< HEAD
-[node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
-=======
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11ydt"]
 shader = ExtResource("15_uk5xg")
 shader_parameter/brightness = 1.9
@@ -3459,8 +3456,7 @@ texture = ExtResource("2_ty63p")
 [sub_resource type="TileSet" id="TileSet_ujm3u"]
 sources/0 = SubResource("TileSetAtlasSource_u0wc3")
 
-[node name="Playtesting" type="Node2D"]
->>>>>>> parent of f91b103 (Revert "Merge branch 'main' into world-gen-modular")
+[node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
 player = NodePath("SceneObjects/Player")
 
