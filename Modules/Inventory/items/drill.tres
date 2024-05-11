@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Tool" load_steps=3 format=3 uid="uid://c1rvjvc8b2fl6"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b4emkk1ymnsby"]
 
-[ext_resource type="Script" path="res://Modules/Inventory/tool.gd" id="1_xoajj"]
+[ext_resource type="Script" path="res://Modules/Inventory/item.gd" id="1_iv04e"]
 [ext_resource type="Texture2D" uid="uid://dc1srneqw8q2g" path="res://Art/Sprites/DeveloperArt/drill.png" id="2_j3eao"]
 
 [resource]
-script = ExtResource("1_xoajj")
-name = "Drill"
+script = ExtResource("1_iv04e")
+name = "drill"
 sprite = ExtResource("2_j3eao")
+item_type = 4

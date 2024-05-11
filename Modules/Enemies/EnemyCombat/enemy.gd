@@ -58,14 +58,15 @@ func deal_with_damage():
 	var player_logic : PlayerLogic = player.get_node("CombatHandling")
 	
 	if player_inattack_zone and player_logic.player_current_attack:
-		#print("am i real") <-- no you are an illusion
+		#print("am i real")
 		if can_take_damage:
 			health = health - 20
 			$take_damage_cooldown.start()
 			can_take_damage = false
 			print("Enemy health = ", health)
 			if health <= 0 && parent != null:
-				Globals.manager.despawn(parent)
+				parent.queue_free()
+				#self.queue_free()
 
 
 func _on_take_damage_cooldown_timeout():
