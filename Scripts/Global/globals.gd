@@ -7,6 +7,9 @@ var manager
 
 
 
+## flags
+var player_locked : bool = false
+
 ## movement
 ## initial walk speed
 #@export var SPEED = 200.0

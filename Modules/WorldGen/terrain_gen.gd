@@ -96,7 +96,7 @@ func gen_new_noise(noise_type, freq, oct, lac, g):
 func gen_caves():
 	var cave_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * 7, octaves, lacunarity, gain)
 	var secondary_noise = gen_new_noise(FastNoiseLite.TYPE_SIMPLEX_SMOOTH, frequency * 16, octaves, lacunarity, gain) 
-	for x in range(-map_width, map_width):	
+	for x in range(-map_width, map_width):
 		for y in range(ground_levels[x] + cave_offset, map_height):
 			if x in range(-10, 10) && y in range(-10, 10):
 				continue
