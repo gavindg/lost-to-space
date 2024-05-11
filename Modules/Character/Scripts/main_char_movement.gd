@@ -108,7 +108,10 @@ func _physics_process(delta):
 					has_double_jumped = true
 					
 					
-				
+		if frozen:
+			velocity.x = 0
+			move_and_slide()
+			return
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
 		# do one more check since the is_special_movement status keeps changing
@@ -120,8 +123,6 @@ func _physics_process(delta):
 					last_move_direction = direction
 				if direction:
 					velocity.x = direction * speed
-					if frozen:
-						velocity.x = 0
 				else:
 					velocity.x = move_toward(velocity.x, 0, speed)
 			# do dash

@@ -165,7 +165,6 @@ func dash():
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.05).timeout
-	#await tell()
 	
 	# actually dash
 	var horiz_vel = dash_speed
@@ -189,23 +188,23 @@ func tell():
 		await get_tree().create_timer(0.05).timeout
 
 func girate():
-	for i in range(45):
+	for i in range(46):
+		print(i)
+		global_position.x += 5
+		await get_tree().create_timer(0.1).timeout
+		global_position.x -= 5
+		await get_tree().create_timer(0.1).timeout
+	for i in range(25):
 		print(i)
 		global_position.x += 10
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
-	for i in range(25):
+	for i in range(20):
 		print(i)
-		global_position.x += 25
-		await get_tree().create_timer(0.1).timeout
-		global_position.x -= 25
-		await get_tree().create_timer(0.1).timeout
-	for i in range(10):
-		print(i)
-		global_position.x += 30
+		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
-		global_position.x -= 30
+		global_position.x -= 20
 		await get_tree().create_timer(0.05).timeout
 
 ### ON DEATH ###
