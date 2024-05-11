@@ -27,22 +27,32 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "-- Lost  to Space Playtest --"
+text = "Lost  to Space"
 
 [node name="health_ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(400, 0)
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -200.0
+offset_left = 8.0
 offset_top = -27.0
-offset_right = 200.0
-grow_horizontal = 2
+offset_right = 408.0
 grow_vertical = 0
 theme_override_styles/background = SubResource("StyleBoxFlat_7b0b6")
 theme_override_styles/fill = SubResource("StyleBoxFlat_655b7")
 step = 1.0
 value = 100.0
 show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="time_Label" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "00:00:00"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -12,7 +12,7 @@ extends Control
 @onready var dropped_item_scene = preload("res://Modules/Inventory/dropped_item.tscn")
 @onready var is_open = false
 @onready var hotbar_slot: int = 0
-@onready var held_item: Item
+@onready var held_item_type: int = 0
 
 @onready var dirt: Item = preload("res://Modules/Inventory/items/dirt.tres")
 @onready var ore: Item = preload("res://Modules/Inventory/items/ore.tres")
@@ -27,7 +27,10 @@ func check_holding():
 		holding = true
 
 func check_select_type():
-	held_item = inv.inv[30+hotbar_slot].item
+	if(inv.inv[30+hotbar_slot].item):
+		held_item_type = inv.inv[30+hotbar_slot].item.item_type
+	else:
+		held_item_type = Globals.USELESS
 
 func left(slot_num: int):
 	if(is_open):
@@ -155,7 +158,4 @@ func _input(event: InputEvent):
 		hotbar_slot -= 1
 		if(hotbar_slot < 0):
 			hotbar_slot += 10
-		update_select()
-	elif event is InputEventKey and event.is_pressed() and 48 <= (event as InputEventKey).keycode and (event as InputEventKey).keycode <= 57:
-		hotbar_slot = posmod(((event as InputEventKey).keycode - 49),10)
 		update_select()

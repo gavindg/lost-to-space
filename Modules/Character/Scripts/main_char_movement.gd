@@ -34,9 +34,6 @@ var wall_jump_direction = 0
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
 
-var frozen = false
-
-
 func _ready():
 	Globals.player = self
 
@@ -52,6 +49,7 @@ func _physics_process(delta):
 		global_position.x += 2 * Globals.map_width * 16
 		#global_position.x += (Globals.map_width * 16) + (Globals.map_width * 16)
 		print("PAST LEFT LIMIT")
+	
 	animation_handler()
 	
 	# reset jump and double jump status
@@ -119,10 +117,7 @@ func _physics_process(delta):
 					has_double_jumped = true
 					
 					
-		if frozen:
-			velocity.x = 0
-			move_and_slide()
-			return
+				
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
 		# do one more check since the is_special_movement status keeps changing
@@ -176,6 +171,8 @@ func dash():
 	is_special_movement = false
 
 
+
+
 # the character should be able to kick the wall to jump to an opposite direction
 func wall_jump(wall_jump_dir):
 	is_special_movement = true
@@ -186,8 +183,8 @@ func wall_jump(wall_jump_dir):
 	await get_tree().create_timer(0.3).timeout
 	is_special_movement = false
 	can_wall_jump = false
-
-
+	
+	
 # below are health mechanism
 
 #currently not dealing with damage logic here
@@ -200,6 +197,7 @@ func wall_jump(wall_jump_dir):
 		#sibling.update_health_bar()
 	#if Globals.player_health <= 0:
 		#die()
+
 
 func die():
 	#Globals.player_health = 100 # for testing: reset character health

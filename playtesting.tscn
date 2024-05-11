@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=22 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -11,11 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
-[ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
+[ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_x7kja"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
-[ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
-[ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_x847c"]
 viewport_path = NodePath("SubViewport")
@@ -25,7 +23,6 @@ viewport_path = NodePath("SubViewport2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
-0:0/next_alternative_id = 4
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -3426,44 +3423,7 @@ sources/2 = SubResource("TileSetAtlasSource_dj0gq")
 sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_11ydt"]
-shader = ExtResource("15_uk5xg")
-shader_parameter/brightness = 1.9
-shader_parameter/alpha = 0.3
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u0wc3"]
-texture = ExtResource("2_ty63p")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-0:3/0 = 0
-3:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-3:4/0 = 0
-0:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-3:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-3:7/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_ujm3u"]
-sources/0 = SubResource("TileSetAtlasSource_u0wc3")
-
-[node name="Playtesting" type="Node2D"]
+[node name="Playtesting" type="Node2D" node_paths=PackedStringArray("camera_left", "camera_right", "sprite_left", "sprite_right")]
 script = ExtResource("1_3yw20")
 camera_left = NodePath("SubViewport/LeftCamera")
 camera_right = NodePath("SubViewport2/RightCamera")
@@ -3529,32 +3489,32 @@ texture = ExtResource("10_g6hel")
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -126.0
-offset_top = -77.0
-offset_right = -126.0
-offset_bottom = -77.0
+offset_left = -166.0
+offset_top = -116.0
+offset_right = -166.0
+offset_bottom = -116.0
 grow_horizontal = 1
 grow_vertical = 1
-scale = Vector2(1.5, 1.5)
 player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
-script = ExtResource("10_oxk83")
+script = ExtResource("10_x7kja")
 player = NodePath("../../SceneObjects/Player")
 tilemap = NodePath("../../TileMap")
+spawnRate = 100.0
+radiusAwayFromPlayer = 300
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
 
-[node name="CanvasLayer" parent="Management/EnemyManager" instance=ExtResource("10_31it1")]
-
 [node name="UI" type="Node2D" parent="."]
+
+[node name="CanvasLayer" parent="UI" instance=ExtResource("10_31it1")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
 autoplay = true
-script = ExtResource("13_ypctl")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
@@ -3563,8 +3523,3 @@ z_index = -1
 position = Vector2(0, -70)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_xuo76")
-
-[node name="GhostTileMap" type="TileMap" parent="."]
-material = SubResource("ShaderMaterial_11ydt")
-tile_set = SubResource("TileSet_ujm3u")
-format = 2
