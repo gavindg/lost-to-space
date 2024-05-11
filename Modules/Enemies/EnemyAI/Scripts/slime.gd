@@ -8,6 +8,7 @@ var wander_timer = 0.0; # internal timer for wander
 @export var min_wander_interval = 1 # min time in seconds that the slime will wander in one direction
 @export var max_wander_interval = 2 # max time in seconds that the slime will wander in one direction
 @export var gravity_strength = 10
+@export var rotation_factor = 1.02  # scales how quickly slime rotate back to 0 degrees (upright)
 var is_jumping = false
 var in_combat = false
 
@@ -30,6 +31,16 @@ func _process(delta):
 		seek()
 	else:
 		wander()
+		
+	# prevent slime from rotating upside down
+	if global_rotation_degrees != 0:
+		#print("SLIME ROTATION: " + str(get_instance_id()) + " " + str(global_rotation_degrees))
+		global_rotation_degrees /= rotation_factor
+	
+	# set rotation to zero once it approaches zero 
+	if ((global_rotation_degrees <= 0.125) and (global_rotation_degrees >= -0.125)):
+		global_rotation_degrees = 0 
+	
 	move_and_collide(velocity)
 	
 	# TODO: animation player is null for some reason...
