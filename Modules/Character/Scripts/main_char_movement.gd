@@ -36,6 +36,7 @@ var is_special_movement = false
 
 var frozen = false
 
+@onready var stats = load("res://testing/stats.gd").new(100,0,10)
 
 func _ready():
 	Globals.player = self

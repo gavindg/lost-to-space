@@ -45,6 +45,12 @@ func calculated_stats():
 		pass
 	return [b_def, b_atk]
 
+func heal(healing: int):
+	hp += healing
+	if hp > max_hp:
+		hp = max_hp
+
+
 # idk do some enemy management activity here
 func die():
 	pass

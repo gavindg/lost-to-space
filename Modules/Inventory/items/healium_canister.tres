@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Consumable" load_steps=3 format=3 uid="uid://jaq1qd7bpmcd"]
+[gd_resource type="Resource" script_class="Consumable" load_steps=3 format=3 uid="uid://bs4nvs8pworcu"]
 
 [ext_resource type="Script" path="res://Modules/Inventory/consumable.gd" id="1_q58yv"]
 [ext_resource type="Texture2D" uid="uid://qlibli6xpemt" path="res://Art/Sprites/DeveloperArt/healium_can_temp.png" id="2_55ul1"]
 
 [resource]
 script = ExtResource("1_q58yv")
+healing = 10
+damage = 0
 name = "Healium Canister"
 sprite = ExtResource("2_55ul1")
