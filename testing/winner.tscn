@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4msjtmb487lw"]
+
+[ext_resource type="Script" path="res://testing/winner.gd" id="1_0dmgw"]
+[ext_resource type="AudioStream" uid="uid://dubys2vyk8q7h" path="res://Art/Sound/Music/planst zombid.1.wav" id="2_85tca"]
+[ext_resource type="FontFile" uid="uid://qttxbowhxndp" path="res://testing/OptimusPrinceps.ttf" id="3_rnlui"]
+
+[sub_resource type="Theme" id="Theme_aron0"]
+default_font = ExtResource("3_rnlui")
+default_font_size = 95
+
+[node name="Winner" type="Node2D" node_paths=PackedStringArray("audio", "text")]
+script = ExtResource("1_0dmgw")
+audio = NodePath("PVZ")
+text = NodePath("CanvasLayer/RichTextLabel")
+
+[node name="PVZ" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_85tca")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.5
+offset_right = 1.0
+offset_bottom = 2088.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(602, 43)
+size_flags_vertical = 3
+theme = SubResource("Theme_aron0")
+text = "SOUL OF SLIME CLAIMED"
+fit_content = true
