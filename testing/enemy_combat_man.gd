@@ -2,7 +2,7 @@ extends Node2D
 class_name EnemyCombat
 
 @onready var stats : Stats = Stats.new(
-	1000,   # health
+	1000,   # health  # default = 1000
 	5,      # defense
 	12.5    # attack
 )
@@ -16,10 +16,6 @@ class_name EnemyCombat
 var is_dead : bool = false
 
 var hitme = []
-
-#func _ready() -> void:
-	#start()  # debug...
-	
 
 func start():
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
@@ -60,3 +56,4 @@ func die():
 	is_dead = true
 	if healthbar:
 		healthbar.queue_free()
+	

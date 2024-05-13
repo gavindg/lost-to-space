@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cugspn5eoq1q"]
+[gd_scene load_steps=22 format=3 uid="uid://cugspn5eoq1q"]
 
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="1_2ht68"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="2_bba2q"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="7_6ohfh"]
 [ext_resource type="PackedScene" uid="uid://l2w388u8rege" path="res://testing/braindead.tscn" id="7_vwfja"]
 [ext_resource type="Script" path="res://Modules/UI/user_interface_canvas_layer.gd" id="8_3vwkb"]
-[ext_resource type="Script" path="res://testing/BossStarter.gd" id="8_4cxfg"]
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="8_jvd0m"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
@@ -3491,13 +3490,12 @@ scale = Vector2(5, 5)
 position = Vector2(520, 296)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("8_4cxfg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossStarter"]
 position = Vector2(0, -184)
 shape = SubResource("RectangleShape2D_w18px")
 
-[node name="TestSlime" parent="." node_paths=PackedStringArray("musician") instance=ExtResource("8_jvd0m")]
+[node name="TestSlime" parent="." instance=ExtResource("8_jvd0m")]
 position = Vector2(624, 288)
 scale = Vector2(5, 5)
 vert_jump_max = 400
@@ -3505,7 +3503,6 @@ vert_jump_min = 300
 horiz_jump_max = 300
 horiz_jump_min = 150
 dash_speed = 300
-musician = NodePath("AudioStreamPlayer")
 
 [node name="CombatMan" parent="TestSlime" index="1" node_paths=PackedStringArray("healthbar")]
 healthbar = NodePath("../../UI/CanvasLayer/boss_healthbar")
