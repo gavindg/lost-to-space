@@ -193,20 +193,27 @@ func die():
 	
 	
 var last_move_direction = 0
+var exported_move_direction = 0
 
 func animation_handler() -> void:
 	if velocity.x != 0 && is_on_floor():
 		if velocity.x < 0:
 			animation_player.play("run_left")
+			exported_move_direction = -1 
 		else:
 			animation_player.play("run_right")
+			exported_move_direction = 1 
 	elif velocity.x !=0:
 		if velocity.x < 0:
 			animation_player.play("jump_left")
+			exported_move_direction = -1 
 		else:
 			animation_player.play("jump_right")
+			exported_move_direction = 1 
 	else:
 		if last_move_direction < 0:
 			animation_player.play("idle_left")
+			exported_move_direction = -1 
 		else:
 			animation_player.play("idle_right")
+			exported_move_direction = 1 
