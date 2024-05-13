@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddaqqklwipreq"]
+[gd_scene load_steps=5 format=3 uid="uid://ddaqqklwipreq"]
 
 [ext_resource type="Script" path="res://Modules/Character/Scripts/player_logic.gd" id="1_2v15l"]
+[ext_resource type="Texture2D" uid="uid://ivuivj5xft5a" path="res://Modules/Character/sword.png" id="2_55ia5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8d6q"]
 radius = 141.796
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfr8h"]
+size = Vector2(28, 3)
+
 [node name="CombatHandling" type="Node2D"]
 script = ExtResource("1_2v15l")
+rotation_speed = 480
 
 [node name="player_hitbox" type="Area2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -21,6 +26,21 @@ shape = SubResource("CircleShape2D_i8d6q")
 
 [node name="deal_attack_timer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="SwordArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea"]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_qfr8h")
+debug_color = Color(0.596078, 0.0117647, 0.290196, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="SwordArea"]
+position = Vector2(13.9129, -0.00768894)
+rotation = 0.785398
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("2_55ia5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
