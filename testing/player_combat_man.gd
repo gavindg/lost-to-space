@@ -19,6 +19,7 @@ class_name PlayerCombat
 @onready var current_id = 1
 
 @onready var is_attacking := false
+var is_dead = false
 
 @onready var sword_hitbox := preload('res://testing/michael_sword.tscn')
 
@@ -27,6 +28,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if is_dead: return
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		#if Globals.inv_manager.held_item_type != Globals.WEAPON:
 			#return
@@ -44,6 +46,8 @@ func _on_hurtbox_area_entered(area: Area2D):
 	handles the player getting hit &
 	i-frames
 	"""
+	if is_dead: return
+	
 	if 'EnemyHit' in area.get_groups():
 		var enemy : EnemyCombat = area.get_parent()
 		# take damage
@@ -53,7 +57,8 @@ func _on_hurtbox_area_entered(area: Area2D):
 		if Globals.player_health: Globals.player_health = stats.hp
 		
 		if stats.hp <= 0:
-			#print('[PLAYER]: dead as hell')
+			is_dead = true
+			die()
 			return
 			
 		#print('[PLAYER]: hp = ', stats.hp, '/', stats.max_hp)
@@ -68,6 +73,7 @@ func _on_hurtbox_area_entered(area: Area2D):
 
 
 func apply_knockback(from: Area2D):
+	if is_dead: return
 	var dir = 1 if from.global_position.x < global_position.x else -1
 	player_controller.velocity = knockback_amt * Vector2(dir, -1)
 
@@ -86,10 +92,6 @@ func _animate_hitbox():
 		box.set_meta("ID", current_id)
 		current_id += 1
 		
-		# scuffed: place the hitbox in the players dir
-		
-		
-		
 		# spawn that sucka in
 		add_child(box)
 		box.global_position.x += facing * 20  # 20 px displacement
@@ -102,3 +104,9 @@ func _animate_hitbox():
 		hitboxSprite.modulate.a = 0
 		is_attacking = false
 		box.queue_free()
+
+
+func die():
+	# TODO: do something here when the player dies !!!!
+	print('owwwww')
+	pass
