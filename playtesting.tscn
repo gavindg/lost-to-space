@@ -3489,12 +3489,13 @@ position = Vector2(2.08165e-12, -20)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -166.0
-offset_top = -140.0
-offset_right = -166.0
-offset_bottom = -140.0
+offset_left = -126.0
+offset_top = -110.0
+offset_right = -126.0
+offset_bottom = -110.0
 grow_horizontal = 1
 grow_vertical = 1
+scale = Vector2(1.5, 1.5)
 player = NodePath("..")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/main_char_CharacterBody2D"]
