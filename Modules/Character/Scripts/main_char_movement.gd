@@ -40,7 +40,19 @@ var frozen = false
 func _ready():
 	Globals.player = self
 
-func _physics_process(delta):	
+func _physics_process(delta):
+	
+	# World edge, teleports to other side
+	# multiplies by 16 to become pixels
+	if global_position.x > Globals.map_width * 16:
+		global_position.x -= 2 * Globals.map_width * 16
+		#global_position.x += -(Globals.map_width * 16) - (Globals.map_width * 16)
+		print("PAST RIGHT LIMIT")
+	if global_position.x < - Globals.map_width * 16:
+		global_position.x += 2 * Globals.map_width * 16
+		#global_position.x += (Globals.map_width * 16) + (Globals.map_width * 16)
+		print("PAST LEFT LIMIT")
+	
 	animation_handler()
 	
 	# reset jump and double jump status
