@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2nxp2dtyotex"]
+
+[ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="1_grhys"]
+[ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="2_77r76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmxqb"]
+size = Vector2(1855.5, 85)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="FLOOR" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/FLOOR"]
+position = Vector2(928, 600)
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="WALL" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1896, 280)
+scale = Vector2(0.877338, 0.80695)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/WALL"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="WALL2" type="StaticBody2D" parent="Terrain"]
+position = Vector2(-31.9998, 280)
+scale = Vector2(0.877338, 0.80695)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/WALL2"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nmxqb")
+
+[node name="Slimus" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
+position = Vector2(312, 280)
+player = NodePath("../Michael")
+MAX_WAIT = 2.0
+
+[node name="Michael" parent="." instance=ExtResource("2_77r76")]
+position = Vector2(744, 464)
+scale = Vector2(3, 3)
+
+[node name="Cam" type="Camera2D" parent="Michael"]
+position = Vector2(0, -69.3333)

@@ -34,7 +34,7 @@ const break_texture_array = [Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vec
 func _ready() -> void:
 	if tilemap != null && player != null:
 		valid = true
-	print("valid ? ", valid)
+	#print("valid ? ", valid)
 
 # this function could be optimized a bit
 # but it would probably become unreadable
@@ -58,7 +58,7 @@ func _input(event: InputEvent) -> void:
 		
 	
 	# update ghost block
-	if Globals.inv_manager.held_item_type == Globals.PLACEABLE:
+	if Globals.inv_manager.held_item is Placeable:
 		if event is InputEventMouseMotion or event is InputEventKey or event is InputEventMouse:
 			var global_pos := get_global_mouse_position()
 			var local_to_player := player.to_local(global_pos)
@@ -120,9 +120,9 @@ func _input(event: InputEvent) -> void:
 		#print("background source: ", bg_source)
 		
 		if fg_source == 0:
-			if Globals.inv_manager.held_item_type == Globals.TOOL:  # foreground tile is there, remove it
+			if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
 				start_mining(map_position)
-		elif Globals.inv_manager.held_item_type == Globals.PLACEABLE:
+		elif Globals.inv_manager.held_item is Placeable:
 			# don't let the player suffocate themself
 			if (in_player_bounds(map_position)):
 				return

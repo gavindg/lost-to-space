@@ -33,8 +33,9 @@ func get_block_by_item(item: String) -> Block:
 var player_health = 100
 var inv_manager
 var player
+var manager
 
-enum {USELESS, PLACEABLE, CONSUMEABLE, WEAPON, TOOL}
+var player_locked : bool = false
 
 
 var block_catalog = [
@@ -45,7 +46,6 @@ var block_catalog = [
 	Block.new("dirt4", Vector2i(1, 0), 50, "dirt"),
 	Block.new("grass", Vector2i(2, 0), 50, "dirt"),
 	Block.new("ore1", Vector2i(2, 1), 100, "ore"),
-	
 ]
 
 

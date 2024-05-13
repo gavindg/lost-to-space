@@ -34,6 +34,7 @@ func _process(delta):
 		
 	# prevent slime from rotating upside down
 	if global_rotation_degrees != 0:
+		#print("SLIME ROTATION: " + str(get_instance_id()) + " " + str(global_rotation_degrees))
 		global_rotation_degrees /= rotation_factor
 	
 	# set rotation to zero once it approaches zero 
