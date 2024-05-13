@@ -132,16 +132,21 @@ func test_button():
 		print(inv.remove(load("res://Scenes/inventory/items/dirt.tres"),10))
 		update_ui()
 
-func give_dirt():
-	inv.insert(dirt,1)
+func give_item(item: String):
+	if item == "dirt":
+		inv.insert(dirt, 1)
+	elif item == "ore":
+		inv.insert(ore, 1)
 	update_ui()
 
-func give_ore():
-	inv.insert(ore,1)
-	update_ui()
 
-func remove_dirt():
-	var success = inv.remove(dirt,1)
+func remove_item(item: String):
+	var success = false
+	if item == "dirt": 
+		success = inv.remove(dirt,1)
+	elif item == "ore":
+		success = inv.remove(ore,1)
+		
 	update_ui()
 	return success
 

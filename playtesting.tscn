@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=25 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
+[ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3424,14 +3425,21 @@ shader = ExtResource("15_uk5xg")
 shader_parameter/brightness = 1.9
 shader_parameter/alpha = 0.3
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u0wc3"]
-texture = ExtResource("2_ty63p")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rxnl"]
+texture = ExtResource("16_dp4co")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
@@ -3453,8 +3461,8 @@ texture = ExtResource("2_ty63p")
 2:7/0 = 0
 3:7/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_ujm3u"]
-sources/0 = SubResource("TileSetAtlasSource_u0wc3")
+[sub_resource type="TileSet" id="TileSet_ngbvc"]
+sources/0 = SubResource("TileSetAtlasSource_8rxnl")
 
 [node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
@@ -3525,5 +3533,5 @@ texture = ExtResource("13_xuo76")
 
 [node name="GhostTileMap" type="TileMap" parent="."]
 material = SubResource("ShaderMaterial_11ydt")
-tile_set = SubResource("TileSet_ujm3u")
+tile_set = SubResource("TileSet_ngbvc")
 format = 2
