@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=28 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
@@ -3469,7 +3469,7 @@ sources/0 = SubResource("TileSetAtlasSource_8rxnl")
 
 [node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
-player = NodePath("SceneObjects/Player")
+player = NodePath("SceneObjects/main_char_CharacterBody2D")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
@@ -3478,7 +3478,7 @@ layer_0/name = "background"
 layer_1/name = "foreground"
 layer_1/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0, 2621443, 2, 0, 2621444, 2, 0, 2621445, 2, 0, 2621448, 2, 0, 2621446, 2, 0, 2621447, 2, 0, 2555904, 2, 0, 2555905, 2, 0, 2555906, 2, 0, 2555908, 2, 0, 2555907, 2, 0, 2555909, 2, 0, 2555910, 2, 0, 2555911, 2, 0, 2555912, 2, 0, 131070, 2293761, 6)
 script = ExtResource("5_7sgfv")
-player = NodePath("")
+player = NodePath("../SceneObjects/main_char_CharacterBody2D")
 
 [node name="SceneObjects" type="Node2D" parent="."]
 
@@ -3495,7 +3495,7 @@ offset_right = -166.0
 offset_bottom = -140.0
 grow_horizontal = 1
 grow_vertical = 1
-player = NodePath("")
+player = NodePath("..")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/main_char_CharacterBody2D"]
 position = Vector2(8, -48)
