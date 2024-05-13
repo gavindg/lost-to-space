@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://rddlv34uetpb"]
+
+[ext_resource type="Script" path="res://testing/slimus_movement.gd" id="1_2vdtj"]
+[ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="2_8bx65"]
+[ext_resource type="Texture2D" uid="uid://dcdsyyxpjl3uj" path="res://Art/Sprites/Enemies/Slimes/GreenSlime_Sprites.png" id="2_ktu0q"]
+[ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="4_4gyfc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn2dg"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tttw"]
+size = Vector2(8, 6.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
+size = Vector2(6, 5)
+
+[node name="TestSlime" type="CharacterBody2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+collision_layer = 0
+script = ExtResource("1_2vdtj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4gyfc")
+
+[node name="CombatMan" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox")]
+script = ExtResource("2_8bx65")
+hitbox = NodePath("Hitbox")
+hurtbox = NodePath("Hurtbox")
+
+[node name="Hitbox" type="Area2D" parent="CombatMan" groups=["EnemyHit"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="CombatMan/Hitbox"]
+position = Vector2(-2.08165e-12, 1)
+shape = SubResource("RectangleShape2D_cn2dg")
+debug_color = Color(0, 0.686275, 0.137255, 0.419608)
+
+[node name="Hurtbox" type="Area2D" parent="CombatMan" groups=["EnemyHurt"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="CombatMan/Hurtbox"]
+position = Vector2(-2.08165e-12, 0.25)
+shape = SubResource("RectangleShape2D_8tttw")
+debug_color = Color(0.819608, 0.145098, 0, 0.419608)
+
+[node name="MovementCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-2.08165e-12, 1)
+shape = SubResource("RectangleShape2D_b8u5d")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -1.19209e-07)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ktu0q")
+hframes = 8
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 144, 32)
