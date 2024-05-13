@@ -24,7 +24,6 @@ var dir : float = 0
 var just_jumped = false
 var hit_a_wall = false
 
-
 # range that the slime might wait in between jumping (in seconds)
 @export var MIN_WAIT : float = 0.75
 @export var MAX_WAIT : float = 2
@@ -34,23 +33,19 @@ var hit_a_wall = false
 # current state
 @onready var state_action = "jumping"
 
-# NOTE: this could cause a problem... this object will be constructed
-# after the hitbox & hurtbox, so accessing it before it exists might
-# be an issue...
-@onready var stats : Stats = Stats.new(
-	100,  # health
-	5,    # defense
-	20    # attack
-)
-
-@export var combatman : EnemyCombat = null
+# for combat management. 
+@onready var combatman : EnemyCombat = $CombatMan
 var dead = false
 
 # for the "intro cutscene"
 var started = false
 var triggered = false
 
-@export var musician : AudioStreamPlayer
+# for playing boss music
+@onready var musician : AudioStreamPlayer = $AudioStreamPlayer
+
+# for playing pvz music when you win
+@onready var winner : PackedScene = preload('res://testing/winner.tscn')
 
 func _ready():
 	# get player object
@@ -189,19 +184,16 @@ func tell():
 
 func girate():
 	for i in range(46):
-		print(i)
 		global_position.x += 5
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 5
 		await get_tree().create_timer(0.1).timeout
 	for i in range(25):
-		print(i)
 		global_position.x += 10
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
-	for i in range(20):
-		print(i)
+	for i in range(15):
 		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 20
@@ -210,7 +202,7 @@ func girate():
 ### ON DEATH ###
 
 func die():
-	print('bye bye')
+	get_parent().add_child(winner.instantiate())  # pvz music
 	queue_free()
 
 
@@ -220,8 +212,8 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	player.frozen = true
 	if musician:
 		musician.play()
-	girate()
-	await get_tree().create_timer(16).timeout
+	await girate()
+	# await get_tree().create_timer(16).timeout
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()

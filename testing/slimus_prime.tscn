@@ -14,11 +14,10 @@ size = Vector2(8, 6.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
 size = Vector2(6, 5)
 
-[node name="TestSlime" type="CharacterBody2D" node_paths=PackedStringArray("combatman")]
+[node name="TestSlime" type="CharacterBody2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 collision_layer = 0
 script = ExtResource("1_2vdtj")
-combatman = NodePath("CombatMan")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4gyfc")

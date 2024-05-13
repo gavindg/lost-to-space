@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4msjtmb487lw"]
+
+[ext_resource type="Script" path="res://testing/winner.gd" id="1_0dmgw"]
+[ext_resource type="AudioStream" uid="uid://dubys2vyk8q7h" path="res://Art/Sound/Music/planst zombid.1.wav" id="2_85tca"]
+
+[node name="Winner" type="Node2D"]
+script = ExtResource("1_0dmgw")
+
+[node name="PVZ" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_85tca")
