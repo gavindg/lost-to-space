@@ -116,6 +116,6 @@ func remove(item: Item, amount: int):
 func contains(item: Item, amount: int):
 	var amount_has: int = 0
 	for i in range(inv.size()):
-		if(inv[i].item == item):
+		if(inv[i] != null and inv[i].item == item):
 			amount_has += inv[i].amount
 	return amount_has >= amount

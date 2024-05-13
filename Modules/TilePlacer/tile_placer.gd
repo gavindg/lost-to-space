@@ -46,6 +46,7 @@ func _input(event: InputEvent) -> void:
 		
 	if event is InputEventMouseMotion or event is InputEventKey or event is InputEventMouse:
 		var global_pos := get_global_mouse_position()
+		var local_to_player := player.to_local(global_pos)
 		var local_to_tilemap := tilemap.to_local(global_pos)
 		var map_position := tilemap.local_to_map(local_to_tilemap)
 		if is_mining and map_position != player_mining_block_pos:
@@ -53,8 +54,10 @@ func _input(event: InputEvent) -> void:
 		
 		
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): # mouse has just moved but left click is currently held
-			if Globals.inv_manager.held_item_type == Globals.TOOL:
-				start_mining(map_position)
+			if Globals.inv_manager.held_item is Tool:
+				if (in_range(local_to_player)):
+					start_mining(map_position)
+				
 		
 	
 	# update ghost block
@@ -154,7 +157,7 @@ func _physics_process(delta):
 		var break_texture_stage = round(6 * float(current_block_mining_time) / current_mining_block.mining_time)
 		if (break_texture_stage != prev_break_texture_stage):
 			prev_break_texture_stage = break_texture_stage
-			ghost_tile_map.set_cell(BACKGROUND_LAYER, player_mining_block_pos, test_atlas, break_texture_array[break_texture_stage])
+			place_ghost_block_at(player_mining_block_pos, break_texture_array[break_texture_stage])
 		
 		if current_block_mining_time >= current_mining_block.mining_time:
 			break_block(player_mining_block_pos)
@@ -207,7 +210,7 @@ func start_mining(block_pos):
 func stop_mining():
 	is_mining = false
 	current_block_mining_time = 0
-	ghost_tile_map.set_cell(BACKGROUND_LAYER, player_mining_block_pos, -1)
+	remove_ghost_block_at(player_mining_block_pos)
 	player_mining_block_pos = Vector2i()
 	
 	
@@ -223,20 +226,32 @@ func place_fg_at(map_position, item):
 	
 	#place the block
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, 
-					test_atlas, test_atlas_coords) 
+					test_atlas, test_atlas_coords)
+	
+	if map_position.x <= -Globals.map_width:
+		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), test_atlas, test_atlas_coords)
+	elif map_position.x >= Globals.map_width - 1:
+		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), test_atlas, test_atlas_coords)
 	# test_atlas_coords will be replaced with the atlas coords of the currently held item
 	# can use globals.get_block_from_item to get the block by the given item
 
-func place_ghost_block_at(map_position):
-	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position, test_atlas, test_atlas_coords)
+func place_ghost_block_at(map_position, atlas_coords=Vector2i(0, 0)): # this default=dirt is temporary until we determine what the held item is
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position, test_atlas, atlas_coords)
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), test_atlas, atlas_coords)
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), test_atlas, atlas_coords)
 	
 func remove_ghost_block_at(map_position):
 	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position, -1)
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), -1)
+	ghost_tile_map.set_cell(BACKGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), -1)
 
 
 func remove_fg_at(map_position):
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, -1)
-
+	if map_position.x <= -Globals.map_width:
+		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), -1)
+	elif map_position.x >= Globals.map_width - 1:
+		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), -1)
 
 func get_adjacent_source_ids(map_position):
 	var adj = []
