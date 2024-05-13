@@ -36,9 +36,8 @@ debug_color = Color(0.596078, 0.0117647, 0.290196, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="SwordArea"]
 position = Vector2(13.9129, -0.00768894)
-rotation = 0.392699
-scale = Vector2(0.0233512, 0.023435)
-skew = 0.785398
+rotation = 0.785398
+scale = Vector2(0.035, 0.035)
 texture = ExtResource("2_55ia5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
