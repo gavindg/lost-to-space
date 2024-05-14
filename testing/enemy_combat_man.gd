@@ -9,6 +9,8 @@ class_name EnemyCombat
 
 @export var hitbox : Area2D = null
 @export var hurtbox : Area2D = null
+var to_exit = false
+var exit_timer = 0
 
 @export var auto_start = true
 @export var to_kill : Node2D = null
