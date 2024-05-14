@@ -9,8 +9,6 @@ class_name EnemyCombat
 
 @export var hitbox : Area2D = null
 @export var hurtbox : Area2D = null
-var to_exit = false
-var exit_timer = 0
 
 @export var auto_start = true
 @export var to_kill : Node2D = null
@@ -36,7 +34,6 @@ func start():
 		healthbar.visible = true
 	#print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
 	# connect signals
-
 
 # collision between the player's hitbox and the enemy's hurtbox
 # (aka PLAYER hit ENEMY)
