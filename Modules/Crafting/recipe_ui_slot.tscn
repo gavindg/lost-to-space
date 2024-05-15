@@ -17,6 +17,7 @@ texture = ExtResource("2_wqjwk")
 centered = false
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
 offset_right = 9.0
 offset_bottom = 9.0
 

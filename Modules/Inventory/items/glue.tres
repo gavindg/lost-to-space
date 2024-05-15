@@ -11,3 +11,4 @@ sprite = ExtResource("3_dowa1")
 recipe = {
 ExtResource("1_b77rh"): 3
 }
+item_type = 0

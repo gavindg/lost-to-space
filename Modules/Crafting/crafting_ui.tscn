@@ -32,6 +32,7 @@ texture_pressed = ExtResource("3_t2k8j")
 [node name="CraftingContainer" type="ScrollContainer" parent="."]
 offset_left = -121.0
 offset_top = -80.0
+offset_right = 121.0
 offset_bottom = 79.0
 vertical_scroll_mode = 0
 
@@ -39,49 +40,60 @@ vertical_scroll_mode = 0
 layout_mode = 2
 script = ExtResource("5_iumu1")
 
-[node name="RecipeUI" type="Control" parent="CraftingContainer/VCraftingContainer"]
+[node name="CraftingStation" parent="CraftingContainer/VCraftingContainer" instance=ExtResource("6_oc3ja")]
+
+[node name="RecipeContainer" type="ScrollContainer" parent="."]
+offset_left = -1.0
+offset_top = -80.0
+offset_right = 120.0
+offset_bottom = 79.0
+vertical_scroll_mode = 0
+
+[node name="RecipeUI" type="Control" parent="RecipeContainer"]
 layout_mode = 2
 script = ExtResource("6_ub6vo")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CraftingContainer/VCraftingContainer/RecipeUI"]
+[node name="NinePatchRect" type="NinePatchRect" parent="RecipeContainer/RecipeUI"]
 layout_mode = 0
-offset_left = 121.0
-offset_right = 242.0
-offset_bottom = 159.0
+offset_right = 81.0
+offset_bottom = 106.0
 
-[node name="GridContainer" type="GridContainer" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 112.0
-offset_bottom = 120.0
+[node name="GridContainer" type="GridContainer" parent="RecipeContainer/RecipeUI/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.5
+offset_top = 5.0
+offset_right = 7.5
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(2.8, 2.8)
 columns = 3
 
-[node name="Recipe_UI_Slot1" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot1" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot2" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot2" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot3" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot3" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot4" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot4" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot5" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot5" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot6" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot6" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot7" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot7" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot8" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot8" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
 
-[node name="Recipe_UI_Slot9" parent="CraftingContainer/VCraftingContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
+[node name="Recipe_UI_Slot9" parent="RecipeContainer/RecipeUI/NinePatchRect/GridContainer" instance=ExtResource("8_f3hp2")]
 layout_mode = 2
-
-[node name="CraftingStation" parent="CraftingContainer/VCraftingContainer" instance=ExtResource("6_oc3ja")]

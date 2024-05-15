@@ -2,6 +2,9 @@ extends Panel
 
 @onready var item_sprite: Sprite2D = $CenterContainer/Panel/Item
 @onready var amount_text: Label = $CenterContainer/Panel/Label
+@onready var inv_manager = self.find_parent("inventory_manager")
+@onready var slot_num: int
+@onready var button: Button = $Button
 
 
 
