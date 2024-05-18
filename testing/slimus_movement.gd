@@ -40,12 +40,17 @@ var dead = false
 # for the "intro cutscene"
 var started = false
 var triggered = false
+@export var skip_intro = false
 
 # for playing boss music
 @onready var musician : AudioStreamPlayer = $AudioStreamPlayer
 
 # for playing pvz music when you win
 @onready var winner : PackedScene = preload('res://testing/winner.tscn')
+
+# animation handler
+@onready var anim_handler : AnimationPlayer = $AnimationPlayer
+@onready var sprite : Sprite2D = $Sprite2D
 
 func _ready():
 	# get player object
@@ -55,6 +60,8 @@ func _ready():
 		player = Globals.player
 		return
 	valid = false  # otherwise we are cooked
+	if skip_intro:
+		start_boss()
 
 # called to start 
 func start_boss():
@@ -91,6 +98,7 @@ func _physics_process(delta):
 # in this state the slime decides what it will do next; jump or dash
 func aggro(_delta):
 	dir = 1 if global_position.x < player.global_position.x else -1
+	sprite.flip_h = 0 if dir == -1 else 1
 	
 	if randi() % dash_chance == 1:
 		dash()
@@ -105,6 +113,7 @@ func aggro(_delta):
 # from the wall it touched, even if its away from the player.
 func touching_wall(_delta):
 	dir = get_wall_normal().x
+	sprite.flip_h = 0 if dir == -1 else 1
 
 	jump()
 	state_action = "jumping"
@@ -182,7 +191,10 @@ func tell():
 		global_position.x -= 10
 		await get_tree().create_timer(0.05).timeout
 
+
 func girate():
+	if skip_intro:
+		return
 	for i in range(46):
 		global_position.x += 5
 		await get_tree().create_timer(0.1).timeout
@@ -213,7 +225,6 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	if musician:
 		musician.play()
 	await girate()
-	# await get_tree().create_timer(16).timeout
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()

@@ -37,7 +37,6 @@ shape = SubResource("RectangleShape2D_nmxqb")
 [node name="Slimus" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
 position = Vector2(312, 280)
 player = NodePath("../Michael")
-MAX_WAIT = 2.0
 
 [node name="Michael" parent="." instance=ExtResource("2_77r76")]
 position = Vector2(744, 464)
