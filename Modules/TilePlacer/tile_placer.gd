@@ -10,7 +10,7 @@ extends TileMap
 @onready var valid := false
 
 # TODO make this a constant
-@export var player_placement_radius = 100
+@export var player_placement_radius = 60
 
 # test constants  # TODO change these after testing !!
 const test_layer = 0
@@ -129,22 +129,19 @@ func _input(event: InputEvent) -> void:
 			# don't let the player suffocate themself
 			if (in_player_bounds(map_position)):
 				return
-			
-			var held_item # stub for when we have more placable items, need to get currently held item
-			
 				
 			# if there's a background tile there, let's place a block
 			# in the foreground.
-			if bg_source != -1 && Globals.inv_manager.remove_item("dirt"): # dirt is hardcoded for now
-				place_fg_at(map_position, held_item)
+			if bg_source != -1: # dirt is hardcoded for now
+				place_block(map_position)
 			else:
 				var adj = get_adjacent_source_ids(map_position)
 				var is_adj = false
 				for source in adj:
 					if source != -1:
 						is_adj = true
-				if is_adj and Globals.inv_manager.remove_item("dirt"):
-					place_fg_at(map_position, held_item)
+				if is_adj:
+					place_block(map_position)
 					# TODO: check here if the foreground source exists...
 	elif event is InputEventMouseButton && !(event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		# left mouse button has been released
@@ -203,9 +200,7 @@ func start_mining(block_pos):
 	if current_mining_block != null:
 		player_mining_block_pos = block_pos
 		is_mining = true
-	
-	
-		
+
 
 func stop_mining():
 	is_mining = false
@@ -219,14 +214,26 @@ func break_block(block_pos):
 	Globals.inv_manager.give_item(current_mining_block.item_drop)
 		
 
+# Places the specified item at the block position.
+# Fails if the player does not have the specified item in inventory.
+func place_block(block_pos):
+	var item = Globals.inv_manager.held_item.name
+	print(item)
+	
+	if Globals.inv_manager.remove_item(item):
+		place_fg_at(block_pos, item)
+
+
 # places test tile @ local_pos. it's assumed that this
 func place_fg_at(map_position, item):
 	# remove any existing ghost block at map_pos
 	remove_ghost_block_at(map_position)
 	
+	var atlas_coords = Globals.get_block_by_item(item).atlas_coords
+	
 	#place the block
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, 
-					test_atlas, test_atlas_coords)
+					test_atlas, atlas_coords)
 	
 	if map_position.x <= -Globals.map_width:
 		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), test_atlas, test_atlas_coords)

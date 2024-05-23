@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_tkgj2")
 atlas_coords = Vector2(0, 0)
-name = "Dirt"
+name = "dirt"
 sprite = ExtResource("2_h0sqm")
