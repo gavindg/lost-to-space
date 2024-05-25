@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bugq3vl4b735c"
-path="res://.godot/imported/Ore Spritesheet.png-084a9b8fd93d8bc176f8b81aebaa1afc.ctex"
+uid="uid://xkaf2uryao8f"
+path="res://.godot/imported/Ore Spritesheet Correct.png-1818b7ddcb9d9af34eb018764fb6c2a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TileSheets/Overworld/Ore Spritesheet.png"
-dest_files=["res://.godot/imported/Ore Spritesheet.png-084a9b8fd93d8bc176f8b81aebaa1afc.ctex"]
+source_file="res://Art/TileSheets/Overworld/Ore Spritesheet Correct.png"
+dest_files=["res://.godot/imported/Ore Spritesheet Correct.png-1818b7ddcb9d9af34eb018764fb6c2a2.ctex"]
 
 [params]
 
