@@ -32,6 +32,7 @@ func start():
 # (aka PLAYER hit ENEMY)
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	# check if the body is the player's hitbox:
+	print("Collided with: ", area.name, ": ", area.get_groups())
 	if "PlayerHit" in area.get_groups() and area.get_meta("ID") not in hitme:
 		var player : PlayerCombat = area.get_parent()
 		if not player.is_attacking:

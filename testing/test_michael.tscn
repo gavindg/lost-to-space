@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbwspqkn2e7dd"]
+[gd_scene load_steps=17 format=3 uid="uid://cbwspqkn2e7dd"]
 
 [ext_resource type="Script" path="res://Modules/Character/Scripts/main_char_movement.gd" id="1_j6eyr"]
 [ext_resource type="Texture2D" uid="uid://dvxtknbfp2nru" path="res://Art/Sprites/Player/player walk_stand.png" id="3_n2m31"]
 [ext_resource type="Script" path="res://testing/player_combat_man.gd" id="3_v1jsr"]
+[ext_resource type="Texture2D" uid="uid://ivuivj5xft5a" path="res://Modules/Character/sword.png" id="4_xppy1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iva4w"]
 size = Vector2(15, 24)
@@ -387,6 +388,12 @@ _data = {
 "run_right": SubResource("Animation_okrsc")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24im3"]
+size = Vector2(48, 9.5)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lwl88"]
+size = Vector2(40, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khrr6"]
 size = Vector2(15, 24)
 
@@ -419,16 +426,38 @@ libraries = {
 "": SubResource("AnimationLibrary_f8ldj")
 }
 
-[node name="Combat" type="Node2D" parent="." node_paths=PackedStringArray("hurtbox", "player_controller") groups=["PlayerHurt"]]
+[node name="Combat" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox", "player_controller") groups=["PlayerHurt"]]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("3_v1jsr")
-hurtbox = NodePath("Hurtbox")
+hitbox = NodePath("SwordArea")
+hurtbox = NodePath("../awhellnawsponchbob/Hurtbox")
 player_controller = NodePath("..")
 
-[node name="Hurtbox" type="Area2D" parent="Combat" groups=["PlayerHurt"]]
+[node name="SwordArea" type="Area2D" parent="Combat" groups=["BRUH", "PlayerHurt"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/SwordArea" groups=["PlayerHurt"]]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_24im3")
+debug_color = Color(0.596078, 0.0117647, 0.290196, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Combat/SwordArea/CollisionShape2D"]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+scale = Vector2(1.2, 8.5)
+texture = SubResource("PlaceholderTexture2D_lwl88")
+
+[node name="Sprite2D" type="Sprite2D" parent="Combat/SwordArea"]
+position = Vector2(13.9129, -0.00768894)
+rotation = 0.785398
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("4_xppy1")
+
+[node name="awhellnawsponchbob" type="Node2D" parent="."]
+visible = false
+
+[node name="Hurtbox" type="Area2D" parent="awhellnawsponchbob" groups=["PlayerHurt"]]
 collision_layer = 2
 collision_mask = 2
 
-[node name="HurtboxCollider" type="CollisionShape2D" parent="Combat/Hurtbox"]
+[node name="HurtboxCollider" type="CollisionShape2D" parent="awhellnawsponchbob/Hurtbox"]
 shape = SubResource("RectangleShape2D_khrr6")

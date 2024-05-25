@@ -98,7 +98,7 @@ func _on_attack_cooldown_timeout():
 	
 
 func attack():
-	var dir = get_parent().exported_move_direction
+	#var dir = get_parent().exported_move_direction
 	if (Input.is_action_just_pressed("attack") or Input.is_action_pressed("attack")) and not player_current_attack:
 		player_current_attack = true
 		attack_ip = true
