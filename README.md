@@ -6,7 +6,7 @@
 #### movement
 
  * WASD -- Move the player
- * Space -- Jump (or double-jump, if in the air; or wall-jump, if touching a wall.)
+ * Space -- Jump (or double-jump, if in the air)
  * Shift -- Dash
 
 #### saving and loading 
