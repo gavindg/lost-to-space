@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dsgp2v8u74m8a"]
+
+[node name="Door" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
