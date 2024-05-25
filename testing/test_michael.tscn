@@ -434,7 +434,10 @@ hitbox = NodePath("SwordArea")
 hurtbox = NodePath("../awhellnawsponchbob/Hurtbox")
 player_controller = NodePath("..")
 
-[node name="SwordArea" type="Area2D" parent="Combat" groups=["BRUH", "PlayerHurt"]]
+[node name="SwordArea" type="Area2D" parent="Combat" groups=["PlayerHit"]]
+position = Vector2(5, 0)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/SwordArea" groups=["PlayerHurt"]]
 position = Vector2(24, 0)
@@ -442,11 +445,13 @@ shape = SubResource("RectangleShape2D_24im3")
 debug_color = Color(0.596078, 0.0117647, 0.290196, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Combat/SwordArea/CollisionShape2D"]
+visible = false
 position = Vector2(-2.38419e-07, -2.38419e-07)
 scale = Vector2(1.2, 8.5)
 texture = SubResource("PlaceholderTexture2D_lwl88")
 
 [node name="Sprite2D" type="Sprite2D" parent="Combat/SwordArea"]
+visible = false
 position = Vector2(13.9129, -0.00768894)
 rotation = 0.785398
 scale = Vector2(0.035, 0.035)

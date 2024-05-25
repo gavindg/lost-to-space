@@ -19,6 +19,7 @@ var hitme = []
 
 func start():
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+	
 	if healthbar:
 		healthbar.max_value = stats.max_hp
 		healthbar.value = stats.max_hp
@@ -50,11 +51,8 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			healthbar.value = stats.hp
 		if stats.hp <= 0:
 			die()
-		#else:
-			#print('[SLIMUS]: hp = ', stats.hp, '/', stats.max_hp)
 
 func die():
 	is_dead = true
 	if healthbar:
 		healthbar.queue_free()
-	

@@ -12,6 +12,7 @@ class_name PlayerCombat
 
 @export var player_controller : CharacterBody2D = null
 @onready var facing = 1
+@onready var displacement = 8
 
 @onready var i_frames_sec = 1
 @onready var knockback_amt = 200
@@ -21,7 +22,7 @@ class_name PlayerCombat
 var is_dead = false
 
 @onready var sword_hitbox := preload('res://testing/michael_sword.tscn')
-@export var sword_rotation_speed := 200
+@export var sword_rotation_speed := 400
 
 
 func _ready() -> void:
@@ -98,15 +99,11 @@ func _animate_hitbox():
 		if(!$"SwordArea/Sprite2D".visible):
 			$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
 		if facing > 0:
-			hitbox.rotation_degrees = 0
-			#$AnimatedSprite2D.flip_h = false
-			#$AnimatedSprite2D.play("side_attack")
-			#$deal_attack_timer.start()
+			hitbox.rotation_degrees = 0 - 90
+			hitbox.global_position.x = global_position.x + displacement
 		if facing <= 0:
-			hitbox.rotation_degrees = 180
-			#$AnimatedSprite2D.flip_h = true
-			#$AnimatedSprite2D.play("side_attack")
-			#$deal_attack_timer.start()
+			hitbox.rotation_degrees = 180 + 90
+			hitbox.global_position.x = global_position.x - displacement
 		
 		### END NOT MY CODE BLOCK ###
 		
