@@ -12,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://phbflii3whae" path="res://Art/Sprites/FINAL_background.png" id="10_g6hel"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
+[ext_resource type="Script" path="res://Art/Sound/Music/music_controller.gd" id="13_vawn7"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
-[ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3475,7 +3475,7 @@ tilemap = NodePath("../../TileMap")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
 autoplay = true
-script = ExtResource("13_ypctl")
+script = ExtResource("13_vawn7")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
