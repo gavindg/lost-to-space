@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://badrqkdc4j04v"
-path="res://.godot/imported/Slimus Full Spritesheet.png-519fb37260006688d7cca0db8521c6ea.ctex"
+path="res://.godot/imported/Slimus Full Spritesheet.png-7416cd1db52a93718c20278657f092a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Sprites/Enemies/Boss/Slimus Full Spritesheet.png"
-dest_files=["res://.godot/imported/Slimus Full Spritesheet.png-519fb37260006688d7cca0db8521c6ea.ctex"]
+source_file="res://Art/Sprites/Enemies/Boss/old/Slimus Full Spritesheet.png"
+dest_files=["res://.godot/imported/Slimus Full Spritesheet.png-7416cd1db52a93718c20278657f092a0.ctex"]
 
 [params]
 
