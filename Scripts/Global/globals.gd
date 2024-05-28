@@ -46,13 +46,13 @@ var player_locked : bool = false
 
 
 var block_catalog = [
-	Block.new("dirt0", Vector2i(0, 0), 50, "dirt"),
+	Block.new("dirt0", Vector2i(0, 0), 50, "dirt", "dirt"), # dirt0 is the primary block for the dirt item
 	Block.new("dirt1", Vector2i(0, 1), 50, "dirt"),
 	Block.new("dirt2", Vector2i(0, 2), 50, "dirt"),
 	Block.new("dirt3", Vector2i(0, 3), 50, "dirt"),
 	Block.new("dirt4", Vector2i(1, 0), 50, "dirt"),
 	Block.new("grass", Vector2i(2, 0), 50, "dirt"),
-	Block.new("ore1", Vector2i(2, 1), 100, "ore"),
+	Block.new("ore1", Vector2i(2, 1), 100, "ore", "ore"),
 ]
 
 

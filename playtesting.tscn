@@ -3484,6 +3484,7 @@ player = NodePath("../SceneObjects/main_char_CharacterBody2D")
 
 [node name="main_char_CharacterBody2D" parent="SceneObjects" instance=ExtResource("3_aetbc")]
 position = Vector2(2.08165e-12, -20)
+speed = 150
 
 [node name="inventory_manager" parent="SceneObjects/main_char_CharacterBody2D" node_paths=PackedStringArray("player") instance=ExtResource("10_48d8y")]
 anchors_preset = 0
