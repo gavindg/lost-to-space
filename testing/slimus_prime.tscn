@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://rddlv34uetpb"]
 
 [ext_resource type="Script" path="res://testing/slimus_movement.gd" id="1_2vdtj"]
+[ext_resource type="AudioStream" uid="uid://c312hnl5jp34" path="res://Art/Sound/Music/Short Theme of Slimus P.mp3" id="2_4chft"]
 [ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="2_8bx65"]
 [ext_resource type="Texture2D" uid="uid://c4vwvfbqudhr1" path="res://Art/Sprites/Enemies/Boss/Spritus Prime Spritesheet.png" id="4_1q6p8"]
-[ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="4_4gyfc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cn2dg"]
 size = Vector2(35, 22)
@@ -76,7 +76,7 @@ collision_layer = 0
 script = ExtResource("1_2vdtj")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_4gyfc")
+stream = ExtResource("2_4chft")
 
 [node name="CombatMan" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox")]
 script = ExtResource("2_8bx65")
@@ -116,7 +116,6 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_1q6p8")
 hframes = 20
 vframes = 2
-frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

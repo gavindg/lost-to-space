@@ -200,21 +200,26 @@ func tell():
 func girate():
 	if skip_intro:
 		return
-	for i in range(46):
+	print('girate 1')
+	for i in range(20):
 		global_position.x += 5
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 5
 		await get_tree().create_timer(0.1).timeout
-	for i in range(25):
+	print('girate 2')
+	for i in range(10):
 		global_position.x += 10
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
+	print('girate 3')
 	for i in range(15):
 		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 20
 		await get_tree().create_timer(0.05).timeout
+	print('done')
+
 
 ### ON DEATH ###
 

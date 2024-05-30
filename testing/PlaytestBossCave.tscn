@@ -3558,6 +3558,14 @@ step = 1.0
 value = 100.0
 show_percentage = false
 
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(30, 30)
+offset_left = -96.0
+offset_top = -336.0
+offset_right = -66.0
+offset_bottom = -306.0
+text = "hi"
+
 [connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
 
 [editable path="TestSlime"]

@@ -6,7 +6,7 @@
 
 [sub_resource type="Theme" id="Theme_aron0"]
 default_font = ExtResource("3_rnlui")
-default_font_size = 95
+default_font_size = 93
 
 [node name="Winner" type="Node2D" node_paths=PackedStringArray("audio", "text")]
 script = ExtResource("1_0dmgw")
@@ -31,5 +31,5 @@ grow_vertical = 2
 pivot_offset = Vector2(602, 43)
 size_flags_vertical = 3
 theme = SubResource("Theme_aron0")
-text = "SOUL OF SLIME CLAIMED"
+text = "SLIMUS PRIME EXPUNGED"
 fit_content = true
