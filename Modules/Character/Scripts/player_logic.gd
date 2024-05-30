@@ -98,26 +98,26 @@ func _on_attack_cooldown_timeout():
 	
 
 func attack():
-	var dir = get_parent().exported_move_direction
+	#var dir = get_parent().exported_move_direction
 	if (Input.is_action_just_pressed("attack") or Input.is_action_pressed("attack")) and not player_current_attack:
 		player_current_attack = true
 		attack_ip = true
 		
-		hitbox.set_deferred("disabled", false)
-		if(!$"SwordArea/Sprite2D".visible):
-			$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
-		if dir <0:
-			hitbox.rotation_degrees = 0
-			#$AnimatedSprite2D.flip_h = false
-			#$AnimatedSprite2D.play("side_attack")
-			$deal_attack_timer.start()
-			cur_rotation_speed = -rotation_speed
-		if dir >=0:
-			hitbox.rotation_degrees = 180
-			#$AnimatedSprite2D.flip_h = true
-			#$AnimatedSprite2D.play("side_attack")
-			$deal_attack_timer.start()
-			cur_rotation_speed = rotation_speed
+		#hitbox.set_deferred("disabled", false)
+		#if(!$"SwordArea/Sprite2D".visible):
+			#$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
+		#if dir <0:
+			#hitbox.rotation_degrees = 0
+			##$AnimatedSprite2D.flip_h = false
+			##$AnimatedSprite2D.play("side_attack")
+			#$deal_attack_timer.start()
+			#cur_rotation_speed = -rotation_speed
+		#if dir >=0:
+			#hitbox.rotation_degrees = 180
+			##$AnimatedSprite2D.flip_h = true
+			##$AnimatedSprite2D.play("side_attack")
+			#$deal_attack_timer.start()
+			#cur_rotation_speed = rotation_speed
 
 func _on_deal_attack_timer_timeout():
 	$deal_attack_timer.stop()

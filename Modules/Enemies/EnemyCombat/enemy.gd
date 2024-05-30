@@ -44,7 +44,6 @@ func _on_enemy_hitbox_body_entered(body):
 		player_inattack_zone = true
 	else:
 		pass
-		#print("player not found")
 
 
 func _on_enemy_hitbox_body_exited(body):
