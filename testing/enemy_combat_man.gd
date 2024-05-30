@@ -1,14 +1,17 @@
 extends Node2D
 class_name EnemyCombat
 
-@onready var stats : Stats = Stats.new(
-	1000,   # health  # default = 1000
-	5,      # defense
-	12.5    # attack
-)
+@onready var stats : Stats = null
+
+@export var health = 100
+@export var defense = 2
+@export var attack = 7.5
 
 @export var hitbox : Area2D = null
 @export var hurtbox : Area2D = null
+
+@export var auto_start = true
+@export var to_kill : Node2D = null
 
 # if this enemy has boss music...
 #@export var musician : AudioStreamPlayer = null
@@ -17,23 +20,26 @@ var is_dead : bool = false
 
 var hitme = []
 
+func _ready():
+	if auto_start:
+		start()
+
 func start():
+	stats = Stats.new(health, defense, attack)
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	
 	if healthbar:
 		healthbar.max_value = stats.max_hp
 		healthbar.value = stats.max_hp
 		healthbar.visible = true
-	#if musician:
-		#musician.play()
-	print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
+	#print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
 	# connect signals
+
 
 # collision between the player's hitbox and the enemy's hurtbox
 # (aka PLAYER hit ENEMY)
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	# check if the body is the player's hitbox:
-	print("Collided with: ", area.name, ": ", area.get_groups())
 	if "PlayerHit" in area.get_groups() and area.get_meta("ID") not in hitme:
 		var player : PlayerCombat = area.get_parent()
 		if not player.is_attacking:
@@ -56,3 +62,5 @@ func die():
 	is_dead = true
 	if healthbar:
 		healthbar.queue_free()
+	if auto_start and to_kill:
+		Globals.manager.despawn(to_kill)

@@ -1,19 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://twlew2lrot4j"]
+[gd_scene load_steps=6 format=3 uid="uid://twlew2lrot4j"]
 
 [ext_resource type="Script" path="res://Modules/Enemies/EnemyAI/Scripts/SlimeEnemy.gd" id="1_1wmnx"]
 [ext_resource type="PackedScene" uid="uid://bc5bpweviejgo" path="res://Old/Enemies/green_slime.tscn" id="2_76bra"]
-[ext_resource type="Script" path="res://Modules/Enemies/EnemyCombat/enemy.gd" id="3_iq87o"]
+[ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="3_rq4vd"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hrobd"]
-radius = 181.279
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvqiw"]
+size = Vector2(10, 9)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pndt5"]
-transparency = 1
-
-[sub_resource type="SphereMesh" id="SphereMesh_vwncm"]
-material = SubResource("StandardMaterial3D_pndt5")
-radius = 175.0
-height = 350.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3dky"]
+size = Vector2(16, 16)
 
 [node name="GreenSlime" type="Node2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -23,27 +18,27 @@ script = ExtResource("1_1wmnx")
 position = Vector2(2.08165e-12, 2.08165e-12)
 collision_layer = 4
 
-[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("parent")]
+[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("hitbox", "hurtbox", "to_kill")]
 position = Vector2(2.08165e-12, 2.08165e-12)
-script = ExtResource("3_iq87o")
-parent = NodePath("../..")
+script = ExtResource("3_rq4vd")
+hitbox = NodePath("Hitbox")
+hurtbox = NodePath("Hurtbox")
+to_kill = NodePath("../..")
 
-[node name="enemy_hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler"]
-scale = Vector2(0.3, 0.3)
-collision_layer = 4
+[node name="Hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler" groups=["EnemyHit"]]
+collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
-shape = SubResource("CircleShape2D_hrobd")
-debug_color = Color(0.313726, 0.494118, 1, 0.419608)
+[node name="HitboxCollider" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/Hitbox"]
+position = Vector2(-6.24495e-12, 2.5)
+shape = SubResource("RectangleShape2D_bvqiw")
+debug_color = Color(0, 0.686275, 0.137255, 0.419608)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="GreenSlimeAI/CombatHandler/enemy_hitbox"]
-visible = false
-mesh = SubResource("SphereMesh_vwncm")
+[node name="Hurtbox" type="Area2D" parent="GreenSlimeAI/CombatHandler" groups=["EnemyHurt"]]
+collision_layer = 2
+collision_mask = 2
 
-[node name="take_damage_cooldown" type="Timer" parent="GreenSlimeAI/CombatHandler"]
-wait_time = 0.5
-
-[connection signal="body_entered" from="GreenSlimeAI/CombatHandler/enemy_hitbox" to="GreenSlimeAI/CombatHandler" method="_on_enemy_hitbox_body_entered"]
-[connection signal="body_exited" from="GreenSlimeAI/CombatHandler/enemy_hitbox" to="GreenSlimeAI/CombatHandler" method="_on_enemy_hitbox_body_exited"]
-[connection signal="timeout" from="GreenSlimeAI/CombatHandler/take_damage_cooldown" to="GreenSlimeAI/CombatHandler" method="_on_take_damage_cooldown_timeout"]
+[node name="HurtboxCollider" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/Hurtbox"]
+position = Vector2(-6.24495e-12, -6.24495e-12)
+shape = SubResource("RectangleShape2D_t3dky")
+debug_color = Color(0.819608, 0.145098, 0, 0.419608)

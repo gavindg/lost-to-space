@@ -33,12 +33,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# animate hitbox
 	_animate_weapon(delta)
+	
 
 func _input(event: InputEvent) -> void:
 	if is_dead: return
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		#if Globals.inv_manager.held_item_type != Globals.WEAPON:
 			#return
+		
 		var global_pos := get_global_mouse_position()
 		var local_to_player := player_controller.to_local(global_pos)
 		if local_to_player.x > 0:
@@ -57,6 +59,8 @@ func _on_hurtbox_area_entered(area: Area2D):
 	
 	if 'EnemyHit' in area.get_groups():
 		var enemy : EnemyCombat = area.get_parent()
+		print('is enemy real: ', enemy)
+		print('is stats real: ', enemy.stats)
 		# take damage
 		stats.hp -= enemy.stats.get_raw_damage() - stats.b_def
 		
@@ -91,6 +95,7 @@ func _animate_hitbox():
 	there will be a real animation here !!
 	"""
 	if not is_attacking:
+		print('we out here animating')
 		is_attacking = true
 		
 		### START NOT MY CODE BLOCK ###

@@ -24,8 +24,12 @@ stream = ExtResource("4_4gyfc")
 
 [node name="CombatMan" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox")]
 script = ExtResource("2_8bx65")
+health = 1000
+defense = 5
+attack = 12.5
 hitbox = NodePath("Hitbox")
 hurtbox = NodePath("Hurtbox")
+auto_start = false
 
 [node name="Hitbox" type="Area2D" parent="CombatMan" groups=["EnemyHit"]]
 collision_layer = 2
