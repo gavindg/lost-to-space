@@ -3485,7 +3485,7 @@ player = NodePath("../SceneObjects/Michael")
 [node name="Michael" parent="SceneObjects" instance=ExtResource("7_yjvi7")]
 position = Vector2(0, -8)
 
-[node name="inventory_manager" parent="SceneObjects/Michael" node_paths=PackedStringArray("player") instance=ExtResource("10_48d8y")]
+[node name="inventory_manager" parent="SceneObjects/Michael" instance=ExtResource("10_48d8y")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -3496,7 +3496,6 @@ offset_bottom = -97.0
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(1.5, 1.5)
-player = NodePath("")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Michael"]
 position = Vector2(2.08165e-12, -44)

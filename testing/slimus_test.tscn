@@ -35,10 +35,8 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_nmxqb")
 
 [node name="Slimus" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_grhys")]
-position = Vector2(512, 480)
-scale = Vector2(20, 20)
+position = Vector2(312, 280)
 player = NodePath("../Michael")
-skip_cutscene = true
 
 [node name="Michael" parent="." instance=ExtResource("2_77r76")]
 position = Vector2(744, 464)
