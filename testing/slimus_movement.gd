@@ -40,6 +40,7 @@ var dead = false
 # for the "intro cutscene"
 var started = false
 var triggered = false
+@export var skip_cutscene = false
 
 # for playing boss music
 @onready var musician : AudioStreamPlayer = $AudioStreamPlayer
@@ -55,6 +56,8 @@ func _ready():
 		player = Globals.player
 		return
 	valid = false  # otherwise we are cooked
+	if skip_cutscene: 
+		start_boss()
 
 # called to start 
 func start_boss():
@@ -209,6 +212,9 @@ func die():
 func _on_boss_starter_body_entered(body: Node2D) -> void:
 	if triggered: return
 	triggered = true
+	if skip_cutscene:
+		start_boss()
+		return
 	player.frozen = true
 	if musician:
 		musician.play()
