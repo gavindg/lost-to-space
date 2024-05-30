@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="4_4gyfc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cn2dg"]
-size = Vector2(6, 4)
+size = Vector2(6, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tttw"]
 size = Vector2(8, 6.5)
@@ -32,15 +32,18 @@ hurtbox = NodePath("Hurtbox")
 auto_start = false
 
 [node name="Hitbox" type="Area2D" parent="CombatMan" groups=["EnemyHit"]]
+position = Vector2(2, -2.08165e-12)
 collision_layer = 2
 collision_mask = 2
 
 [node name="HitboxCollider" type="CollisionShape2D" parent="CombatMan/Hitbox"]
-position = Vector2(-2.08165e-12, 1)
+position = Vector2(-2, 1.5)
 shape = SubResource("RectangleShape2D_cn2dg")
 debug_color = Color(0, 0.686275, 0.137255, 0.419608)
 
 [node name="Hurtbox" type="Area2D" parent="CombatMan" groups=["EnemyHurt"]]
+visible = false
+position = Vector2(-2.08165e-12, -2.08165e-12)
 collision_layer = 2
 collision_mask = 2
 
@@ -50,6 +53,7 @@ shape = SubResource("RectangleShape2D_8tttw")
 debug_color = Color(0.819608, 0.145098, 0, 0.419608)
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2.08165e-12, 1)
 shape = SubResource("RectangleShape2D_b8u5d")
 

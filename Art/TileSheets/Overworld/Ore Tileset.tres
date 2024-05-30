@@ -1,0 +1,16 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cxjdptr6ey42k"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iwo2r"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1pqv"]
+texture = SubResource("CompressedTexture2D_iwo2r")
+0:2/0 = 0
+0:3/0 = 0
+0:1/0 = 0
+3:0/0 = 0
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_t1pqv")

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/Overworld/New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="2_ty63p"]
+[ext_resource type="PackedScene" uid="uid://bxuan5t7jof4n" path="res://Modules/Character/Scenes/main_char.tscn" id="3_aetbc"]
 [ext_resource type="Texture2D" uid="uid://cnc17ecoxt6kf" path="res://Art/TileSheets/Overworld/Fork2Space_Tileset_16.png" id="4_lmo7g"]
 [ext_resource type="Script" path="res://Modules/TilePlacer/tile_placer.gd" id="5_7sgfv"]
-[ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="7_505ng"]
 [ext_resource type="Texture2D" uid="uid://n3nexu676733" path="res://1 sky.png" id="8_34jo6"]
 [ext_resource type="Texture2D" uid="uid://cobnn3e7nxdun" path="res://2 planets.png" id="9_jmhhf"]
 [ext_resource type="Texture2D" uid="uid://bj6rf1uj8tohc" path="res://3 clouds.png" id="10_5tvse"]
@@ -3469,7 +3469,7 @@ sources/0 = SubResource("TileSetAtlasSource_8rxnl")
 
 [node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
-player = NodePath("SceneObjects/Michael")
+player = NodePath("SceneObjects/main_char_CharacterBody2D")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
@@ -3478,158 +3478,160 @@ layer_0/name = "background"
 layer_1/name = "foreground"
 layer_1/tile_data = PackedInt32Array(2621440, 2, 0, 2621441, 2, 0, 2621442, 2, 0, 2621443, 2, 0, 2621444, 2, 0, 2621445, 2, 0, 2621448, 2, 0, 2621446, 2, 0, 2621447, 2, 0, 2555904, 2, 0, 2555905, 2, 0, 2555906, 2, 0, 2555908, 2, 0, 2555907, 2, 0, 2555909, 2, 0, 2555910, 2, 0, 2555911, 2, 0, 2555912, 2, 0, 131070, 2293761, 6)
 script = ExtResource("5_7sgfv")
-player = NodePath("../SceneObjects/Michael")
+player = NodePath("../SceneObjects/main_char_CharacterBody2D")
 
 [node name="SceneObjects" type="Node2D" parent="."]
 
-[node name="Michael" parent="SceneObjects" instance=ExtResource("7_505ng")]
-position = Vector2(0, -8)
+[node name="main_char_CharacterBody2D" parent="SceneObjects" instance=ExtResource("3_aetbc")]
+position = Vector2(2.08165e-12, -20)
+speed = 150
 
-[node name="inventory_manager" parent="SceneObjects/Michael" instance=ExtResource("10_48d8y")]
+[node name="inventory_manager" parent="SceneObjects/main_char_CharacterBody2D" node_paths=PackedStringArray("player") instance=ExtResource("10_48d8y")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = -126.0
-offset_top = -97.0
+offset_top = -77.0
 offset_right = -126.0
-offset_bottom = -97.0
+offset_bottom = -77.0
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(1.5, 1.5)
+player = NodePath("..")
 
-[node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Michael"]
-position = Vector2(2.08165e-12, -44)
+[node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/main_char_CharacterBody2D"]
+position = Vector2(0, -24)
 zoom = Vector2(3.32, 3.32)
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="SceneObjects/Michael/INSANELYSCUFFED"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED"]
 
-[node name="SkyParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
+[node name="SkyParallax" type="ParallaxLayer" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground"]
 motion_scale = Vector2(0.2, 0.5)
 
-[node name="Sky" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
+[node name="Sky" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
 z_index = -2
 position = Vector2(2.08165e-12, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("8_34jo6")
 
-[node name="Sky2" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
+[node name="Sky2" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
 z_index = -2
 position = Vector2(-691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("8_34jo6")
 
-[node name="Sky3" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
+[node name="Sky3" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
 z_index = -2
 position = Vector2(691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("8_34jo6")
 
-[node name="Sky4" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
+[node name="Sky4" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
 z_index = -2
 position = Vector2(1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("8_34jo6")
 
-[node name="Sky5" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
+[node name="Sky5" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
 z_index = -2
 position = Vector2(-1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("8_34jo6")
 
-[node name="PlanetParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
+[node name="PlanetParallax" type="ParallaxLayer" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.7)
 
-[node name="Planets" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
+[node name="Planets" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
 z_index = -2
 position = Vector2(2.08165e-12, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("9_jmhhf")
 
-[node name="Planets2" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
+[node name="Planets2" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
 z_index = -2
 position = Vector2(-691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("9_jmhhf")
 
-[node name="Planets3" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
+[node name="Planets3" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
 z_index = -2
 position = Vector2(691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("9_jmhhf")
 
-[node name="Planets4" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
+[node name="Planets4" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
 z_index = -2
 position = Vector2(1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("9_jmhhf")
 
-[node name="Planets5" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
+[node name="Planets5" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
 z_index = -2
 position = Vector2(-1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("9_jmhhf")
 
-[node name="CloudParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
+[node name="CloudParallax" type="ParallaxLayer" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground"]
 motion_scale = Vector2(0.4, 0.8)
 
-[node name="Clouds" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
+[node name="Clouds" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
 z_index = -2
 position = Vector2(2.08165e-12, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("10_5tvse")
 
-[node name="Clouds2" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
+[node name="Clouds2" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
 z_index = -2
 position = Vector2(-691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("10_5tvse")
 
-[node name="Clouds3" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
+[node name="Clouds3" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
 z_index = -2
 position = Vector2(691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("10_5tvse")
 
-[node name="Clouds4" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
+[node name="Clouds4" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
 z_index = -2
 position = Vector2(-1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("10_5tvse")
 
-[node name="Clouds5" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
+[node name="Clouds5" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
 z_index = -2
 position = Vector2(1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("10_5tvse")
 
-[node name="RockParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
+[node name="RockParallax" type="ParallaxLayer" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.9)
 
-[node name="Rocks" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
+[node name="Rocks" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
 z_index = -2
 position = Vector2(2.08165e-12, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("11_fksg4")
 
-[node name="Rocks2" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
+[node name="Rocks2" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
 z_index = -2
 position = Vector2(-691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("11_fksg4")
 
-[node name="Rocks3" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
+[node name="Rocks3" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
 z_index = -2
 position = Vector2(691, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("11_fksg4")
 
-[node name="Rocks4" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
+[node name="Rocks4" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
 z_index = -2
 position = Vector2(-1382, -40)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("11_fksg4")
 
-[node name="Rocks5" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
+[node name="Rocks5" type="Sprite2D" parent="SceneObjects/main_char_CharacterBody2D/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
 z_index = -2
 position = Vector2(1382, -40)
 scale = Vector2(0.09, 0.09)
@@ -3639,7 +3641,7 @@ texture = ExtResource("11_fksg4")
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
 script = ExtResource("10_oxk83")
-player = NodePath("../../SceneObjects/Michael")
+player = NodePath("../../SceneObjects/main_char_CharacterBody2D")
 tilemap = NodePath("../../TileMap")
 
 [node name="EnemyManager" type="Node2D" parent="Management"]
