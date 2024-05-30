@@ -42,6 +42,7 @@ var started = false
 var triggered = false
 @export var skip_intro = false
 
+
 # for playing boss music
 @onready var musician : AudioStreamPlayer = $AudioStreamPlayer
 
@@ -221,6 +222,9 @@ func die():
 func _on_boss_starter_body_entered(body: Node2D) -> void:
 	if triggered: return
 	triggered = true
+	if skip_intro:
+		start_boss()
+		return
 	player.frozen = true
 	if musician:
 		musician.play()

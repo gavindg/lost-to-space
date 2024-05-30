@@ -13,7 +13,7 @@ size = Vector2(28, 3)
 script = ExtResource("1_2v15l")
 rotation_speed = 480
 
-[node name="player_hitbox" type="Area2D" parent="."]
+[node name="player_hitbox" type="Area2D" parent="." groups=["PlayerHit"]]
 scale = Vector2(0.1, 0.1)
 collision_layer = 2
 collision_mask = 4
@@ -27,7 +27,7 @@ shape = SubResource("CircleShape2D_i8d6q")
 [node name="deal_attack_timer" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="SwordArea" type="Area2D" parent="."]
+[node name="SwordArea" type="Area2D" parent="." groups=["PlayerHit"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea"]
 position = Vector2(14, 0)
