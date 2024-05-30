@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rddlv34uetpb"]
+[gd_scene load_steps=12 format=3 uid="uid://rddlv34uetpb"]
 
 [ext_resource type="Script" path="res://testing/slimus_movement.gd" id="1_2vdtj"]
 [ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="2_8bx65"]
@@ -12,7 +12,39 @@ size = Vector2(35, 22)
 size = Vector2(45, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
-size = Vector2(44, 34.25)
+size = Vector2(49, 34.25)
+
+[sub_resource type="Animation" id="Animation_61o2q"]
+resource_name = "dash"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_0ssm3"]
+resource_name = "dashing"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20]
+}
 
 [sub_resource type="Animation" id="Animation_3ea37"]
 resource_name = "idle"
@@ -33,6 +65,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cfr2h"]
 _data = {
+"dash": SubResource("Animation_61o2q"),
+"dashing": SubResource("Animation_0ssm3"),
 "idle": SubResource("Animation_3ea37")
 }
 
@@ -73,7 +107,7 @@ shape = SubResource("RectangleShape2D_8tttw")
 debug_color = Color(0.819608, 0.145098, 0, 0.419608)
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
-position = Vector2(-2.08165e-12, 0.125)
+position = Vector2(2.5, 0.125)
 shape = SubResource("RectangleShape2D_b8u5d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -82,7 +116,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_1q6p8")
 hframes = 20
 vframes = 2
-frame = 25
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

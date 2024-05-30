@@ -31,7 +31,7 @@ var hit_a_wall = false
 @onready var dash_chance : int = 2  # 1 / dash_chance chance to dash per action
 
 # current state
-@onready var state_action = "jumping"
+@onready var state_action = "aggro"
 
 # for combat management. 
 @onready var combatman : EnemyCombat = $CombatMan
@@ -84,6 +84,7 @@ func _physics_process(delta):
 	if !valid: return
 	
 	# state action
+	print('state ', state_action)
 	call(state_action, delta)  # some states need delta
 	
 	# always process gravity 
@@ -102,7 +103,7 @@ func aggro(_delta):
 	sprite.flip_h = 0 if dir == -1 else 1
 	
 	if randi() % dash_chance == 1:
-		dash()
+		anim_handler.play("dash")
 		state_action = "dash_tell"
 	else:
 		jump()
@@ -126,8 +127,12 @@ func on_cooldown(delta):
 	wait_time -= delta
 	# slow the slime down if it hasn't come to a stop yet
 	velocity.x = move_toward(velocity.x, 0, slowdown_speed * delta)
-	if wait_time < 0 and is_on_floor():
+	if anim_handler.current_animation == 'dashing':
+		return
+	elif wait_time < 0 and is_on_floor():
 		# wait is over
+		if anim_handler.current_animation != 'idle':
+			anim_handler.play('idle')
 		state_action = "touching_wall" if hit_a_wall else "aggro"
 
 
@@ -146,6 +151,7 @@ func dashing(delta):
 	if !just_jumped and is_on_floor():
 		velocity.y = 0
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
+		#anim_handler.play('idle')
 		state_action = "on_cooldown"
 		return
 	just_jumped = false
@@ -165,11 +171,7 @@ func jump():
 func dash():
 	
 	# makes bro go aauuuaaAAAHUHAHGH for a sec before dashing
-	for i in range(6):
-		global_position.x += 10
-		await get_tree().create_timer(0.05).timeout
-		global_position.x -= 10
-		await get_tree().create_timer(0.05).timeout
+	anim_handler.play("dashing")
 	
 	# actually dash
 	var horiz_vel = dash_speed
@@ -182,7 +184,9 @@ func dash():
 
 # state: do nothing while the dash animation is playing
 func dash_tell(_delta):
-	pass
+	if anim_handler.is_playing(): return
+	print('dash tell done')
+	dash()
 
 
 func tell():
