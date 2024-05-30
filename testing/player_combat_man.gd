@@ -59,8 +59,6 @@ func _on_hurtbox_area_entered(area: Area2D):
 	
 	if 'EnemyHit' in area.get_groups():
 		var enemy : EnemyCombat = area.get_parent()
-		print('is enemy real: ', enemy)
-		print('is stats real: ', enemy.stats)
 		# take damage
 		stats.hp -= enemy.stats.get_raw_damage() - stats.b_def
 		
@@ -95,7 +93,6 @@ func _animate_hitbox():
 	there will be a real animation here !!
 	"""
 	if not is_attacking:
-		print('we out here animating')
 		is_attacking = true
 		
 		### START NOT MY CODE BLOCK ###
