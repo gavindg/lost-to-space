@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd8nhyc26pv7y"]
+
+[ext_resource type="Script" path="res://Modules/UI/ggai_text.gd" id="1_7f0k0"]
+[ext_resource type="Texture2D" uid="uid://suvgrtfx43jc" path="res://Modules/UI/Dialogue Rectangle.png" id="2_jr5n8"]
+[ext_resource type="FontFile" uid="uid://d2yoqhv8gsyke" path="res://Modules/UI/Robot_Font.otf" id="3_l0cac"]
+
+[node name="GgaiBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7f0k0")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 25.0
+offset_right = 300.0
+offset_bottom = 125.0
+grow_horizontal = 2
+texture = ExtResource("2_jr5n8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 16.0
+offset_right = 577.0
+offset_bottom = 75.0
+theme_override_fonts/normal_font = ExtResource("3_l0cac")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "This is some placeholder text. 
+Second line."
