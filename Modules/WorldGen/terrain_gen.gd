@@ -322,8 +322,8 @@ func gen_boss_room():
 	var door_pos = Vector2i(center_x, center_y + boss_crater_radius)
 	var spawned_door_instance = door_to_spawn.instantiate()
 	add_child(spawned_door_instance)
-	spawned_door_instance.get_node("Sprite2D").position.x = door_pos.x*16
-	spawned_door_instance.get_node("Sprite2D").position.y = door_pos.y*16 - 22
+	spawned_door_instance.position.x = door_pos.x*16
+	spawned_door_instance.position.y = door_pos.y*16 - 22
 	print("VECOTR DOORPOS", door_pos)
 
 ## Generates all of the terrain from the noise maps.
