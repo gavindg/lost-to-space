@@ -1,21 +1,16 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cxjdptr6ey42k"]
 
-[ext_resource type="Texture2D" uid="uid://bivb5cdcctusj" path="res://Art/TileSheets/Overworld/Ore Animations Spritesheet.png" id="1_b2kle"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iwo2r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1pqv"]
-texture = ExtResource("1_b2kle")
-0:0/animation_columns = 9
-0:0/animation_speed = 8.0
-0:0/animation_frame_0/duration = 1.0
-0:0/animation_frame_1/duration = 1.0
-0:0/animation_frame_2/duration = 1.0
-0:0/animation_frame_3/duration = 1.0
-0:0/animation_frame_4/duration = 1.0
-0:0/animation_frame_5/duration = 1.0
-0:0/animation_frame_6/duration = 1.0
-0:0/animation_frame_7/duration = 1.0
-0:0/animation_frame_8/duration = 1.0
+texture = SubResource("CompressedTexture2D_iwo2r")
+0:2/0 = 0
+0:3/0 = 0
+0:1/0 = 0
+3:0/0 = 0
 0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_t1pqv")

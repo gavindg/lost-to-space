@@ -1,18 +1,74 @@
-[gd_scene load_steps=8 format=3 uid="uid://rddlv34uetpb"]
+[gd_scene load_steps=12 format=3 uid="uid://rddlv34uetpb"]
 
 [ext_resource type="Script" path="res://testing/slimus_movement.gd" id="1_2vdtj"]
+[ext_resource type="AudioStream" uid="uid://c312hnl5jp34" path="res://Art/Sound/Music/Short Theme of Slimus P.mp3" id="2_4chft"]
 [ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="2_8bx65"]
-[ext_resource type="Texture2D" uid="uid://dcdsyyxpjl3uj" path="res://Art/Sprites/Enemies/Slimes/GreenSlime_Sprites.png" id="2_ktu0q"]
-[ext_resource type="AudioStream" uid="uid://cmjm1n0goujxv" path="res://Art/Sound/Music/bossgaming.mp3" id="4_4gyfc"]
+[ext_resource type="Texture2D" uid="uid://c4vwvfbqudhr1" path="res://Art/Sprites/Enemies/Boss/Spritus Prime Spritesheet.png" id="4_1q6p8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cn2dg"]
-size = Vector2(6, 4)
+size = Vector2(35, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tttw"]
-size = Vector2(8, 6.5)
+size = Vector2(45, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8u5d"]
-size = Vector2(6, 5)
+size = Vector2(49, 34.25)
+
+[sub_resource type="Animation" id="Animation_61o2q"]
+resource_name = "dash"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_0ssm3"]
+resource_name = "dashing"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_3ea37"]
+resource_name = "idle"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 26, 27]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cfr2h"]
+_data = {
+"dash": SubResource("Animation_61o2q"),
+"dashing": SubResource("Animation_0ssm3"),
+"idle": SubResource("Animation_3ea37")
+}
 
 [node name="TestSlime" type="CharacterBody2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -20,40 +76,49 @@ collision_layer = 0
 script = ExtResource("1_2vdtj")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_4gyfc")
+stream = ExtResource("2_4chft")
 
 [node name="CombatMan" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox")]
 script = ExtResource("2_8bx65")
+health = 1000
+defense = 5
+attack = 12.5
 hitbox = NodePath("Hitbox")
 hurtbox = NodePath("Hurtbox")
+auto_start = false
 
 [node name="Hitbox" type="Area2D" parent="CombatMan" groups=["EnemyHit"]]
+position = Vector2(2, -2.08165e-12)
 collision_layer = 2
 collision_mask = 2
 
 [node name="HitboxCollider" type="CollisionShape2D" parent="CombatMan/Hitbox"]
-position = Vector2(-2.08165e-12, 1)
+position = Vector2(-2, 4)
 shape = SubResource("RectangleShape2D_cn2dg")
 debug_color = Color(0, 0.686275, 0.137255, 0.419608)
 
 [node name="Hurtbox" type="Area2D" parent="CombatMan" groups=["EnemyHurt"]]
+position = Vector2(-2.08165e-12, -2.08165e-12)
 collision_layer = 2
 collision_mask = 2
 
 [node name="HurtboxCollider" type="CollisionShape2D" parent="CombatMan/Hurtbox"]
-position = Vector2(-2.08165e-12, 0.25)
 shape = SubResource("RectangleShape2D_8tttw")
 debug_color = Color(0.819608, 0.145098, 0, 0.419608)
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
-position = Vector2(-2.08165e-12, 1)
+position = Vector2(2.5, 0.125)
 shape = SubResource("RectangleShape2D_b8u5d")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(0, -1.19209e-07)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ktu0q")
-hframes = 8
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, -8)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_1q6p8")
+hframes = 20
 vframes = 2
-region_enabled = true
-region_rect = Rect2(0, 0, 144, 32)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cfr2h")
+}
+autoplay = "idle"

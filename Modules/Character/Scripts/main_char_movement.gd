@@ -25,11 +25,6 @@ var is_dashing = false
 var has_dashed = false
 @export var dash_speed = 300
 
-# wall-jump
-var can_wall_jump = false
-var wall_jump_direction = 0
-@export var wall_jump_speed_againstwall = 200
-@export var wall_jump_speed_upwards = -300
 
 # special movement status (which prevents other input from interfering with those special movements)
 var is_special_movement = false
@@ -79,38 +74,18 @@ func _physics_process(delta):
 	else:
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		
-		
-		
-	# handle collision and wall_jump
-	# collide with the left wall and jmup right-up-wards
-	if $CollisionShape2D/left_RayCast2D.is_colliding():
-		var collider = $CollisionShape2D/left_RayCast2D.get_collider()
-		if collider is TileMap && Input.is_action_pressed("left") && !is_on_floor():
-			can_wall_jump = true
-			wall_jump_direction = 1
-	# collide with the right wall and jmup left-up-wards
-	elif $CollisionShape2D/right_RayCast2D.is_colliding():
-		var collider = $CollisionShape2D/right_RayCast2D.get_collider()
-		if collider is TileMap && Input.is_action_pressed("right") && !is_on_floor():
-			can_wall_jump = true
-			wall_jump_direction = -1
-			
-	else:
-		can_wall_jump = false
-	
+	if frozen:
+			velocity.x = 0
+			move_and_slide()
+			return
 		
 	if is_special_movement == false:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
 			gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-			# if the character is colliding against the wall and could do wall jump
-			if can_wall_jump == true && !is_on_floor():
-				if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
-					# do wall_jump
-					wall_jump(wall_jump_direction)
 			
 			# if the character could jump for the first time
-			elif !has_jumped:
+			if !has_jumped:
 				velocity.y = jump_speed
 				has_jumped = true
 			# if not, check for availbility to jump again
@@ -120,10 +95,6 @@ func _physics_process(delta):
 					has_double_jumped = true
 					
 					
-		if frozen:
-			velocity.x = 0
-			move_and_slide()
-			return
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
 		# do one more check since the is_special_movement status keeps changing
@@ -175,19 +146,6 @@ func dash():
 	await get_tree().create_timer(0.25).timeout
 	is_dashing = false
 	is_special_movement = false
-
-
-# the character should be able to kick the wall to jump to an opposite direction
-func wall_jump(wall_jump_dir):
-	is_special_movement = true
-	if wall_jump_dir == 0:
-		return
-	velocity.x = wall_jump_dir * wall_jump_speed_againstwall
-	velocity.y = wall_jump_speed_upwards
-	await get_tree().create_timer(0.3).timeout
-	is_special_movement = false
-	can_wall_jump = false
-
 
 # below are health mechanism
 

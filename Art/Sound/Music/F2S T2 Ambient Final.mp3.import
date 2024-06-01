@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d025a8it8wic5"
+path="res://.godot/imported/F2S T2 Ambient Final.mp3-0700266794056e4f7be6b08d430c13c1.mp3str"
+
+[deps]
+
+source_file="res://Art/Sound/Music/F2S T2 Ambient Final.mp3"
+dest_files=["res://.godot/imported/F2S T2 Ambient Final.mp3-0700266794056e4f7be6b08d430c13c1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

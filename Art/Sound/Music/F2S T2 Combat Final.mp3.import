@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ctdnga5nogbll"
+path="res://.godot/imported/F2S T2 Combat Final.mp3-5d38248443b4af6538c1a4c2f7f7e44c.mp3str"
+
+[deps]
+
+source_file="res://Art/Sound/Music/F2S T2 Combat Final.mp3"
+dest_files=["res://.godot/imported/F2S T2 Combat Final.mp3-5d38248443b4af6538c1a4c2f7f7e44c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
