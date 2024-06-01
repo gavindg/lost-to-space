@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=30 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
+[ext_resource type="Script" path="res://GameManager.gd" id="1_61rh4"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/Overworld/New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="2_ty63p"]
@@ -17,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
+[ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
 
@@ -3467,9 +3469,13 @@ texture = ExtResource("16_dp4co")
 [sub_resource type="TileSet" id="TileSet_ngbvc"]
 sources/0 = SubResource("TileSetAtlasSource_8rxnl")
 
-[node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="Playtesting" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_61rh4")
+
+[node name="TerrainGen" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
-player = NodePath("SceneObjects/main_char_CharacterBody2D")
+player = NodePath("../SceneObjects/main_char_CharacterBody2D")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
@@ -3481,6 +3487,7 @@ script = ExtResource("5_7sgfv")
 player = NodePath("../SceneObjects/main_char_CharacterBody2D")
 
 [node name="SceneObjects" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="main_char_CharacterBody2D" parent="SceneObjects" instance=ExtResource("3_aetbc")]
 position = Vector2(2.08165e-12, -20)
@@ -3489,13 +3496,13 @@ position = Vector2(2.08165e-12, -20)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -126.0
-offset_top = -77.0
-offset_right = -126.0
-offset_bottom = -77.0
+offset_left = -210.0
+offset_top = -119.0
+offset_right = -210.0
+offset_bottom = -119.0
 grow_horizontal = 1
 grow_vertical = 1
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.5, 2.5)
 player = NodePath("..")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/main_char_CharacterBody2D"]
@@ -3637,6 +3644,7 @@ scale = Vector2(0.09, 0.09)
 texture = ExtResource("11_fksg4")
 
 [node name="Management" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
 script = ExtResource("10_oxk83")
@@ -3647,7 +3655,10 @@ tilemap = NodePath("../../TileMap")
 
 [node name="CanvasLayer" parent="Management/EnemyManager" instance=ExtResource("10_31it1")]
 
-[node name="UI" type="Node2D" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("15_nmkxq")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
