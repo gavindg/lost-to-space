@@ -42,8 +42,8 @@ var manager
 
 
 # World Gen
-@export var map_width = 200
-@export var map_height = 200
+@export var map_width = 240
+@export var map_height = 240
 
 ## flags
 var player_locked : bool = false
