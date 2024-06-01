@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=35 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Script" path="res://GameManager.gd" id="1_61rh4"]
@@ -3636,6 +3636,7 @@ process_mode = 1
 position = Vector2(0, -8)
 
 [node name="inventory_manager" parent="SceneObjects/Michael" instance=ExtResource("10_48d8y")]
+z_index = 1
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
