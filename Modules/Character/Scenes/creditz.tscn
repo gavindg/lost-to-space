@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8i2uqgx7quuy"]
+[gd_scene load_steps=5 format=3 uid="uid://c8i2uqgx7quuy"]
 
 [ext_resource type="Script" path="res://Modules/Character/Scenes/creditsMove.gd" id="1_f2lr3"]
-[ext_resource type="AudioStream" uid="uid://ci0tmkmf8fg6w" path="res://Art/Sound/Music/ForbTospakCe.mp3" id="2_ckiwa"]
-[ext_resource type="AudioStream" uid="uid://dubys2vyk8q7h" path="res://Art/Sound/Music/planst zombid.1.wav" id="3_rk0xi"]
-[ext_resource type="Script" path="res://Modules/Character/Scenes/Song 1.gd" id="4_h22jp"]
+[ext_resource type="AudioStream" uid="uid://ok54b7p5bfym" path="res://Art/Sound/Music/credits.mp3" id="1_feor8"]
 
 [sub_resource type="Gradient" id="Gradient_smd2j"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -13,7 +11,6 @@ gradient = SubResource("Gradient_smd2j")
 width = 25
 
 [node name="Creditz" type="Node2D"]
-script = ExtResource("4_h22jp")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 top_level = true
@@ -290,9 +287,7 @@ scale = Vector2(54.013, 1000)
 texture = SubResource("GradientTexture1D_iurv2")
 
 [node name="Song1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_rk0xi")
-
-[node name="Song2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_ckiwa")
+stream = ExtResource("1_feor8")
+autoplay = true
 
 [connection signal="finished" from="Song1" to="." method="_on_song_1_finished"]
