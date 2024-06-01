@@ -3475,7 +3475,7 @@ script = ExtResource("1_61rh4")
 
 [node name="TerrainGen" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
-player = NodePath("SceneObjects/Michael")
+player = NodePath("../SceneObjects/Michael")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
