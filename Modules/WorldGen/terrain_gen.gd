@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tilemap = $TileMap
+@onready var tilemap = $"../TileMap"
 @export var player : CharacterBody2D
 
 # MAP DIMENSIONS!!!

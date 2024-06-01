@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=35 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
+[ext_resource type="Script" path="res://GameManager.gd" id="1_61rh4"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="1_orbgj"]
 [ext_resource type="Texture2D" uid="uid://c2bpxytncbt0f" path="res://Art/TileSheets/Overworld/New_Piskel_9.png" id="2_e2vwn"]
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="2_ty63p"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://n3nexu676733" path="res://1 sky.png" id="8_34jo6"]
 [ext_resource type="Texture2D" uid="uid://cobnn3e7nxdun" path="res://2 planets.png" id="9_jmhhf"]
 [ext_resource type="Texture2D" uid="uid://bj6rf1uj8tohc" path="res://3 clouds.png" id="10_5tvse"]
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="10_8kdqr"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
@@ -19,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
+[ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
 
@@ -3609,9 +3612,13 @@ texture = ExtResource("16_dp4co")
 [sub_resource type="TileSet" id="TileSet_ngbvc"]
 sources/0 = SubResource("TileSetAtlasSource_8rxnl")
 
-[node name="Playtesting" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="Playtesting" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_61rh4")
+
+[node name="TerrainGen" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
-player = NodePath("SceneObjects/Michael")
+player = NodePath("../SceneObjects/Michael")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")
@@ -3623,21 +3630,24 @@ script = ExtResource("5_7sgfv")
 player = NodePath("../SceneObjects/Michael")
 
 [node name="SceneObjects" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="Michael" parent="SceneObjects" instance=ExtResource("7_yjvi7")]
 position = Vector2(0, -8)
 
 [node name="inventory_manager" parent="SceneObjects/Michael" instance=ExtResource("10_48d8y")]
+z_index = 1
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -126.0
-offset_top = -97.0
-offset_right = -126.0
-offset_bottom = -97.0
+offset_left = -210.0
+offset_top = -119.0
+offset_right = -210.0
+offset_bottom = -119.0
 grow_horizontal = 1
 grow_vertical = 1
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.5, 2.5)
+player = NodePath("..")
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="SceneObjects/Michael"]
 position = Vector2(2.08165e-12, -44)
@@ -3646,9 +3656,12 @@ zoom = Vector2(3.32, 3.32)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="SceneObjects/Michael/INSANELYSCUFFED"]
 offset = Vector2(0, -80)
 transform = Transform2D(1, 0, 0, 1, 0, -80)
+script = ExtResource("10_8kdqr")
 
 [node name="SkyParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
-motion_scale = Vector2(0.2, 0.5)
+scale = Vector2(0.5, 0.5)
+motion_scale = Vector2(0, 0)
+motion_offset = Vector2(0, 120)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Sky" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/SkyParallax"]
@@ -3657,7 +3670,9 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("8_34jo6")
 
 [node name="PlanetParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
+scale = Vector2(0.5, 0.5)
 motion_scale = Vector2(0, 0)
+motion_offset = Vector2(0, 120)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Planets" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/PlanetParallax"]
@@ -3666,7 +3681,8 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_jmhhf")
 
 [node name="CloudParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
-motion_scale = Vector2(0.4, 0.8)
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(0, 70)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Clouds" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/CloudParallax"]
@@ -3675,7 +3691,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_5tvse")
 
 [node name="RockParallax" type="ParallaxLayer" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.9)
+motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Rocks" type="Sprite2D" parent="SceneObjects/Michael/INSANELYSCUFFED/ParallaxBackground/RockParallax"]
@@ -3684,6 +3700,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_fksg4")
 
 [node name="Management" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="EnemySpawner" type="Node2D" parent="Management" node_paths=PackedStringArray("player", "tilemap")]
 script = ExtResource("10_oxk83")
@@ -3694,7 +3711,10 @@ tilemap = NodePath("../../TileMap")
 
 [node name="CanvasLayer" parent="Management/EnemyManager" instance=ExtResource("10_31it1")]
 
-[node name="UI" type="Node2D" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("15_nmkxq")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hm7xj")
