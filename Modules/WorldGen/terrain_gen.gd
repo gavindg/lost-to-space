@@ -58,8 +58,9 @@ var map_height : int = Globals.map_height
 @export var ore_offset : int = 10
 ## Minimum width a patch of the surface has to be flat for
 @export var min_flat_width : int = 10
-## Source id for the main tileset
+## Source id for the main tileset and animated ores
 @export var source_id : int = 0
+@export var animated_ores_id : int = 4
 ## Max and min height of the tree
 @export var min_tree_height : int = 1
 @export var max_tree_height : int = 10
@@ -256,7 +257,8 @@ func gen_ore():
 	for x in range(-map_width, map_width):
 		for y in range(ground_levels[x] + ore_offset + 1, map_height):
 			if ore_noise.get_noise_2d(x,y) > ore_lower_threshold:
-				fg_tile_matrix[Vector2i(x,y)] = 'ORE1'
+				fg_tile_matrix[Vector2i(x,y)] = 'ORE'
+				fg_tile_matrix[Vector2i(x,y)] += str(randi() % 4)
 
 ## Generates walls everywhere except for the first layer of grass (and in the air). Will probably be replaced.
 func gen_walls():
@@ -350,8 +352,9 @@ func gen_terrain():
 				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_STONE)
 			elif val == 'DIRT_TOP':
 				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_DIRT_TOP)
-			elif val == 'ORE1':
-				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_ORE1)
+			elif val.begins_with('ORE'):
+				var num = int(val[3])
+				tilemap.set_cell(FOREGROUND, pos, animated_ores_id, Vector2i(0, num))
 			elif val == 'CAVE':
 				tilemap.set_cell(FOREGROUND, pos, -1)
 
