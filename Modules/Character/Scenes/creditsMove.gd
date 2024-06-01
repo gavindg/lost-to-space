@@ -4,15 +4,21 @@ var speed = 60
 var tick = 0
 var initspeed = 60
 
+var counter = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if counter <= 300:
+		speed = 0
+	else:
+		speed = initspeed
 	
+	counter += initspeed * delta
+		
 	if tick >= 7000:
 		speed = initspeed - 2
 		
@@ -26,9 +32,4 @@ func _process(delta):
 		speed = initspeed - 12
 	
 	tick+=speed*delta
-	print(tick)
 	position.y -= speed * delta
-
-
-func _on_song_1_finished():
-	pass # Replace with function body.
