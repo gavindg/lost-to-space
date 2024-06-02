@@ -12,7 +12,7 @@ var tick = 0
 var tickrads = 0
 var dead = false
 
-func read():
+func ready():
 	var slimus = get_node("TestSlime")
 
 func health_depleted():

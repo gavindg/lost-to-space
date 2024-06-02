@@ -20,6 +20,7 @@ var cur_rotation_speed
 func _ready():
 	$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
 	hitbox.set_deferred("disabled", true)
+	var slimus = get_node("TestSlime")
 
 func _physics_process(_delta):
 	#player_movement(delta)

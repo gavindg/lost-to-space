@@ -72,7 +72,7 @@ func start_boss():
 	started = true
 	combatman.start()
 	
-	#health_depleted.emit()
+	health_depleted.emit()
 
 ### MOVEMENT ###
 

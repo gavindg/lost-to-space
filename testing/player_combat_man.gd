@@ -21,6 +21,11 @@ class_name PlayerCombat
 @onready var is_attacking := false
 var is_dead = false
 
+var slimeDead = false
+
+func health_depleted():
+	slimeDead = true
+
 @onready var sword_hitbox := preload('res://testing/michael_sword.tscn')
 @export var sword_rotation_speed := 400
 
@@ -28,6 +33,7 @@ var is_dead = false
 func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	hitbox.set_deferred("enabled", false)
+	var slimus = get_node("TestSlime")
 
 func _process(delta: float) -> void:
 	# animate hitbox
@@ -91,11 +97,14 @@ func _animate_hitbox():
 	there will be a real animation here !!
 	"""
 	if not is_attacking:
-		is_attacking = true
+		if slimeDead == false:
+			is_attacking = true
 		
 		### START NOT MY CODE BLOCK ###
 		
 		#hitbox.set_deferred("disabled", false)
+		
+		
 		if(!$"SwordArea/Sprite2D".visible):
 			$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
 		if facing > 0:

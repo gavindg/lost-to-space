@@ -3644,7 +3644,6 @@ MAX_LENGTH = 20
 sword = NodePath("../Sword 3")
 
 [connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
-[connection signal="health_depleted" from="TestSlime" to="Michael" method="health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 1" method="health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 2" method="health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 3" method="health_depleted"]
