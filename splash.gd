@@ -1,8 +1,10 @@
 extends Node2D
 
-@export var sprite : Sprite2D = null
 @export var dur = 1
 @export var waittime = 3
+
+@onready var sprite : Sprite2D = $Sprite2D
+@onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _ready() -> void:
@@ -15,6 +17,8 @@ func _ready() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(sprite, "modulate", 
 	Color(1, 1, 1, 1), dur)
+	
+	audio.play()
 
 	await get_tree().create_timer(waittime).timeout
 	

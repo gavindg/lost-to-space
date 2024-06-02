@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvtm166mj5544"]
+[gd_scene load_steps=6 format=3 uid="uid://cvtm166mj5544"]
 
 [ext_resource type="Script" path="res://splash.gd" id="1_lp2u2"]
 [ext_resource type="Texture2D" uid="uid://rrob17b4tghx" path="res://Art/logo.png" id="1_txb8k"]
+[ext_resource type="AudioStream" uid="uid://byvn7alklcfdf" path="res://Art/Sound/Music/Intro MGM Lion [DhNMHcRSNdo].1.wav" id="3_etos2"]
 
 [sub_resource type="Animation" id="Animation_5cuc5"]
 resource_name = "fade"
@@ -11,9 +12,8 @@ _data = {
 "fade": SubResource("Animation_5cuc5")
 }
 
-[node name="Splash" type="Node2D" node_paths=PackedStringArray("sprite")]
+[node name="Splash" type="Node2D"]
 script = ExtResource("1_lp2u2")
-sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(595, 322)
@@ -23,3 +23,7 @@ texture = ExtResource("1_txb8k")
 libraries = {
 "": SubResource("AnimationLibrary_ngyrj")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_etos2")
+volume_db = -5.333
