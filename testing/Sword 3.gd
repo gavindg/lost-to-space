@@ -1,6 +1,6 @@
 extends Node2D
 
-var angle = 120
+var angle = 240
 @export var player : CharacterBody2D
 var offset = deg_to_rad(angle)
 var speed = 12  # Adjust this value to change rotation speed

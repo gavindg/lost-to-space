@@ -12,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://esmumt16radv" path="res://Art/Sprites/Etc/Atomic Blade (1).png" id="10_fheju"]
 [ext_resource type="Script" path="res://Sword 1.gd" id="11_e1g7m"]
 [ext_resource type="Script" path="res://Sword 2.gd" id="12_6reod"]
-[ext_resource type="Script" path="res://testing/Sword 3.gd" id="13_0fyt6"]
-[ext_resource type="Script" path="res://testing/Trail 1.gd" id="14_08vxm"]
+[ext_resource type="Script" path="res://Sword 3.gd" id="13_62a0y"]
+[ext_resource type="Script" path="res://Line2D.gd" id="14_ylgvx"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, -6.25, -8, -6.125)
@@ -3601,10 +3601,10 @@ position = Vector2(-24, 22)
 scale = Vector2(2, 2)
 texture = ExtResource("10_fheju")
 offset = Vector2(12, -15)
-script = ExtResource("13_0fyt6")
+script = ExtResource("13_62a0y")
 player = NodePath("../Michael")
 
-[node name="Trail 1" type="Line2D" parent="."]
+[node name="Trail 1" type="Line2D" parent="." node_paths=PackedStringArray("sword")]
 top_level = true
 position = Vector2(0, -8)
 width = 15.0
@@ -3613,7 +3613,9 @@ gradient = SubResource("Gradient_exs5r")
 joint_mode = 2
 sharp_limit = 0.1
 antialiased = true
-script = ExtResource("14_08vxm")
+script = ExtResource("14_ylgvx")
+MAX_LENGTH = 20
+sword = NodePath("../Sword 1")
 
 [connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 1" method="health_depleted"]

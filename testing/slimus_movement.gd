@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name BossMovement
 
+signal health_depleted
+
 # player reference ## TODO: change this to a global reference eventually
 @export var player : CharacterBody2D = Globals.player
 var valid = true  # false if no player is found
@@ -69,6 +71,8 @@ func start_boss():
 	visible = true
 	started = true
 	combatman.start()
+	
+	health_depleted.emit()
 
 ### MOVEMENT ###
 
@@ -218,6 +222,7 @@ func intro_cutscene():
 ### ON DEATH ###
 
 func die():
+	health_depleted.emit()
 	get_parent().add_child(winner.instantiate())  # pvz music
 	queue_free()
 

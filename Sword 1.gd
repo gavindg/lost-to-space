@@ -3,17 +3,24 @@ extends Node2D
 var angle = 0
 @export var player : CharacterBody2D
 var offset = deg_to_rad(angle)
-var speed = 12  # Adjust this value to change rotation speed
+var speed = 2  # Adjust this value to change rotation speed
 var px = 200
 var py = 100
 var newx = 0
 var newy = 0
 var tick = 0
 var tickrads = 0
+var dead = false
+
+func read():
+	var slimus = get_node("TestSlime")
+
+func health_depleted():
+	dead = true
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("attack"):
+	if Input.is_action_pressed("attack") && dead == true:
 		self.visible = true
 	else:
 	# Hide the sprite when the key is not pressed.
@@ -34,3 +41,11 @@ func _physics_process(delta):
 	
 	self.position.x = px - newx 
 	self.position.y = py + newy
+
+
+func _on_test_slime_tree_exited():
+	pass # Replace with function body.
+
+
+func _on_test_slime_health_depleted():
+	pass # Replace with function body.
