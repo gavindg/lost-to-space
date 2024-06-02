@@ -33,7 +33,10 @@ var hit_a_wall = false
 # current state
 @onready var state_action = "aggro"
 
-# for combat management. 
+# for combat management.
+signal music_started
+signal boss_started 
+signal landed
 @onready var combatman : EnemyCombat = $CombatMan
 var dead = false
 
@@ -66,6 +69,7 @@ func _ready():
 
 # called to start 
 func start_boss():
+	boss_started.emit()
 	visible = true
 	started = true
 	combatman.start()
@@ -142,6 +146,7 @@ func jumping(delta):
 		velocity.y = 0
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
 		state_action = "on_cooldown"
+		landed.emit()
 		return
 	just_jumped = false
 
@@ -197,7 +202,8 @@ func tell():
 		await get_tree().create_timer(0.05).timeout
 
 
-func girate():
+func intro_cutscene():
+	music_started.emit()
 	if skip_intro:
 		return
 	print('girate 1')
@@ -213,7 +219,7 @@ func girate():
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
 	print('girate 3')
-	for i in range(15):
+	for i in range(30):
 		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 20
@@ -237,7 +243,7 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	player.frozen = true
 	if musician:
 		musician.play()
-	await girate()
+	await intro_cutscene()
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()

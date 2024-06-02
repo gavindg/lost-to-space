@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqqndudugkwga"]
+
+[ext_resource type="Script" path="res://testing/boss_room_effects.gd" id="1_j72uj"]
+
+[sub_resource type="Environment" id="Environment_f0eo3"]
+background_mode = 3
+background_canvas_max_layer = 1
+glow_enabled = true
+glow_intensity = 4.09
+glow_strength = 1.2
+glow_blend_mode = 0
+glow_hdr_scale = 0.87
+
+[sub_resource type="Gradient" id="Gradient_2knwk"]
+offsets = PackedFloat32Array(0, 0.139293, 1)
+colors = PackedColorArray(0.76572, 0.765719, 7.70092e-07, 1, 0.892845, 0.350225, 3.52225e-07, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s0o82"]
+gradient = SubResource("Gradient_2knwk")
+
+[sub_resource type="Curve" id="Curve_wtaf0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.228332), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c46nd"]
+curve = SubResource("Curve_wtaf0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_84dbf"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 20.0
+initial_velocity_min = 100.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_c46nd")
+color_ramp = SubResource("GradientTexture1D_s0o82")
+turbulence_enabled = true
+turbulence_noise_strength = 1.8
+turbulence_noise_scale = 2.97
+
+[node name="BossRoomEffects" type="Node2D"]
+
+[node name="Torches" type="Node2D" parent="."]
+script = ExtResource("1_j72uj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Torches"]
+environment = SubResource("Environment_f0eo3")
+
+[node name="Fire" type="GPUParticles2D" parent="Torches"]
+position = Vector2(344, 196)
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_84dbf")
