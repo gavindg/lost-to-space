@@ -28,6 +28,7 @@ var is_dead = false
 func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	hitbox.set_deferred("enabled", false)
+	print(hitbox)
 
 func _process(delta: float) -> void:
 	# animate hitbox
@@ -37,9 +38,8 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if is_dead: return
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
-		
-		if not Globals.inv_manager.held_item or Globals.inv_manager.held_item.name != "Sword":
-			return
+		#if Globals.inv_manager.held_item_type != Globals.WEAPON:
+			#return
 		
 		var global_pos := get_global_mouse_position()
 		var local_to_player := player_controller.to_local(global_pos)
@@ -69,6 +69,8 @@ func _on_hurtbox_area_entered(area: Area2D):
 			is_dead = true
 			die()
 			return
+			
+		#print('[PLAYER]: hp = ', stats.hp, '/', stats.max_hp)
 		
 		# calculate & apply knockback
 		apply_knockback(area)
@@ -135,4 +137,5 @@ func _animate_weapon(delta):
 
 func die():
 	# TODO: do something here when the player dies !!!!
+	print('owwwww')
 	pass
