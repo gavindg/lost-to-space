@@ -1,16 +1,51 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cxjdptr6ey42k"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cxjdptr6ey42k"]
+
+[ext_resource type="Texture2D" uid="uid://xkaf2uryao8f" path="res://Art/TileSheets/Overworld/Ore Spritesheet Correct.png" id="1_sqb0h"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iwo2r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1pqv"]
 texture = SubResource("CompressedTexture2D_iwo2r")
-0:2/0 = 0
-0:3/0 = 0
-0:1/0 = 0
-3:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xjgvm"]
+texture = ExtResource("1_sqb0h")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_t1pqv")
+sources/1 = SubResource("TileSetAtlasSource_xjgvm")

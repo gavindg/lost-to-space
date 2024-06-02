@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dek25ptv3a31u"
+path="res://.godot/imported/Theme of Slimus.mp3-5756717ee1fb152bd27f6a5baeeeec87.mp3str"
+
+[deps]
+
+source_file="res://Art/Sound/Music/Theme of Slimus.mp3"
+dest_files=["res://.godot/imported/Theme of Slimus.mp3-5756717ee1fb152bd27f6a5baeeeec87.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
