@@ -21,7 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
-[ext_resource type="PackedScene" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
+[ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
 
@@ -3513,6 +3513,7 @@ texture = ExtResource("7_jcu2x")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:1/animation_speed = 8.0
 0:1/animation_frame_0/duration = 1.0
 0:1/animation_frame_1/duration = 1.0
@@ -3521,6 +3522,7 @@ texture = ExtResource("7_jcu2x")
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:2/animation_speed = 9.0
 0:2/animation_frame_0/duration = 1.0
 0:2/animation_frame_1/duration = 1.0
@@ -3556,6 +3558,7 @@ texture = ExtResource("7_jcu2x")
 0:3/0 = 0
 0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:3/0/physics_layer_0/angular_velocity = 0.0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_iv81b"]
 occlusion_layer_0/light_mask = 1
@@ -3621,6 +3624,8 @@ script = ExtResource("1_61rh4")
 [node name="TerrainGen" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_3yw20")
 player = NodePath("../SceneObjects/Michael")
+ore_lower_threshold = 0.38
+ore_freq_mult = 20.0
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_iv81b")

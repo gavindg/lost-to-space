@@ -60,7 +60,7 @@ var map_height : int = Globals.map_height
 @export var min_flat_width : int = 10
 ## Source id for the main tileset and animated ores
 @export var source_id : int = 0
-@export var animated_ores_id : int = 4
+@export var animated_ores_id : int = 5
 ## Max and min height of the tree
 @export var min_tree_height : int = 1
 @export var max_tree_height : int = 10
@@ -254,11 +254,20 @@ func gen_decor_tree(col):
 ## Generates the ore using a new perlin noise. 
 func gen_ore():
 	var ore_noise = gen_new_noise(FastNoiseLite.TYPE_PERLIN, frequency * ore_freq_mult, octaves, lacunarity, gain)
+	var ore_gaps = 40
 	for x in range(-map_width, map_width):
-		for y in range(ground_levels[x] + ore_offset + 1, map_height):
+		var ore_start = ground_levels[x] + ore_offset + 1
+		for y in range(ore_start, map_height):
 			if ore_noise.get_noise_2d(x,y) > ore_lower_threshold:
+				var suffix = 0
+				if y > ore_start + ore_gaps:
+					suffix += 1
+				if y > ore_start + 2 * ore_gaps:
+					suffix += 1
+				if y > ore_start + 3 * ore_gaps:
+					suffix += 1
 				fg_tile_matrix[Vector2i(x,y)] = 'ORE'
-				fg_tile_matrix[Vector2i(x,y)] += str(randi() % 4)
+				fg_tile_matrix[Vector2i(x,y)] += str(suffix)
 
 ## Generates walls everywhere except for the first layer of grass (and in the air). Will probably be replaced.
 func gen_walls():
