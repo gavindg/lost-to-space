@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var fire1 = $Fire1
 @onready var fire2 = $Fire2
+@onready var fire3 = $Fire3
+@onready var fire4 = $Fire4
 @onready var falling_particles = $Fall
 @onready var world_env = $WorldEnvironment
 
@@ -9,6 +11,8 @@ extends Node2D
 func _ready():
 	fire1.emitting = false
 	fire2.emitting = false
+	fire3.emitting = false
+	fire4.emitting = false
 	falling_particles.emitting = false
 	world_env.environment.glow_enabled = false
 
@@ -20,6 +24,12 @@ func _on_test_slime_boss_started():
 	falling_particles.process_material.initial_velocity_max = 200
 	falling_particles.position.y -= 100
 	falling_particles.lifetime = 3
+
+func _on_phase_two_start():
+	fire3.emitting = true
+	fire4.emitting = true
+	falling_particles.process_material.initial_velocity_min = 300
+	falling_particles.process_material.initial_velocity_max = 400
 	world_env.environment.glow_enabled = true
 
 func _on_test_slime_music_started():
