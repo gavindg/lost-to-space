@@ -34,6 +34,9 @@ var hit_a_wall = false
 @onready var state_action = "aggro"
 
 # for combat management. 
+signal music_started
+signal boss_started 
+signal landed
 @onready var combatman : EnemyCombat = $CombatMan
 var dead = false
 
@@ -66,6 +69,7 @@ func _ready():
 
 # called to start 
 func start_boss():
+	boss_started.emit()
 	visible = true
 	started = true
 	combatman.start()
@@ -142,6 +146,7 @@ func jumping(delta):
 		velocity.y = 0
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
 		state_action = "on_cooldown"
+		landed.emit()
 		return
 	just_jumped = false
 
@@ -196,6 +201,7 @@ func tell():
 
 
 func intro_cutscene():
+	music_started.emit()
 	if skip_intro:
 		return
 	for i in range(20):
@@ -208,7 +214,7 @@ func intro_cutscene():
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
-	for i in range(15):
+	for i in range(18):
 		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 20
