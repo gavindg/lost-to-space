@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=39 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Script" path="res://GameManager.gd" id="1_61rh4"]
@@ -21,9 +21,13 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
-[ext_resource type="PackedScene" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
+[ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
+[ext_resource type="Texture2D" uid="uid://esmumt16radv" path="res://Art/Sprites/Etc/Atomic Blade (1).png" id="17_2ml6u"]
+[ext_resource type="Script" path="res://Sword 1.gd" id="17_6keum"]
+[ext_resource type="Script" path="res://Sword 2.gd" id="18_felhf"]
+[ext_resource type="Script" path="res://Sword 3.gd" id="19_tbe1i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3698,6 +3702,21 @@ motion_mirroring = Vector2(768, 0)
 z_index = -2
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_fksg4")
+
+[node name="Sword 1" type="Sprite2D" parent="SceneObjects/Michael" node_paths=PackedStringArray("player")]
+texture = ExtResource("17_2ml6u")
+script = ExtResource("17_6keum")
+player = NodePath("..")
+
+[node name="Sword 2" type="Sprite2D" parent="SceneObjects/Michael" node_paths=PackedStringArray("player")]
+texture = ExtResource("17_2ml6u")
+script = ExtResource("18_felhf")
+player = NodePath("..")
+
+[node name="Sword 3" type="Sprite2D" parent="SceneObjects/Michael" node_paths=PackedStringArray("player")]
+texture = ExtResource("17_2ml6u")
+script = ExtResource("19_tbe1i")
+player = NodePath("..")
 
 [node name="Management" type="Node2D" parent="."]
 process_mode = 1
