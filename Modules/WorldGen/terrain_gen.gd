@@ -337,6 +337,12 @@ func gen_boss_room():
 	spawned_door_instance.position.y = door_pos.y*16 - 22
 	print("VECOTR DOORPOS", door_pos)
 
+func gen_bedrock():
+	for x in range(-map_width, map_width):
+		for y in range(map_height, map_height+50):
+			var pos = Vector2i(x, y)
+			tilemap.set_cell(FOREGROUND, pos, source_id, Vector2i(0, 4))
+
 ## Generates all of the terrain from the noise maps.
 func gen_terrain():
 	gen_surface(false)
@@ -349,8 +355,7 @@ func gen_terrain():
 	gen_plants()
 	
 	for x in range(-map_width, map_width):
-		print(x)
-		for y in range(-100, map_height):
+		for y in range(-map_height/2, map_height):
 			var pos = Vector2i(x, y)
 			if not pos in fg_tile_matrix:
 				continue
@@ -366,7 +371,7 @@ func gen_terrain():
 				tilemap.set_cell(FOREGROUND, pos, animated_ores_id, Vector2i(0, num))
 			elif val == 'CAVE':
 				tilemap.set_cell(FOREGROUND, pos, -1)
-
+	gen_bedrock()
 	gen_cloned_sides()
 
 func setup_side_cams():

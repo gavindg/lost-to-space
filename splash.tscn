@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvtm166mj5544"]
+
+[ext_resource type="Script" path="res://splash.gd" id="1_lp2u2"]
+[ext_resource type="Texture2D" uid="uid://rrob17b4tghx" path="res://Art/logo.png" id="1_txb8k"]
+
+[sub_resource type="Animation" id="Animation_5cuc5"]
+resource_name = "fade"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ngyrj"]
+_data = {
+"fade": SubResource("Animation_5cuc5")
+}
+
+[node name="Splash" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_lp2u2")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(595, 322)
+texture = ExtResource("1_txb8k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ngyrj")
+}
