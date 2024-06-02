@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cugspn5eoq1q"]
+[gd_scene load_steps=35 format=3 uid="uid://cugspn5eoq1q"]
 
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="1_2ht68"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="2_bba2q"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://l2w388u8rege" path="res://testing/braindead.tscn" id="7_vwfja"]
 [ext_resource type="Script" path="res://Modules/UI/user_interface_canvas_layer.gd" id="8_3vwkb"]
 [ext_resource type="PackedScene" uid="uid://rddlv34uetpb" path="res://testing/slimus_prime.tscn" id="8_jvd0m"]
+[ext_resource type="Shader" path="res://Art/Shaders/slimus.gdshader" id="9_7a5ao"]
+[ext_resource type="Script" path="res://testing/boss_room_effects.gd" id="10_l2u6v"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, -6.25, -8, -6.125)
@@ -3427,6 +3429,13 @@ sources/0 = SubResource("TileSetAtlasSource_edo6g")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w18px"]
 size = Vector2(20, 400)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqgn0"]
+shader = ExtResource("9_7a5ao")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 0.0
+shader_parameter/glow_shift = 0.0
+shader_parameter/glow_radius = 1.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b0b6"]
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
@@ -3443,6 +3452,64 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbc8q"]
 bg_color = Color(0.894118, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_grux8"]
+offsets = PackedFloat32Array(0, 0.139293, 1)
+colors = PackedColorArray(0.76572, 0.765719, 7.70092e-07, 1, 0.892845, 0.350225, 3.52225e-07, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_772nb"]
+gradient = SubResource("Gradient_grux8")
+
+[sub_resource type="Curve" id="Curve_kic6b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.228332), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uffuf"]
+curve = SubResource("Curve_kic6b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6a6a4"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_min = 80.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_uffuf")
+color_ramp = SubResource("GradientTexture1D_772nb")
+turbulence_enabled = true
+turbulence_noise_strength = 2.04
+turbulence_noise_scale = 4.49
+
+[sub_resource type="Gradient" id="Gradient_6rwm5"]
+colors = PackedColorArray(0, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qgwg1"]
+gradient = SubResource("Gradient_6rwm5")
+
+[sub_resource type="Curve" id="Curve_myb2n"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.966601, 1.36672), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kjjer"]
+curve = SubResource("Curve_myb2n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fpppy"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(400, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_over_velocity_min = 1.0
+scale_over_velocity_max = 1.5
+scale_over_velocity_curve = SubResource("CurveTexture_kjjer")
+color_ramp = SubResource("GradientTexture1D_qgwg1")
 
 [node name="PlaytestBossCave" type="Node2D"]
 
@@ -3467,6 +3534,7 @@ position = Vector2(512, 288)
 scale = Vector2(5, 5)
 
 [node name="Michael" parent="." instance=ExtResource("6_pn78n")]
+z_index = 1
 position = Vector2(16, -64)
 
 [node name="INSANELYSCUFFED" type="Camera2D" parent="Michael"]
@@ -3496,7 +3564,8 @@ position = Vector2(0, -184)
 shape = SubResource("RectangleShape2D_w18px")
 
 [node name="TestSlime" parent="." instance=ExtResource("8_jvd0m")]
-position = Vector2(624, 288)
+z_index = 1
+position = Vector2(624, 287)
 vert_jump_max = 400
 vert_jump_min = 300
 horiz_jump_max = 300
@@ -3506,6 +3575,9 @@ MAX_WAIT = 1.3
 
 [node name="CombatMan" parent="TestSlime" index="1" node_paths=PackedStringArray("healthbar")]
 healthbar = NodePath("../../UI/CanvasLayer/boss_healthbar")
+
+[node name="Sprite2D" parent="TestSlime" index="3"]
+material = SubResource("ShaderMaterial_sqgn0")
 
 [node name="UI" type="Node2D" parent="."]
 
@@ -3566,6 +3638,33 @@ offset_right = -66.0
 offset_bottom = -306.0
 text = "hi"
 
+[node name="Effects" type="Node2D" parent="." node_paths=PackedStringArray("cam")]
+script = ExtResource("10_l2u6v")
+cam = NodePath("../Michael/INSANELYSCUFFED")
+
+[node name="Fire1" type="GPUParticles2D" parent="Effects"]
+position = Vector2(632, 216)
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_6a6a4")
+fixed_fps = 16
+
+[node name="Fire2" type="GPUParticles2D" parent="Effects"]
+position = Vector2(328, 216)
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_6a6a4")
+fixed_fps = 16
+
+[node name="Fall" type="GPUParticles2D" parent="Effects"]
+position = Vector2(500, 0)
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_fpppy")
+lifetime = 3.0
+fixed_fps = 8
+visibility_rect = Rect2(-150, -150, 300, 300)
+
 [connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
+[connection signal="boss_started" from="TestSlime" to="Effects" method="_on_test_slime_boss_started"]
+[connection signal="landed" from="TestSlime" to="Effects" method="_on_test_slime_landed"]
+[connection signal="music_started" from="TestSlime" to="Effects" method="_on_test_slime_music_started"]
 
 [editable path="TestSlime"]
