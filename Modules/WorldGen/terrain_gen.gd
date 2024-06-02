@@ -68,6 +68,7 @@ var map_height : int = Globals.map_height
 @export var boss_crater_radius : int = 10
 
 var door_to_spawn = preload("res://Modules/Rooms/door.tscn")
+var boss_room_center : Vector2i
 
 const GRASS_LEVEL = -20
 const BLANK = -30
@@ -212,6 +213,8 @@ func gen_grass():
 ## Generates plants as decoration. Randomly chooses whether to place grass, place a tree, or place nothing.
 func gen_plants():
 	for i in range(-map_width, map_width):
+		if i > boss_room_center.x - boss_crater_radius and i < boss_room_center.x + boss_crater_radius:
+			continue
 		var rand = randi() % 100
 		if rand < grass_rarity:
 			gen_decor_grass(i)
@@ -321,6 +324,7 @@ func gen_boss_room():
 	var large_radius = int(boss_crater_radius * 1.5) 
 	var center_x = randi() % 100 + 50
 	var center_y = ground_levels[center_x]
+	boss_room_center = Vector2i(center_x, center_y)
 	
 	for x in range(center_x - large_radius, center_x + large_radius):
 		for y in range(center_y, center_y + large_radius):
@@ -328,13 +332,15 @@ func gen_boss_room():
 			if dist < boss_crater_radius:
 				fg_tile_matrix[Vector2i(x,y)] = 'CAVE'
 			elif dist < large_radius:
-				fg_tile_matrix[Vector2i(x,y)] = 'STONE'
+				fg_tile_matrix[Vector2i(x,y)] = 'DIRT'
+				if y == ground_levels[x]-1:
+					fg_tile_matrix[Vector2i(x,y)] = 'DIRT_TOP'
 	
 	var door_pos = Vector2i(center_x, center_y + boss_crater_radius)
 	var spawned_door_instance = door_to_spawn.instantiate()
 	add_child(spawned_door_instance)
 	spawned_door_instance.position.x = door_pos.x*16
-	spawned_door_instance.position.y = door_pos.y*16 - 22
+	spawned_door_instance.position.y = door_pos.y*16 - 32
 	print("VECOTR DOORPOS", door_pos)
 
 func gen_bedrock():

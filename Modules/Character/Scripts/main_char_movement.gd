@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer2
 
 # basic movements: w/a/s/d to move up/left/down/right
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
@@ -168,8 +168,16 @@ func die():
 var last_move_direction = 0
 var exported_move_direction = 0
 
+var attacking = false
+var dir = 1
+
 func animation_handler() -> void:
-	if velocity.x != 0 && is_on_floor():
+	if attacking:
+		if dir < 0:
+			animation_player.play("hit_left")
+		else:
+			animation_player.play("hit_right")
+	elif velocity.x != 0 && is_on_floor():
 		if velocity.x < 0:
 			animation_player.play("run_left")
 			exported_move_direction = -1 
@@ -190,3 +198,12 @@ func animation_handler() -> void:
 		else:
 			animation_player.play("idle_right")
 			exported_move_direction = 1 
+
+
+func _on_combat_player_attack(facing):
+	dir = facing
+	if attacking == true:
+		animation_player.play("RESET")
+	attacking = true
+	await get_tree().create_timer(0.4).timeout
+	attacking = false

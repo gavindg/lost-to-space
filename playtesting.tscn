@@ -3732,8 +3732,8 @@ script = ExtResource("13_ypctl")
 
 [node name="Ship-1_png3" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, -70)
-scale = Vector2(0.2, 0.2)
+position = Vector2(0, -44)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("13_xuo76")
 
 [node name="GhostTileMap" type="TileMap" parent="."]

@@ -75,10 +75,19 @@ func start_boss():
 	combatman.start()
 
 ### MOVEMENT ###
+signal phase_two_start
+var phase_two = false
 
 func _physics_process(delta):
 	if dead or not started:
 		return
+		
+	if not phase_two and combatman.stats.hp < combatman.stats.max_hp / 2 and state_action == "on_cooldown":
+		phase_two_start.emit()
+		MIN_WAIT /= 2
+		MAX_WAIT /= 2
+		girate()
+		phase_two = true
 	
 	if combatman.is_dead == true:
 		dead = true
@@ -220,6 +229,13 @@ func intro_cutscene():
 		global_position.x -= 20
 		await get_tree().create_timer(0.05).timeout
 
+func girate():
+	wait_time += 1
+	for i in range(10):
+		global_position.x += 20
+		await get_tree().create_timer(0.05).timeout
+		global_position.x -= 20
+		await get_tree().create_timer(0.05).timeout
 
 ### ON DEATH ###
 

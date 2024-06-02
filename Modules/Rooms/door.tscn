@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsgp2v8u74m8a"]
 
-[ext_resource type="Texture2D" uid="uid://dd3em0hsiulrf" path="res://Modules/Rooms/plagiarizeddoor.png" id="1_5wfiu"]
+[ext_resource type="Texture2D" uid="uid://cf8klckplrw77" path="res://Modules/Rooms/purple-door.png" id="1_8jvs4"]
 [ext_resource type="Script" path="res://Modules/Rooms/enter_room.gd" id="2_xoldt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w60fu"]
@@ -9,8 +9,8 @@ radius = 50.0
 [node name="Door" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_5wfiu")
+z_index = 1
+texture = ExtResource("1_8jvs4")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 3
