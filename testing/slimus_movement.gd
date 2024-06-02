@@ -97,7 +97,6 @@ func _physics_process(delta):
 	if !valid: return
 	
 	# state action
-	print('state ', state_action)
 	call(state_action, delta)  # some states need delta
 	
 	# always process gravity 
