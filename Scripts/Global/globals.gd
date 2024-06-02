@@ -62,7 +62,7 @@ var block_catalog = [
 #Pause
 var pause_menu
 
-
+var cur_flag = ""
 
 ## movement
 ## initial walk speed
