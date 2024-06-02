@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4msjtmb487lw"]
 
 [ext_resource type="Script" path="res://testing/winner.gd" id="1_0dmgw"]
-[ext_resource type="AudioStream" uid="uid://dubys2vyk8q7h" path="res://Art/Sound/Music/planst zombid.1.wav" id="2_85tca"]
+[ext_resource type="AudioStream" uid="uid://b1ro2if72poat" path="res://Art/Sound/Music/pvz.mp3" id="2_45riv"]
 [ext_resource type="FontFile" uid="uid://qttxbowhxndp" path="res://testing/OptimusPrinceps.ttf" id="3_rnlui"]
 
 [sub_resource type="Theme" id="Theme_aron0"]
@@ -14,7 +14,7 @@ audio = NodePath("PVZ")
 text = NodePath("CanvasLayer/RichTextLabel")
 
 [node name="PVZ" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_85tca")
+stream = ExtResource("2_45riv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -31,5 +31,6 @@ grow_vertical = 2
 pivot_offset = Vector2(602, 43)
 size_flags_vertical = 3
 theme = SubResource("Theme_aron0")
-text = "SLIMUS PRIME EXPUNGED"
+bbcode_enabled = true
+text = "[center][tornado freq=2.0]SLIMUS PRIME EXPUNGED"
 fit_content = true

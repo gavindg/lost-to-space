@@ -3496,8 +3496,8 @@ func random_offset():
 "
 
 [sub_resource type="Gradient" id="Gradient_2735g"]
-offsets = PackedFloat32Array(0, 0.153846, 1)
-colors = PackedColorArray(1, 1, 0, 1, 1, 0.846154, 0, 1, 1, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.160083, 1)
+colors = PackedColorArray(0.329412, 0.764706, 1, 1, 0.522889, 0.934083, 1, 1, 0.192157, 1, 0.317647, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ail8x"]
 gradient = SubResource("Gradient_2735g")
@@ -3519,7 +3519,6 @@ gravity = Vector3(0, 0, 0)
 scale_min = 5.0
 scale_max = 5.0
 scale_curve = SubResource("CurveTexture_3ykyi")
-color = Color(1, 1, 0, 1)
 color_ramp = SubResource("GradientTexture1D_ail8x")
 turbulence_enabled = true
 turbulence_noise_strength = 2.0
