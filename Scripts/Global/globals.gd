@@ -1,8 +1,4 @@
 extends Node
-
-#game manager
-var game_manager
-
 class Block:
 	var name: String
 	var atlas_coords: Vector2i
@@ -42,8 +38,8 @@ var manager
 
 
 # World Gen
-@export var map_width = 240
-@export var map_height = 240
+@export var map_width = 200
+@export var map_height = 200
 
 ## flags
 var player_locked : bool = false
@@ -59,8 +55,6 @@ var block_catalog = [
 	Block.new("ore1", Vector2i(2, 1), 100, "ore", "ore"),
 ]
 
-#Pause
-var pause_menu
 
 
 

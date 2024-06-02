@@ -151,6 +151,7 @@ func dashing(delta):
 	if !just_jumped and is_on_floor():
 		velocity.y = 0
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
+		#anim_handler.play('idle')
 		state_action = "on_cooldown"
 		return
 	just_jumped = false
@@ -184,6 +185,7 @@ func dash():
 # state: do nothing while the dash animation is playing
 func dash_tell(_delta):
 	if anim_handler.is_playing(): return
+	print('dash tell done')
 	dash()
 
 
@@ -195,24 +197,28 @@ func tell():
 		await get_tree().create_timer(0.05).timeout
 
 
-func intro_cutscene():
+func girate():
 	if skip_intro:
 		return
+	print('girate 1')
 	for i in range(20):
 		global_position.x += 5
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 5
 		await get_tree().create_timer(0.1).timeout
+	print('girate 2')
 	for i in range(10):
 		global_position.x += 10
 		await get_tree().create_timer(0.1).timeout
 		global_position.x -= 10
 		await get_tree().create_timer(0.1).timeout
+	print('girate 3')
 	for i in range(15):
 		global_position.x += 20
 		await get_tree().create_timer(0.05).timeout
 		global_position.x -= 20
 		await get_tree().create_timer(0.05).timeout
+	print('done')
 
 
 ### ON DEATH ###
@@ -231,7 +237,7 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	player.frozen = true
 	if musician:
 		musician.play()
-	await intro_cutscene()
+	await girate()
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()
