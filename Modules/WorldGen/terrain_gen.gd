@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tilemap = $TileMap
+@onready var tilemap = $"../TileMap"
 @export var player : CharacterBody2D
 
 # MAP DIMENSIONS!!!
@@ -63,6 +63,10 @@ var map_height : int = Globals.map_height
 ## Max and min height of the tree
 @export var min_tree_height : int = 1
 @export var max_tree_height : int = 10
+## Boss crater radius
+@export var boss_crater_radius : int = 10
+
+var door_to_spawn = preload("res://Modules/Rooms/door.tscn")
 
 const GRASS_LEVEL = -20
 const BLANK = -30
@@ -301,6 +305,26 @@ func create_rect_gradient():
 			gradient[Vector2i(x, y)] = distance
 	
 	return gradient
+	
+func gen_boss_room():
+	var large_radius = int(boss_crater_radius * 1.5) 
+	var center_x = randi() % 100 + 50
+	var center_y = ground_levels[center_x]
+	
+	for x in range(center_x - large_radius, center_x + large_radius):
+		for y in range(center_y, center_y + large_radius):
+			var dist = sqrt((x-center_x)**2 + (y-center_y)**2)
+			if dist < boss_crater_radius:
+				fg_tile_matrix[Vector2i(x,y)] = 'CAVE'
+			elif dist < large_radius:
+				fg_tile_matrix[Vector2i(x,y)] = 'STONE'
+	
+	var door_pos = Vector2i(center_x, center_y + boss_crater_radius)
+	var spawned_door_instance = door_to_spawn.instantiate()
+	add_child(spawned_door_instance)
+	spawned_door_instance.position.x = door_pos.x*16
+	spawned_door_instance.position.y = door_pos.y*16 - 22
+	print("VECOTR DOORPOS", door_pos)
 
 ## Generates all of the terrain from the noise maps.
 func gen_terrain():
@@ -309,6 +333,7 @@ func gen_terrain():
 
 	gen_ore()
 	gen_caves()
+	gen_boss_room()
 	gen_walls()
 	gen_plants()
 	

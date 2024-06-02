@@ -35,7 +35,6 @@ func start():
 	#print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
 	# connect signals
 
-
 # collision between the player's hitbox and the enemy's hurtbox
 # (aka PLAYER hit ENEMY)
 func _on_hurtbox_area_entered(area: Area2D) -> void:
