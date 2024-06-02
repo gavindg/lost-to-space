@@ -190,3 +190,7 @@ func animation_handler() -> void:
 		else:
 			animation_player.play("idle_right")
 			exported_move_direction = 1 
+
+
+func health_depleted():
+	pass # Replace with function body.

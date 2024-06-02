@@ -20,7 +20,7 @@ func health_depleted():
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("attack") && dead == true:
+	if Input.is_action_pressed("left_mouse") && dead == true:
 		self.visible = true
 	else:
 	# Hide the sprite when the key is not pressed.

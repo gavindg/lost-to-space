@@ -1,5 +1,4 @@
 extends Line2D
-class_name Trails
  
 var queue : Array
 @export var MAX_LENGTH : int
@@ -36,3 +35,7 @@ func _process(_delta):
  
 func _get_position():
 	return sword.position
+
+
+func _on_test_slime_health_depleted():
+	pass # Replace with function body.

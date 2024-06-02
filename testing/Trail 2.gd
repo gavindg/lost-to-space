@@ -1,5 +1,5 @@
 extends Line2D
-class_name Trails
+
  
 var queue : Array
 @export var MAX_LENGTH : int

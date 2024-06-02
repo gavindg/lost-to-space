@@ -3617,7 +3617,7 @@ script = ExtResource("14_08vxm")
 MAX_LENGTH = 20
 sword = NodePath("../Sword 1")
 
-[node name="Trail 2" type="Line2D" parent="." node_paths=PackedStringArray("sword")]
+[node name="Trail 2" type="Line2D" parent="."]
 top_level = true
 position = Vector2(0, -8)
 width = 15.0
@@ -3627,10 +3627,8 @@ joint_mode = 2
 sharp_limit = 0.1
 antialiased = true
 script = ExtResource("14_08vxm")
-MAX_LENGTH = 20
-sword = NodePath("../Sword 2")
 
-[node name="Trail 3" type="Line2D" parent="." node_paths=PackedStringArray("sword")]
+[node name="Trail 3" type="Line2D" parent="."]
 top_level = true
 position = Vector2(0, -8)
 width = 15.0
@@ -3640,15 +3638,13 @@ joint_mode = 2
 sharp_limit = 0.1
 antialiased = true
 script = ExtResource("14_08vxm")
-MAX_LENGTH = 20
-sword = NodePath("../Sword 3")
 
 [connection signal="body_entered" from="BossStarter" to="TestSlime" method="_on_boss_starter_body_entered"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 1" method="health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Sword 2" method="health_depleted"]
-[connection signal="health_depleted" from="TestSlime" to="Sword 3" method="health_depleted"]
+[connection signal="health_depleted" from="TestSlime" to="Sword 3" method="_on_test_slime_health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Trail 1" method="health_depleted"]
 [connection signal="health_depleted" from="TestSlime" to="Trail 2" method="health_depleted"]
-[connection signal="health_depleted" from="TestSlime" to="Trail 3" method="health_depleted"]
+[connection signal="health_depleted" from="TestSlime" to="Trail 3" method="_on_test_slime_health_depleted"]
 
 [editable path="TestSlime"]
