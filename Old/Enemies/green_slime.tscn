@@ -244,6 +244,8 @@ gravity_strength = 2
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(0, 1)
 texture = ExtResource("2_f44i2")
 hframes = 8
 vframes = 2

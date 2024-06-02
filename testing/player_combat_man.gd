@@ -32,10 +32,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# animate hitbox
 	_animate_weapon(delta)
-	
+
+signal player_attack	
 
 func _input(event: InputEvent) -> void:
 	if is_dead: return
+	if is_attacking: return
 	if event is InputEventMouseButton && (event as InputEventMouseButton).pressed && (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		
 		if not Globals.inv_manager.held_item or Globals.inv_manager.held_item.name != "Sword":
@@ -48,7 +50,7 @@ func _input(event: InputEvent) -> void:
 		elif local_to_player.x < 0:
 			facing = -1
 		_animate_hitbox()
-
+		player_attack.emit(facing)
 
 func _on_hurtbox_area_entered(area: Area2D):
 	"""
@@ -114,7 +116,7 @@ func _animate_hitbox():
 		hitbox.set_meta("ID", current_id) 
 		current_id += 1
 		
-		await get_tree().create_timer(0.35).timeout
+		await get_tree().create_timer(0.4).timeout
 		
 		#$deal_attack_timer.stop()
 		is_attacking = false
