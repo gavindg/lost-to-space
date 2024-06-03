@@ -18,12 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
 [ext_resource type="Texture2D" uid="uid://b3k653pdwq0lw" path="res://4 rocks.png" id="11_fksg4"]
-[ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 [ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
+[ext_resource type="AudioStream" uid="uid://b6xb23kmqnob" path="res://Art/Sound/Music/Lost2Space Master Track.mp3" id="20_73ke5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3724,7 +3724,7 @@ tilemap = NodePath("../../TileMap")
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_hm7xj")
+stream = ExtResource("20_73ke5")
 autoplay = true
 script = ExtResource("13_ypctl")
 
