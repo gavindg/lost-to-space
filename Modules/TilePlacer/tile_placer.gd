@@ -122,7 +122,7 @@ func _input(event: InputEvent) -> void:
 		#print("foreground source: ", fg_source)
 		#print("background source: ", bg_source)
 		
-		if fg_source == 0:
+		if fg_source == 0 or fg_source == 6:
 			if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
 				start_mining(map_position)
 		elif Globals.inv_manager.held_item is Placeable:
