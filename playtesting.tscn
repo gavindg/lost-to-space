@@ -21,7 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
-[ext_resource type="PackedScene" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
+[ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
 
@@ -3740,3 +3740,6 @@ texture = ExtResource("13_xuo76")
 material = SubResource("ShaderMaterial_11ydt")
 tile_set = SubResource("TileSet_ngbvc")
 format = 2
+
+[connection signal="block_destroyed" from="TileMap" to="TerrainGen" method="_on_tile_map_block_destroyed"]
+[connection signal="block_placed" from="TileMap" to="TerrainGen" method="_on_tile_map_block_placed"]

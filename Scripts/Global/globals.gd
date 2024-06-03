@@ -6,14 +6,16 @@ var game_manager
 class Block:
 	var name: String
 	var atlas_coords: Vector2i
+	var atlas_id : int
 	var mining_time: float
 	var item_drop: String
 	var primary_item: String
 
 	# Constructor
-	func _init(_name: String, _atlas_coords: Vector2i, _mining_time: float, _item_drop: String, _primary_item=""):
+	func _init(_name: String, _atlas_coords: Vector2i, _atlas_id : int, _mining_time: float, _item_drop: String, _primary_item=""):
 		name = _name
 		atlas_coords = _atlas_coords
+		atlas_id = _atlas_id
 		mining_time = _mining_time
 		item_drop = _item_drop
 		primary_item = _primary_item # Some items in your inventory transform into a block when placed. That block is defined by the 'primary item'.
@@ -50,19 +52,23 @@ var player_locked : bool = false
 
 
 var block_catalog = [
-	Block.new("dirt0", Vector2i(0, 0), 50, "dirt", "dirt"), # dirt0 is the primary block for the dirt item
-	Block.new("dirt1", Vector2i(0, 1), 50, "dirt"),
-	Block.new("dirt2", Vector2i(0, 2), 50, "dirt"),
-	Block.new("dirt3", Vector2i(0, 3), 50, "dirt"),
-	Block.new("dirt4", Vector2i(1, 0), 50, "dirt"),
-	Block.new("grass", Vector2i(2, 0), 50, "dirt"),
-	Block.new("ore1", Vector2i(2, 1), 100, "ore", "ore"),
+	Block.new("DIRT0", Vector2i(0, 0), 0, 50, "dirt", "dirt"), # dirt0 is the primary block for the dirt item
+	Block.new("DIRT1", Vector2i(0, 1), 0, 50, "dirt"),
+	Block.new("DIRT2", Vector2i(0, 2), 0, 50, "dirt"),
+	Block.new("DIRT3", Vector2i(0, 3), 0, 50, "dirt"),
+	Block.new("DIRT4", Vector2i(1, 0), 0, 50, "dirt"),
+	Block.new("GRASS", Vector2i(2, 0), 0, 50, "dirt"),
+	#Block.new("ore1", Vector2i(2, 1), 0, 100, "ore", "ore"),
+	Block.new("ORE0", Vector2i(0,0), 5, 100, "ore", "ore"),
+	Block.new("ORE1", Vector2i(0,1), 5, 100, "ore", "ore"),
+	Block.new("ORE2", Vector2i(0,2), 5, 100, "ore", "ore"),
+	Block.new("ORE3", Vector2i(0,3), 5, 100, "ore", "ore"),
 ]
 
 #Pause
 var pause_menu
 
-
+var foreground_tiles = {}
 
 ## movement
 ## initial walk speed

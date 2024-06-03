@@ -214,6 +214,9 @@ func break_block(block_pos):
 	Globals.inv_manager.give_item(current_mining_block.item_drop)
 		
 
+signal block_placed
+signal block_destroyed
+
 # Places the specified item at the block position.
 # Fails if the player does not have the specified item in inventory.
 func place_block(block_pos):
@@ -223,22 +226,25 @@ func place_block(block_pos):
 	if Globals.inv_manager.remove_item(item):
 		place_fg_at(block_pos, item)
 
-
 # places test tile @ local_pos. it's assumed that this
 func place_fg_at(map_position, item):
 	# remove any existing ghost block at map_pos
 	remove_ghost_block_at(map_position)
 	
 	var atlas_coords = Globals.get_block_by_item(item).atlas_coords
+	var atlas_id = Globals.get_block_by_item(item).atlas_id
 	
 	#place the block
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, 
-					test_atlas, atlas_coords)
+					atlas_id, atlas_coords)
+	block_placed.emit(map_position, item)
 	
 	if map_position.x <= -Globals.map_width:
-		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), test_atlas, test_atlas_coords)
+		block_placed.emit(map_position+Vector2i(Globals.map_width * 2, 0), item)
+		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), atlas_id, atlas_coords)
 	elif map_position.x >= Globals.map_width - 1:
-		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), test_atlas, test_atlas_coords)
+		block_placed.emit(map_position-Vector2i(Globals.map_width * 2, 0), item)
+		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), atlas_id, atlas_coords)
 	# test_atlas_coords will be replaced with the atlas coords of the currently held item
 	# can use globals.get_block_from_item to get the block by the given item
 
@@ -255,9 +261,13 @@ func remove_ghost_block_at(map_position):
 
 func remove_fg_at(map_position):
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, -1)
+	block_destroyed.emit(map_position)
+	
 	if map_position.x <= -Globals.map_width:
+		block_destroyed.emit(map_position+Vector2i(Globals.map_width * 2, 0))
 		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), -1)
 	elif map_position.x >= Globals.map_width - 1:
+		block_destroyed.emit(map_position-Vector2i(Globals.map_width * 2, 0))
 		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), -1)
 
 func get_adjacent_source_ids(map_position):

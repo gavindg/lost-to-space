@@ -10,6 +10,8 @@ var map_width : int = Globals.map_width
 ## The map generated height
 var map_height : int = Globals.map_height
 
+@export var render_radius : int = 20
+
 # SIDE CAMERAS
 
 # @export var camera_left : Camera2D
@@ -106,7 +108,7 @@ var ground_levels = {}
 var noise_grid = {}
 
 ## Maps Vector2is to certain values that represent tiles in the foreground, background
-var fg_tile_matrix = {}
+var fg_tile_matrix = Globals.foreground_tiles
 var bg_tile_matrix = {}
 
 ## Generates a new FastNoiseLite object given a noise type, frequency, octaves, lacunarity, and gain. 
@@ -178,7 +180,7 @@ func _gen_column(x, h):
 		#elif y > last_height + cave_biome_change * 3:
 			#tilemap.set_cell(FOREGROUND, pos, 0, Vector2i(0,5))
 		elif y == h:
-			fg_tile_matrix[pos] = 'DIRT_TOP'
+			fg_tile_matrix[pos] = 'GRASS'
 			noise_grid[pos] = GRASS_LEVEL
 		ground_levels[x] = h
 
@@ -334,7 +336,7 @@ func gen_boss_room():
 			elif dist < large_radius:
 				fg_tile_matrix[Vector2i(x,y)] = 'DIRT'
 				if y == ground_levels[x]-1:
-					fg_tile_matrix[Vector2i(x,y)] = 'DIRT_TOP'
+					fg_tile_matrix[Vector2i(x,y)] = 'GRASS'
 	
 	var door_pos = Vector2i(center_x, center_y + boss_crater_radius)
 	var spawned_door_instance = door_to_spawn.instantiate()
@@ -360,25 +362,34 @@ func gen_terrain():
 	gen_walls()
 	gen_plants()
 	
-	for x in range(-map_width, map_width):
-		for y in range(-map_height/2, map_height):
-			var pos = Vector2i(x, y)
-			if not pos in fg_tile_matrix:
-				continue
-			var val = fg_tile_matrix[pos]
-			if val == 'DIRT':
-				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_DIRT)
-			elif val == 'STONE':
-				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_STONE)
-			elif val == 'DIRT_TOP':
-				tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_DIRT_TOP)
-			elif val.begins_with('ORE'):
-				var num = int(val[3])
-				tilemap.set_cell(FOREGROUND, pos, animated_ores_id, Vector2i(0, num))
-			elif val == 'CAVE':
-				tilemap.set_cell(FOREGROUND, pos, -1)
 	gen_bedrock()
+	
 	gen_cloned_sides()
+	
+func render(pos: Vector2i):
+	if not pos in fg_tile_matrix:
+		return
+	var val = fg_tile_matrix[pos]
+	
+	if val.begins_with('DIRT'):
+		tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_DIRT)
+	elif val.begins_with('STONE'):
+		tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_STONE) 
+	elif val.begins_with('GRASS'):
+		tilemap.set_cell(FOREGROUND, pos, source_id, SPRITE_DIRT_TOP)
+	elif val.begins_with('ORE'):
+		var num = int(val[3])
+		tilemap.set_cell(FOREGROUND, pos, animated_ores_id, Vector2i(0, num))
+	elif val == 'CAVE' or 'NONE':
+		tilemap.set_cell(FOREGROUND, pos, -1)
+	elif val is Vector2i:
+		tilemap.set_cell(FOREGROUND, pos, source_id, val)
+
+func derender(pos : Vector2i):
+	if not pos in fg_tile_matrix:
+		tilemap.erase_cell(FOREGROUND, pos)
+	elif fg_tile_matrix[pos] == 'NONE':
+		tilemap.erase_cell(FOREGROUND, pos)
 
 func setup_side_cams():
 	var side_cams = Node2D.new()
@@ -436,17 +447,42 @@ var prev
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gen_terrain()
+	Globals.foreground_tiles = fg_tile_matrix
 	await RenderingServer.frame_post_draw
 	setup_side_cams()
 	prev = floor(player.position.x/16)
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	#print(player.position.x)
-	if player.position.x + 16 * map_width < 160 or 16 * map_width - player.position.x < 160:
-		if (floor(player.position.x/16) != prev):
-			prev = floor(player.position.x/16)
-			print(floor(player.position.x/16))
+	#if player.position.x + 16 * map_width < 160 or 16 * map_width - player.position.x < 160:
+		#if (floor(player.position.x/16) != prev):
+			#prev = floor(player.position.x/16)
+			#print(floor(player.position.x/16))
+			#gen_cloned_sides()
 		#print(player.position.x/16)
-		gen_cloned_sides()
+	
+	if (floor(player.position.x/16) != prev):
+		prev = floor(player.position.x/16)
+		var start_x = floor(player.position.x/16) - render_radius
+		var end_x = floor(player.position.x/16) + render_radius
+		var start_y = floor(player.position.y/16) - render_radius
+		var end_y = floor(player.position.y/16) + render_radius
+		for x in range(start_x, end_x):
+			for y in range(start_y, end_y):
+				var position = Vector2i(x, y)
+				if (x >= map_width):
+					position.x -= 2 * map_width
+				elif (x < -map_width):
+					position.x += 2 * map_width
+				render(position)		
+		
+		if player.position.x + 16 * map_width < 160 or 16 * map_width - player.position.x < 160:
+			print(floor(player.position.x/16))
+			gen_cloned_sides()
+
+func _on_tile_map_block_destroyed(pos):
+	Globals.foreground_tiles[pos] = 'NONE'
+
+func _on_tile_map_block_placed(pos : Vector2i, item):
+	Globals.foreground_tiles[pos] = Globals.get_block_by_item(item).name
