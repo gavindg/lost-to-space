@@ -17,6 +17,7 @@ script = ExtResource("1_1wmnx")
 [node name="GreenSlimeAI" parent="." groups=["Enemy"] instance=ExtResource("2_76bra")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 collision_layer = 4
+lock_rotation = true
 
 [node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("hitbox", "hurtbox", "to_kill")]
 position = Vector2(2.08165e-12, 2.08165e-12)
