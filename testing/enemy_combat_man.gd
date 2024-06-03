@@ -19,7 +19,7 @@ class_name EnemyCombat
 var is_dead : bool = false
 
 var hitme = []
-
+	
 func _ready():
 	if auto_start:
 		start()
@@ -34,6 +34,8 @@ func start():
 		healthbar.visible = true
 	#print('i have ', stats.hp, ' out of ', stats.max_hp, ' desu')
 	# connect signals
+
+signal flash_sprite
 
 # collision between the player's hitbox and the enemy's hurtbox
 # (aka PLAYER hit ENEMY)
@@ -56,6 +58,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			healthbar.value = stats.hp
 		if stats.hp <= 0:
 			die()
+			return
+			
+		flash_sprite.emit()
 
 func die():
 	is_dead = true

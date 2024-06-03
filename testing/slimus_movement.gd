@@ -256,3 +256,8 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()
+
+
+func _on_flash_sprite():
+	print("called")
+	anim_handler.play("Flash/Flash")
