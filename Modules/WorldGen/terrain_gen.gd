@@ -469,7 +469,7 @@ func setup_side_cams():
 	add_child(side_cams)
 
 ## Just for logging
-var prev 
+var prev
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -479,6 +479,8 @@ func _ready():
 	setup_side_cams()
 	prev = floor(player.position.x/16)
 	Globals.terrain_ground_levels = ground_levels
+	render_around_player()
+	player.position = Vector2(0, -8)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -492,22 +494,25 @@ func _physics_process(delta):
 	
 	if (floor(player.position.x/16) != prev):
 		prev = floor(player.position.x/16)
-		var start_x = floor(player.position.x/16) - render_radius
-		var end_x = floor(player.position.x/16) + render_radius
-		var start_y = floor(player.position.y/16) - render_radius
-		var end_y = floor(player.position.y/16) + render_radius
-		for x in range(start_x, end_x):
-			for y in range(start_y, end_y):
-				var position = Vector2i(x, y)
-				if (x >= map_width):
-					position.x -= 2 * map_width
-				elif (x < -map_width):
-					position.x += 2 * map_width
-				render(position)		
+		render_around_player()
 		
 		if player.position.x + 16 * map_width < 160 or 16 * map_width - player.position.x < 160:
 			print(floor(player.position.x/16))
 			gen_cloned_sides()
+			
+func render_around_player():
+	var start_x = floor(player.position.x/16) - render_radius
+	var end_x = floor(player.position.x/16) + render_radius
+	var start_y = floor(player.position.y/16) - render_radius
+	var end_y = floor(player.position.y/16) + render_radius
+	for x in range(start_x, end_x):
+		for y in range(start_y, end_y):
+			var position = Vector2i(x, y)
+			if (x >= map_width):
+				position.x -= 2 * map_width
+			elif (x < -map_width):
+				position.x += 2 * map_width
+			render(position)
 
 func _on_tile_map_block_destroyed(pos):
 	Globals.foreground_tiles[pos] = 'NONE'
