@@ -4,6 +4,7 @@ extends Node2D
 @onready var fire2 = $Fire2
 @onready var fire3 = $Fire3
 @onready var fire4 = $Fire4
+@onready var land = $LandEffect
 @onready var falling_particles = $Fall
 @onready var world_env = $WorldEnvironment
 
@@ -13,6 +14,7 @@ func _ready():
 	fire2.emitting = false
 	fire3.emitting = false
 	fire4.emitting = false
+	land.emitting = false
 	falling_particles.emitting = false
 	world_env.environment.glow_enabled = false
 
@@ -45,6 +47,7 @@ var shake_fade = 5.0
 @export var max_shake_strength : float = 5.0
 
 func _on_test_slime_landed():
+	land.emitting = true
 	shake_strength = max_shake_strength
 
 @export var cam : Camera2D

@@ -147,6 +147,7 @@ func on_cooldown(delta):
 			anim_handler.play('idle')
 		state_action = "touching_wall" if hit_a_wall else "aggro"
 
+@onready var boss_land_sound = $"boss_land"
 
 # state: does the frame-by-frame physics processing of the jump 
 func jumping(delta):
@@ -155,6 +156,7 @@ func jumping(delta):
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
 		state_action = "on_cooldown"
 		landed.emit()
+		boss_land_sound.play()
 		return
 	just_jumped = false
 
@@ -257,7 +259,8 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	if "Player" in body.get_groups():
 		start_boss()
 
+@onready var boss_hit_sound = $"boss_hit"
 
 func _on_flash_sprite():
-	print("called")
+	boss_hit_sound.play()
 	anim_handler.play("Flash/Flash")

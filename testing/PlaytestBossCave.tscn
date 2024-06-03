@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cugspn5eoq1q"]
+[gd_scene load_steps=50 format=3 uid="uid://cugspn5eoq1q"]
 
 [ext_resource type="Texture2D" uid="uid://cwecq5v43pl4q" path="res://Art/TileSheets/Overworld/16x tileset_final (1).png" id="1_2ht68"]
 [ext_resource type="Texture2D" uid="uid://ci7ocx47td88" path="res://Art/TileSheets/TestTilesheet/tilesheet_complete.png" id="2_bba2q"]
@@ -12,7 +12,9 @@
 [ext_resource type="Shader" path="res://Art/Shaders/damage_flash.gdshader" id="9_0b5mo"]
 [ext_resource type="Script" path="res://testing/boss_room_effects.gd" id="10_5in3a"]
 [ext_resource type="Texture2D" uid="uid://bs1f21oboq3xg" path="res://Art/Background/Corner Thing Left.png" id="12_5etbc"]
+[ext_resource type="AudioStream" uid="uid://c1wmu3xjqt6oj" path="res://Art/Sound/Effects/boss_hit.wav" id="12_ivy4e"]
 [ext_resource type="Texture2D" uid="uid://fn4f0nxk5vg7" path="res://Art/Background/Corner Thing Right.png" id="13_l6rv3"]
+[ext_resource type="AudioStream" uid="uid://bheydi8tm1cvu" path="res://Art/Sound/Effects/boss_land.wav" id="13_ytcfi"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4e4al"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, -6.25, -8, -6.125)
@@ -3574,6 +3576,26 @@ turbulence_enabled = true
 turbulence_noise_strength = 2.0
 turbulence_noise_scale = 4.5
 
+[sub_resource type="Curve" id="Curve_vmmhx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.185813), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_adqek"]
+curve = SubResource("Curve_vmmhx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v0c2x"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(250, 1, 1)
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_adqek")
+color = Color(0.203922, 0.988235, 0, 0.909804)
+
 [sub_resource type="Gradient" id="Gradient_vh5cn"]
 colors = PackedColorArray(0, 1, 0, 1, 1, 1, 1, 1)
 
@@ -3694,6 +3716,13 @@ libraries = {
 "Flash": SubResource("AnimationLibrary_nkwl7")
 }
 
+[node name="boss_hit" type="AudioStreamPlayer2D" parent="TestSlime"]
+stream = ExtResource("12_ivy4e")
+volume_db = -10.0
+
+[node name="boss_land" type="AudioStreamPlayer2D" parent="TestSlime"]
+stream = ExtResource("13_ytcfi")
+
 [node name="UI" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI"]
@@ -3771,18 +3800,27 @@ process_material = SubResource("ParticleProcessMaterial_loh0p")
 fixed_fps = 16
 
 [node name="Fire3" type="GPUParticles2D" parent="Effects"]
-position = Vector2(712, 306)
+position = Vector2(704, 306)
 amount = 250
 process_material = SubResource("ParticleProcessMaterial_loh0p")
 lifetime = 0.2
 fixed_fps = 16
 
 [node name="Fire4" type="GPUParticles2D" parent="Effects"]
-position = Vector2(266, 306)
+position = Vector2(256, 306)
 amount = 250
 process_material = SubResource("ParticleProcessMaterial_loh0p")
 lifetime = 0.2
 fixed_fps = 16
+
+[node name="LandEffect" type="GPUParticles2D" parent="Effects"]
+position = Vector2(490, 304)
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_v0c2x")
+lifetime = 0.3
+one_shot = true
+fixed_fps = 8
 
 [node name="Fall" type="GPUParticles2D" parent="Effects"]
 position = Vector2(500, 0)
