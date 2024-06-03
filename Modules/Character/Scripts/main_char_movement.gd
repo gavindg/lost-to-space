@@ -42,25 +42,29 @@ func _physics_process(delta):
 	if global_position.x > Globals.map_width * 16:
 		global_position.x -= 2 * Globals.map_width * 16
 		#global_position.x += -(Globals.map_width * 16) - (Globals.map_width * 16)
-		print("PAST RIGHT LIMIT")
+		#print("PAST RIGHT LIMIT")
 	if global_position.x < - Globals.map_width * 16:
 		global_position.x += 2 * Globals.map_width * 16
 		#global_position.x += (Globals.map_width * 16) + (Globals.map_width * 16)
-		print("PAST LEFT LIMIT")
+		#print("PAST LEFT LIMIT")
 	
 	animation_handler()
+	#print('animated')
 	
 	# reset jump and double jump status
 	if is_on_floor():
 		has_jumped = false
 		has_double_jumped = false
 		has_dashed = false
+	#print('floored')
 	
 	# Add the gravity and restrict maxium vertical speed for falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		if velocity.y > vertical_speed_limit:
 			velocity.y = vertical_speed_limit
+	
+	#print('floored 2')
 		
 	# handle collision and slide_wall
 	# character needs to collide against the wall to slide
@@ -73,11 +77,13 @@ func _physics_process(delta):
 				gravity = sliding_gravity
 	else:
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-		
+	#print('gravitated')
+	
 	if frozen:
 			velocity.x = 0
 			move_and_slide()
 			return
+	#print('frozoned')
 		
 	if is_special_movement == false:
 		# Handle jump.
@@ -93,7 +99,8 @@ func _physics_process(delta):
 				if has_jumped && !has_double_jumped && !is_on_floor():
 					velocity.y = double_jump_speed
 					has_double_jumped = true
-					
+		#print('specially moved')
+	
 					
 		var direction = Input.get_axis("left", "right")
 		# Handle dash
@@ -111,8 +118,10 @@ func _physics_process(delta):
 			# do dash
 			if Input.is_action_just_pressed("dash") && has_dashed == false:
 				dash()
-			
+		#print('dashed')
+	
 	move_and_slide()
+	#print('moved y slided')
 	
 
 
@@ -180,13 +189,13 @@ func animation_handler() -> void:
 	elif velocity.x != 0 && is_on_floor():
 		if velocity.x < 0:
 			animation_player.play("run_left")
-			if !footstep_sound.playing:
-				footstep_sound.play()
+			#if !footstep_sound.playing:
+				#footstep_sound.play()
 			exported_move_direction = -1 
 		else:
 			animation_player.play("run_right")
-			if !footstep_sound.playing:
-				footstep_sound.play()
+			#if !footstep_sound.playing:
+				#footstep_sound.play()
 			exported_move_direction = 1 
 	elif velocity.x !=0:
 		if velocity.x < 0:
