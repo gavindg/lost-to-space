@@ -5,6 +5,7 @@ extends Node2D
 @onready var fire3 = $Fire3
 @onready var fire4 = $Fire4
 @onready var land = $LandEffect
+@onready var deathboom = $DeathBoom
 @onready var falling_particles = $Fall
 @onready var world_env = $WorldEnvironment
 
@@ -15,6 +16,7 @@ func _ready():
 	fire3.emitting = false
 	fire4.emitting = false
 	land.emitting = false
+	deathboom.emitting = false
 	falling_particles.emitting = false
 	world_env.environment.glow_enabled = false
 
@@ -61,3 +63,9 @@ func _process(delta):
 
 func random_offset():
 	return Vector2(rng.randf_range(-shake_strength, shake_strength), rng.randf_range(-shake_strength, shake_strength))
+
+
+
+func _on_test_slime_slimus_die(global_pos):
+	deathboom.global_position = global_pos
+	deathboom.emitting = true

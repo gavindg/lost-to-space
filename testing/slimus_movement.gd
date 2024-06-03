@@ -84,8 +84,8 @@ func _physics_process(delta):
 		
 	if not phase_two and combatman.stats.hp < combatman.stats.max_hp / 2 and state_action == "on_cooldown":
 		phase_two_start.emit()
-		MIN_WAIT /= 2
-		MAX_WAIT /= 2
+		MIN_WAIT /= 1.5
+		MAX_WAIT /= 1.5
 		girate()
 		phase_two = true
 	
@@ -240,7 +240,14 @@ func girate():
 
 ### ON DEATH ###
 
+signal slimus_die
+
 func die():
+	girate()
+	_on_flash_sprite()
+	await get_tree().create_timer(1.0).timeout
+	slimus_die.emit(global_position)	
+	await get_tree().create_timer(3.0).timeout
 	get_parent().add_child(winner.instantiate())  # pvz music
 	queue_free()
 
