@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs2dlx04dcdgc"]
+
+[ext_resource type="Script" path="res://Modules/Cutscenes/loadingscreen.gd" id="1_ihs6w"]
+[ext_resource type="Texture2D" uid="uid://cvukws62bbh8g" path="res://Art/Background/loading_screen.png" id="1_xyxfh"]
+
+[sub_resource type="Animation" id="Animation_uwxdw"]
+resource_name = "loading"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingScreen:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_umvia"]
+_data = {
+"loading": SubResource("Animation_uwxdw")
+}
+
+[node name="Loadingscreen" type="Node2D"]
+script = ExtResource("1_ihs6w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_umvia")
+}
+
+[node name="LoadingScreen" type="Sprite2D" parent="."]
+z_index = 100
+position = Vector2(0, -52)
+scale = Vector2(3.7, 3.7)
+texture = ExtResource("1_xyxfh")
+hframes = 2
+vframes = 2

@@ -246,6 +246,7 @@ func die():
 	girate()
 	_on_flash_sprite()
 	await get_tree().create_timer(1.0).timeout
+	visible = false
 	slimus_die.emit(global_position)	
 	await get_tree().create_timer(3.0).timeout
 	get_parent().add_child(winner.instantiate())  # pvz music
