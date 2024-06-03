@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs2dlx04dcdgc"]
+[gd_scene load_steps=5 format=3 uid="uid://vtabfqqqhoh0"]
 
 [ext_resource type="Script" path="res://Modules/Cutscenes/loadingscreen.gd" id="1_ihs6w"]
 [ext_resource type="Texture2D" uid="uid://cvukws62bbh8g" path="res://Art/Background/loading_screen.png" id="1_xyxfh"]

@@ -269,8 +269,8 @@ func gen_decor_big_tree(col):
 	if noise_grid[Vector2i(col, ground_levels[col])] == BLANK:
 		return
 	var ground = ground_levels[col]
-	var height = randi() % max_tree_height + min_tree_height
-	tilemap.set_cell(BACKGROUND, Vector2i(col, ground-1), 6, Vector2i(2,3))
+	var height = randi() % max_tree_height + min_tree_height + 2
+	tilemap.set_cell(BACKGROUND, Vector2i(col, ground-1), 6, Vector2i(0,0))
 	tilemap.set_cell(BACKGROUND, Vector2i(col, ground-2), 6, Vector2i(2,2))
 	for i in range(3):
 		for j in range(2):
@@ -478,6 +478,7 @@ func _ready():
 	await RenderingServer.frame_post_draw
 	setup_side_cams()
 	prev = floor(player.position.x/16)
+	Globals.terrain_ground_levels = ground_levels
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
