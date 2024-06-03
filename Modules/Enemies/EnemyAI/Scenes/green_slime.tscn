@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://twlew2lrot4j"]
+[gd_scene load_steps=8 format=3 uid="uid://twlew2lrot4j"]
 
 [ext_resource type="Script" path="res://Modules/Enemies/EnemyAI/Scripts/SlimeEnemy.gd" id="1_1wmnx"]
-[ext_resource type="PackedScene" uid="uid://bc5bpweviejgo" path="res://Old/Enemies/green_slime.tscn" id="2_76bra"]
+[ext_resource type="Script" path="res://testing/normal_slime_movement.gd" id="3_iwesn"]
 [ext_resource type="Script" path="res://testing/enemy_combat_man.gd" id="3_rq4vd"]
+[ext_resource type="Texture2D" uid="uid://dcdsyyxpjl3uj" path="res://Art/Sprites/Enemies/Slimes/GreenSlime_Sprites.png" id="4_gschf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvqiw"]
 size = Vector2(10, 9)
@@ -10,36 +11,52 @@ size = Vector2(10, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3dky"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxbfm"]
+size = Vector2(16, 16)
+
 [node name="GreenSlime" type="Node2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_1wmnx")
 
-[node name="GreenSlimeAI" parent="." groups=["Enemy"] instance=ExtResource("2_76bra")]
-position = Vector2(2.08165e-12, 2.08165e-12)
-collision_layer = 4
-lock_rotation = true
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 0
+script = ExtResource("3_iwesn")
+vert_jump_max = 250
+vert_jump_min = 200
+horiz_jump_max = 150
+horiz_jump_min = 100
+slowdown_speed = 1000
 
-[node name="CombatHandler" type="Node2D" parent="GreenSlimeAI" node_paths=PackedStringArray("hitbox", "hurtbox", "to_kill")]
-position = Vector2(2.08165e-12, 2.08165e-12)
+[node name="CombatHandler" type="Node2D" parent="CharacterBody2D" node_paths=PackedStringArray("hitbox", "hurtbox", "to_kill")]
+position = Vector2(4.1633e-12, 4.1633e-12)
 script = ExtResource("3_rq4vd")
 hitbox = NodePath("Hitbox")
 hurtbox = NodePath("Hurtbox")
 to_kill = NodePath("../..")
 
-[node name="Hitbox" type="Area2D" parent="GreenSlimeAI/CombatHandler" groups=["EnemyHit"]]
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D/CombatHandler" groups=["EnemyHit"]]
 collision_layer = 2
 collision_mask = 2
 
-[node name="HitboxCollider" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/Hitbox"]
+[node name="HitboxCollider" type="CollisionShape2D" parent="CharacterBody2D/CombatHandler/Hitbox"]
 position = Vector2(-6.24495e-12, 2.5)
 shape = SubResource("RectangleShape2D_bvqiw")
 debug_color = Color(0, 0.686275, 0.137255, 0.419608)
 
-[node name="Hurtbox" type="Area2D" parent="GreenSlimeAI/CombatHandler" groups=["EnemyHurt"]]
+[node name="Hurtbox" type="Area2D" parent="CharacterBody2D/CombatHandler" groups=["EnemyHurt"]]
 collision_layer = 2
 collision_mask = 2
 
-[node name="HurtboxCollider" type="CollisionShape2D" parent="GreenSlimeAI/CombatHandler/Hurtbox"]
+[node name="HurtboxCollider" type="CollisionShape2D" parent="CharacterBody2D/CombatHandler/Hurtbox"]
 position = Vector2(-6.24495e-12, -6.24495e-12)
 shape = SubResource("RectangleShape2D_t3dky")
 debug_color = Color(0.819608, 0.145098, 0, 0.419608)
+
+[node name="MovementCollider" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-2.08165e-12, -2.08165e-12)
+shape = SubResource("RectangleShape2D_pxbfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("4_gschf")
+hframes = 8
+vframes = 2
