@@ -69,6 +69,7 @@ var block_catalog = [
 var pause_menu
 
 var foreground_tiles = {}
+var terrain_ground_levels = {}
 
 ## movement
 ## initial walk speed

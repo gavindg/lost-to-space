@@ -9,7 +9,7 @@ const managerScript = preload("res://Modules/EnemySpawning/resources/scripts/Ene
 
 # this is the denominator of the spawn rate for enemies
 # so basically there is a 1 / (spawnRate) chance that an enemy will spawn per tick
-@export var globalSpawnRate : float = 100
+@export var globalSpawnRate : float = 150
 
 # the enemy to be instantiated. just a test enemy as of right now...
 @onready var enemies = {

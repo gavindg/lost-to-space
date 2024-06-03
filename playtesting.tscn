@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dfiy57lkrypxo"]
+[gd_scene load_steps=39 format=3 uid="uid://dfiy57lkrypxo"]
 
 [ext_resource type="Script" path="res://Modules/WorldGen/terrain_gen.gd" id="1_3yw20"]
 [ext_resource type="Script" path="res://GameManager.gd" id="1_61rh4"]
@@ -12,18 +12,20 @@
 [ext_resource type="PackedScene" uid="uid://cbwspqkn2e7dd" path="res://testing/test_michael.tscn" id="7_yjvi7"]
 [ext_resource type="Texture2D" uid="uid://n3nexu676733" path="res://1 sky.png" id="8_34jo6"]
 [ext_resource type="Texture2D" uid="uid://cobnn3e7nxdun" path="res://2 planets.png" id="9_jmhhf"]
+[ext_resource type="Texture2D" uid="uid://jc3me02wky1f" path="res://Art/TileSheets/Overworld/Slime Tree Branches.png" id="9_ln2e3"]
 [ext_resource type="Texture2D" uid="uid://bj6rf1uj8tohc" path="res://3 clouds.png" id="10_5tvse"]
 [ext_resource type="Script" path="res://ParallaxBackground.gd" id="10_8kdqr"]
 [ext_resource type="PackedScene" uid="uid://bcmyb1be6m717" path="res://Modules/UI/user_interface_canvas_layer.tscn" id="10_31it1"]
 [ext_resource type="PackedScene" uid="uid://cwaaqhgl05ahg" path="res://Modules/Inventory/inventory_manager.tscn" id="10_48d8y"]
 [ext_resource type="Script" path="res://Modules/EnemySpawning/resources/scripts/EnemySpawner.gd" id="10_oxk83"]
+[ext_resource type="Texture2D" uid="uid://da3vyqj7j2ofm" path="res://Art/TileSheets/Overworld/Slime Tree Small Leaves.png" id="11_0eyef"]
 [ext_resource type="Texture2D" uid="uid://b3k653pdwq0lw" path="res://4 rocks.png" id="11_fksg4"]
-[ext_resource type="AudioStream" uid="uid://buroukx84yriu" path="res://Art/Sound/Music/epic.mp3" id="11_hm7xj"]
 [ext_resource type="Texture2D" uid="uid://c07kr3bdi8v5x" path="res://Art/Sprites/Ship/ship-1.png_3.png" id="13_xuo76"]
 [ext_resource type="Script" path="res://changing_music.gd" id="13_ypctl"]
 [ext_resource type="PackedScene" uid="uid://2kkyr7praxre" path="res://Modules/UI/pause_menu.tscn" id="15_nmkxq"]
 [ext_resource type="Shader" path="res://Art/Shaders/ghostblockshader.gdshader" id="15_uk5xg"]
 [ext_resource type="Texture2D" uid="uid://bardj22cg3lcr" path="res://Art/TileSheets/Overworld/overlay_tilesheet.png" id="16_dp4co"]
+[ext_resource type="AudioStream" uid="uid://b6xb23kmqnob" path="res://Art/Sound/Music/Lost2Space Master Track.mp3" id="20_73ke5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edo6g"]
 texture = ExtResource("2_ty63p")
@@ -3560,6 +3562,84 @@ texture = ExtResource("7_jcu2x")
 0:3/0/physics_layer_0/angular_velocity = 0.0
 0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uvft0"]
+texture = ExtResource("9_ln2e3")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+4:1/0 = 0
+4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:1/0/physics_layer_0/angular_velocity = 0.0
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+1:3/0 = 0
+1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:3/0/physics_layer_0/angular_velocity = 0.0
+2:3/0 = 0
+2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:3/0/physics_layer_0/angular_velocity = 0.0
+3:3/0 = 0
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vjaov"]
+texture = ExtResource("11_0eyef")
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_iv81b"]
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
@@ -3572,6 +3652,8 @@ sources/3 = SubResource("TileSetAtlasSource_5bd1r")
 sources/0 = SubResource("TileSetAtlasSource_edo6g")
 sources/4 = SubResource("TileSetAtlasSource_0l87w")
 sources/5 = SubResource("TileSetAtlasSource_wgl01")
+sources/6 = SubResource("TileSetAtlasSource_uvft0")
+sources/7 = SubResource("TileSetAtlasSource_vjaov")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11ydt"]
 shader = ExtResource("15_uk5xg")
@@ -3724,14 +3806,13 @@ tilemap = NodePath("../../TileMap")
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_hm7xj")
-autoplay = true
+stream = ExtResource("20_73ke5")
 script = ExtResource("13_ypctl")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="Ship-1_png3" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(0, -44)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("13_xuo76")

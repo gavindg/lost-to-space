@@ -46,8 +46,8 @@ var map_height : int = Globals.map_height
 @export var ore_freq_mult : float = 25
 
 ## By percentage
-@export var grass_rarity : float = 40 
-@export var tree_rarity : float = 15
+@export var grass_rarity : float = 20
+@export var tree_rarity : float = 8
 
 
 # MISC VARIABLES!!!
@@ -136,7 +136,7 @@ func gen_surface(forward):
 	for x in r:
 		if forward and x < 0:
 			continue	
-		var min_section_width = randi() % 10 + min_flat_width
+		var min_section_width = randi() % 8 + min_flat_width
 		next_move = randi() % 2
 		
 		if next_move == 0 and section_width > min_section_width:
@@ -146,9 +146,9 @@ func gen_surface(forward):
 			last_height += 1
 			section_width = 0
 			
-		if last_height > 10:
+		if last_height > 8:
 			last_height -= 1
-		elif last_height < -10:
+		elif last_height < -8:
 			last_height += 1
 			
 		section_width += 1
@@ -212,16 +212,26 @@ func gen_grass():
 		if noise_grid[pos] == GRASS_LEVEL:
 			tilemap.set_cell(FOREGROUND, pos, 0, GRASS_TOP)
 
+var prev_tree = false
+
 ## Generates plants as decoration. Randomly chooses whether to place grass, place a tree, or place nothing.
 func gen_plants():
 	for i in range(-map_width, map_width):
 		if i > boss_room_center.x - boss_crater_radius and i < boss_room_center.x + boss_crater_radius:
 			continue
+		if prev_tree == true:
+			prev_tree = false
+			continue
 		var rand = randi() % 100
 		if rand < grass_rarity:
 			gen_decor_grass(i)
+			prev_tree = false
 		elif rand < grass_rarity + tree_rarity:
 			gen_decor_tree(i)
+			prev_tree = false
+		elif rand < grass_rarity + tree_rarity * 1.5:
+			gen_decor_big_tree(i)
+			prev_tree = true
 
 ## Generates one of the grass sprites as a background on the surface.
 func gen_decor_grass(col):
@@ -255,6 +265,23 @@ func gen_decor_tree(col):
 	for h in range(ground-1, ground-height, -1):
 		tilemap.set_cell(BACKGROUND, Vector2i(col, h), 0, dec)
 
+func gen_decor_big_tree(col):
+	if noise_grid[Vector2i(col, ground_levels[col])] == BLANK:
+		return
+	var ground = ground_levels[col]
+	var height = randi() % max_tree_height + min_tree_height + 2
+	tilemap.set_cell(BACKGROUND, Vector2i(col, ground-1), 6, Vector2i(0,0))
+	tilemap.set_cell(BACKGROUND, Vector2i(col, ground-2), 6, Vector2i(2,2))
+	for i in range(3):
+		for j in range(2):
+			var x_offset = i - 1
+			tilemap.set_cell(BACKGROUND, Vector2i(col+x_offset, ground-height-j), 7, Vector2i(2+x_offset,1-j))
+	tilemap.set_cell(BACKGROUND, Vector2i(col-1, ground-height+1), 7, Vector2i(1,2))
+	tilemap.set_cell(BACKGROUND, Vector2i(col+1, ground-height+1), 7, Vector2i(3,2))
+	var index = 0
+	for h in range(ground-3, ground-height, -1):
+		tilemap.set_cell(BACKGROUND, Vector2i(col, h), 6, Vector2i(0,0))
+		index += 1
 
 ## Generates the ore using a new perlin noise. 
 func gen_ore():
@@ -451,6 +478,7 @@ func _ready():
 	await RenderingServer.frame_post_draw
 	setup_side_cams()
 	prev = floor(player.position.x/16)
+	Globals.terrain_ground_levels = ground_levels
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

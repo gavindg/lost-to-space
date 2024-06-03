@@ -27,11 +27,13 @@ var is_dead = false
 
 func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+	$"SwordArea/Sprite2D".visible = false
 	hitbox.set_deferred("enabled", false)
 
 func _process(delta: float) -> void:
 	# animate hitbox
-	_animate_weapon(delta)
+	pass
+	#_animate_weapon(delta)
 
 signal player_attack	
 
@@ -86,7 +88,6 @@ func apply_knockback(from: Area2D):
 	var dir = 1 if from.global_position.x < global_position.x else -1
 	player_controller.velocity = knockback_amt * Vector2(dir, -1)
 
-
 func _animate_hitbox():
 	"""
 	this whole fxn is used for testing...
@@ -98,14 +99,14 @@ func _animate_hitbox():
 		### START NOT MY CODE BLOCK ###
 		
 		#hitbox.set_deferred("disabled", false)
-		if(!$"SwordArea/Sprite2D".visible):
-			$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
-		if facing > 0:
-			hitbox.rotation_degrees = 0 - 90
-			hitbox.global_position.x = global_position.x + displacement
-		if facing <= 0:
-			hitbox.rotation_degrees = 180 + 90
-			hitbox.global_position.x = global_position.x - displacement
+		#if(!$"SwordArea/Sprite2D".visible):
+			#$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
+		#if facing > 0:
+			#hitbox.rotation_degrees = 0 - 90
+			#hitbox.global_position.x = global_position.x
+		#if facing <= 0:
+			#hitbox.rotation_degrees = 180 + 90
+			#hitbox.global_position.x = global_position.x
 		
 		### END NOT MY CODE BLOCK ###
 		
@@ -115,6 +116,14 @@ func _animate_hitbox():
 		# NOTE: i think this will still work but like. maybe not
 		hitbox.set_meta("ID", current_id) 
 		current_id += 1
+		if facing > 0:
+			hitbox.rotation_degrees = 30
+			hitbox.position = Vector2i(7.5, 6)
+			animate_sword_right()
+		else:
+			hitbox.rotation_degrees = -1*(30 + 180)
+			hitbox.position = Vector2i(-7.5, 6)
+			animate_sword_left()
 		
 		await get_tree().create_timer(0.4).timeout
 		
@@ -127,6 +136,47 @@ func _animate_hitbox():
 		## remove the hitbox
 		#is_attacking = false
 		#box.queue_free()
+
+func animate_sword_right():
+	await get_tree().create_timer(0.05).timeout
+	if(!$"SwordArea/Sprite2D".visible):
+		$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
+	hitbox.rotation_degrees = -122
+	hitbox.position = Vector2(-7, -4.5)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = 270
+	hitbox.position = Vector2(-1, -8)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -52
+	hitbox.position = Vector2(4, -4.5)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -20
+	hitbox.position = Vector2(10, 0)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = 30
+	hitbox.position = Vector2i(7.5, 6)
+	await get_tree().create_timer(0.25).timeout
+	
+func animate_sword_left():
+	await get_tree().create_timer(0.05).timeout
+	if(!$"SwordArea/Sprite2D".visible):
+		$"SwordArea/Sprite2D".visible = not $"SwordArea/Sprite2D".visible
+	hitbox.rotation_degrees = -122 + 180
+	hitbox.position = Vector2(7, -4.5)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -270 + 180
+	hitbox.position = Vector2(1, -8)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -1*(-52 + 180)
+	hitbox.position = Vector2(-4, -4.5)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -1*(-20 + 180)
+	hitbox.position = Vector2(-10, 0)
+	await get_tree().create_timer(0.025).timeout
+	hitbox.rotation_degrees = -1*(30 + 180)
+	hitbox.position = Vector2i(-7.5, 6)
+	await get_tree().create_timer(0.25).timeout
+	
 
 func _animate_weapon(delta):
 	if is_attacking:

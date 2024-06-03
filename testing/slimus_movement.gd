@@ -84,8 +84,8 @@ func _physics_process(delta):
 		
 	if not phase_two and combatman.stats.hp < combatman.stats.max_hp / 2 and state_action == "on_cooldown":
 		phase_two_start.emit()
-		MIN_WAIT /= 2
-		MAX_WAIT /= 2
+		MIN_WAIT /= 1.5
+		MAX_WAIT /= 1.5
 		girate()
 		phase_two = true
 	
@@ -147,6 +147,7 @@ func on_cooldown(delta):
 			anim_handler.play('idle')
 		state_action = "touching_wall" if hit_a_wall else "aggro"
 
+@onready var boss_land_sound = $"boss_land"
 
 # state: does the frame-by-frame physics processing of the jump 
 func jumping(delta):
@@ -155,6 +156,7 @@ func jumping(delta):
 		wait_time = randf_range(MIN_WAIT, MAX_WAIT)
 		state_action = "on_cooldown"
 		landed.emit()
+		boss_land_sound.play()
 		return
 	just_jumped = false
 
@@ -238,7 +240,15 @@ func girate():
 
 ### ON DEATH ###
 
+signal slimus_die
+
 func die():
+	girate()
+	_on_flash_sprite()
+	await get_tree().create_timer(1.0).timeout
+	visible = false
+	slimus_die.emit(global_position)	
+	await get_tree().create_timer(3.0).timeout
 	get_parent().add_child(winner.instantiate())  # pvz music
 	queue_free()
 
@@ -256,3 +266,9 @@ func _on_boss_starter_body_entered(body: Node2D) -> void:
 	player.frozen = false
 	if "Player" in body.get_groups():
 		start_boss()
+
+@onready var boss_hit_sound = $"boss_hit"
+
+func _on_flash_sprite():
+	boss_hit_sound.play()
+	anim_handler.play("Flash/Flash")

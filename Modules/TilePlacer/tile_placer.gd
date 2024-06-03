@@ -122,7 +122,7 @@ func _input(event: InputEvent) -> void:
 		#print("foreground source: ", fg_source)
 		#print("background source: ", bg_source)
 		
-		if fg_source == 0:
+		if fg_source == 0 or fg_source == 6:
 			if Globals.inv_manager.held_item is Tool:  # foreground tile is there, remove it
 				start_mining(map_position)
 		elif Globals.inv_manager.held_item is Placeable:
@@ -263,12 +263,26 @@ func remove_fg_at(map_position):
 	tilemap.set_cell(FOREGROUND_LAYER, map_position, -1)
 	block_destroyed.emit(map_position)
 	
+	destroy_above_if_plants(map_position)
+	
 	if map_position.x <= -Globals.map_width:
 		block_destroyed.emit(map_position+Vector2i(Globals.map_width * 2, 0))
 		tilemap.set_cell(FOREGROUND_LAYER, map_position+Vector2i(Globals.map_width * 2, 0), -1)
+		destroy_above_if_plants(map_position+Vector2i(Globals.map_width * 2, 0))
 	elif map_position.x >= Globals.map_width - 1:
 		block_destroyed.emit(map_position-Vector2i(Globals.map_width * 2, 0))
 		tilemap.set_cell(FOREGROUND_LAYER, map_position-Vector2i(Globals.map_width * 2, 0), -1)
+		destroy_above_if_plants(map_position-Vector2i(Globals.map_width * 2, 0))
+		
+func destroy_above_if_plants(map_position):
+	var ground = Globals.terrain_ground_levels[map_position.x]
+	if map_position.y == ground:
+		for h in range(ground-1, ground-15, -1):
+			tilemap.erase_cell(BACKGROUND_LAYER, Vector2i(map_position.x, h))
+			if tilemap.get_cell_source_id(BACKGROUND_LAYER, Vector2i(map_position.x-1, h)) == 7:
+				tilemap.erase_cell(BACKGROUND_LAYER, Vector2i(map_position.x-1, h))
+			if tilemap.get_cell_source_id(BACKGROUND_LAYER, Vector2i(map_position.x+1, h)) == 7:
+				tilemap.erase_cell(BACKGROUND_LAYER, Vector2i(map_position.x+1, h))
 
 func get_adjacent_source_ids(map_position):
 	var adj = []

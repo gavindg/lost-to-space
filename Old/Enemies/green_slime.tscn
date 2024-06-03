@@ -235,6 +235,7 @@ _data = {
 [node name="GreenSlimeAI" type="RigidBody2D"]
 position = Vector2(528, 552)
 physics_material_override = SubResource("PhysicsMaterial_14fxo")
+lock_rotation = true
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_4cph1")
