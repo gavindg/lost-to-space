@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://cbwspqkn2e7dd"]
+[gd_scene load_steps=29 format=3 uid="uid://cbwspqkn2e7dd"]
 
 [ext_resource type="Script" path="res://Modules/Character/Scripts/main_char_movement.gd" id="1_j6eyr"]
 [ext_resource type="Texture2D" uid="uid://dbgwbpt5tjt4q" path="res://Art/Sprites/Player/player stand_walk_hit.png" id="3_1en3a"]
 [ext_resource type="Texture2D" uid="uid://dvxtknbfp2nru" path="res://Art/Sprites/Player/player walk_stand.png" id="3_n2m31"]
 [ext_resource type="Script" path="res://testing/player_combat_man.gd" id="3_v1jsr"]
+[ext_resource type="AudioStream" uid="uid://bkvg8jum42orm" path="res://Art/Sound/Player/footstep.wav" id="4_r1hci"]
 [ext_resource type="Texture2D" uid="uid://ivuivj5xft5a" path="res://Modules/Character/sword.png" id="4_xppy1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iva4w"]
@@ -929,6 +930,10 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_f8ldj")
 }
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_r1hci")
+volume_db = -3.0
 
 [node name="Combat" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "hurtbox", "player_controller") groups=["PlayerHurt"]]
 light_mask = 2

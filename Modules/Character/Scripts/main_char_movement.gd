@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer2
-
+@onready var footstep_sound : AudioStreamPlayer2D = $Footstep
 # basic movements: w/a/s/d to move up/left/down/right
 # features: double jump - space when in the air; dash - shift; wall-jump - space when colliding against a wall
 
@@ -180,9 +180,13 @@ func animation_handler() -> void:
 	elif velocity.x != 0 && is_on_floor():
 		if velocity.x < 0:
 			animation_player.play("run_left")
+			if !footstep_sound.playing:
+				footstep_sound.play()
 			exported_move_direction = -1 
 		else:
 			animation_player.play("run_right")
+			if !footstep_sound.playing:
+				footstep_sound.play()
 			exported_move_direction = 1 
 	elif velocity.x !=0:
 		if velocity.x < 0:
