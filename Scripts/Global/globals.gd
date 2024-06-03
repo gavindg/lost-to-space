@@ -2,6 +2,7 @@ extends Node
 
 #game manager
 var game_manager
+var death_ui
 
 class Block:
 	var name: String
@@ -70,6 +71,14 @@ var pause_menu
 
 var foreground_tiles = {}
 var terrain_ground_levels = {}
+
+func open_death_ui():
+	death_ui.visible = true
+	player.visible = false
+	get_tree().paused = true
+
+func unpause():
+	get_tree().paused = false
 
 ## movement
 ## initial walk speed

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://c32nv8ujeu5il"]
+
+[ext_resource type="Script" path="res://Modules/UI/death_screen.gd" id="1_jqbwa"]
+[ext_resource type="Texture2D" uid="uid://y764ghi70jys" path="res://Art/Sprites/UI/restart.png" id="1_upio3"]
+[ext_resource type="Texture2D" uid="uid://ca3nui85cka7o" path="res://Art/Sprites/UI/You_died.png" id="3_3wgbi"]
+[ext_resource type="Texture2D" uid="uid://fgjsef7haoca" path="res://Art/Sprites/UI/quit.png" id="4_o0jyh"]
+
+[node name="death_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jqbwa")
+
+[node name="Restart" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 385.0
+offset_right = 672.0
+offset_bottom = 417.0
+scale = Vector2(8, 8)
+texture_normal = ExtResource("1_upio3")
+
+[node name="Quit" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 695.0
+offset_right = 672.0
+offset_bottom = 727.0
+scale = Vector2(8, 8)
+texture_normal = ExtResource("4_o0jyh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 96.0
+offset_right = 560.0
+offset_bottom = 120.0
+scale = Vector2(9, 9)
+texture = ExtResource("3_3wgbi")
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

@@ -187,4 +187,5 @@ func _animate_weapon(delta):
 
 func die():
 	# TODO: do something here when the player dies !!!!
+	Globals.open_death_ui()
 	pass
